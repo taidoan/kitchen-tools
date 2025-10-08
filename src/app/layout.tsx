@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Roboto, Roboto_Condensed } from "next/font/google";
 import { clsx } from "clsx";
-import "./globals.css";
+import "@styles/index.scss";
 
 const roboto = Roboto({
   variable: "--ff-roboto",

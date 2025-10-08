@@ -20,10 +20,16 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@styles": ["./src/styles/*"],
+      "@config": ["./config.ts"],
+      "@styles/*": ["./src/styles/*"],
       "@components/*": ["./src/components/*"],
       "@lib/*": ["./src/lib/*"],
-      "@utils/*": ["./src/lib/utils/*"]
+      "@utils/*": ["./src/lib/utils/*"],
+      "@public/*": ["./public/*"],
+      "@scripts/*": ["./scripts/*"],
+      "@images/*": ["./public/assets/images/*"],
+      "@icons/*": ["./public/assets/icons/*"],
+      "@fonts/*": ["./public/assets/fonts/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

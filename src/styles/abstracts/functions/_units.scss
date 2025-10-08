@@ -1,0 +1,60 @@
+@use "sass:meta";
+@use "sass:math";
+@use "sass:string";
+@use "./../settings/typography" as t;
+
+////
+/// @group functions-units
+////
+
+/// Removes the unit from a given number, returning the unitless value.
+/// @param {Number} $num - The number from which to strip the unit.
+/// @return {Number} The unitless value if $num has a unit, otherwise returns $num as is.
+///
+/// @example scss
+///   stripUnit(10px) // 10
+///   stripUnit(5)    // 5
+///
+@function stripUnit($num) {
+  @if meta.type-of($num) == "number" and not math.is-unitless($num) {
+    @return math.div($num, $num * 0 + 1);
+  } @else if meta.type-of($num) == "string" {
+    // Attempt to interpret strings that resemble numbers with units
+    $unquoted: string.unquote($num);
+    @if string.index($unquoted, "px") or
+      string.index($unquoted, "rem") or
+      string.index($unquoted, "%")
+    {
+      @return stripUnit($unquoted);
+    }
+  }
+  @return $num;
+}
+
+/// Converts a given PX value to rem units based on the root font size.
+///
+/// @param {Number} $value - The value to convert to rem. Can be with or without a unit.
+/// @return {Number} - The value converted to rem units, rounded to two decimal places.
+/// @throw "Invalid value `#{$value}` for rem() function. Please provide a valid number with or without unit."
+@function rem($value) {
+  $result: (stripUnit($value) / stripUnit(t.$font-root-size)) * 1rem;
+  $roundedResult: math.div(math.floor($result * 100 + 0.5), 100);
+
+  @return $roundedResult;
+  @error "Invalid value `#{$value}` for rem() function. Please provide a valid number with or without unit.";
+}
+
+/// Converts a pixel or unit value to `em` units based on a given context (default is the root font size).
+/// The result is rounded to two decimal places.
+///
+/// @param {Number} $value - The value to convert (can be with or without units).
+/// @param {Number} $context [t.$font-root-size] - The context for conversion, typically the font size to base the calculation on.
+/// @return {Number} - The converted value in `em` units, rounded to two decimal places.
+///
+/// @throw "Invalid value `#{$value}` or context `#{$context}` for em() function. Please provide valid numbers with or without units."
+@function em($value, $context: t.$font-root-size) {
+  $result: (stripUnit($value) / stripUnit($context)) * 1em;
+  $roundedResult: math.div(math.floor($result * 100 + 0.5), 100);
+  @return $roundedResult;
+  @error "Invalid value `#{$value}` or context `#{$context}` for em() function. Please provide valid numbers with or without units.";
+}
