@@ -1,0 +1,11 @@
+////
+/// @group settings-layout
+////
+
+/// The maximum width for the project layout.
+/// @type number
+$project-max-width: 1440px !default;
+
+/// The minimum width for the project layout.
+/// @type number
+$project-min-width: 320px !default;

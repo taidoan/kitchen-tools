@@ -1,0 +1,36 @@
+@use "sass:color";
+@use "sass:meta";
+@use "sass:math";
+@use "sass:string";
+
+////
+/// @group functions-colors
+////
+
+/// Changes the lightness of a color.
+/// @param {Color} $color - The base color to modify.
+/// @param {Number} $lightness - The new lightness value.
+/// @return {Color} The color with the modified lightness.
+@function changeLightness($color, $lightness) {
+  @if meta.type-of($color) != "color" {
+    @error "Expected a color for $color, got #{meta.type-of($color)}";
+  }
+
+  // Extract HSL channels
+  $h: math.round(color.channel($color, "hue", $space: hsl));
+  $s: math.round(color.channel($color, "saturation", $space: hsl));
+  $l: color.channel($color, "lightness", $space: hsl);
+
+  // Clamp and normalize the new lightness
+  @if math.unit($lightness) == "" {
+    $lightness: $lightness * 1%;
+  }
+  $lightness: min(max($lightness, 0%), 100%);
+
+  // Return HSL or HSLA with rounded channels
+  @return if(
+    color.alpha($color) < 1,
+    hsla($h, $s, $lightness, color.alpha($color)),
+    hsl($h, $s, $lightness)
+  );
+}

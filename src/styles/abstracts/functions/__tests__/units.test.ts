@@ -3,7 +3,7 @@ import { describe, it } from "vitest";
 
 const unitFunction = '@use "abstracts/functions/units" as *;';
 
-describe("Unit Functions", () => {
+describe("@function stripUnit()", () => {
   it.each([
     ["16px", "16"],
     ["2rem", "2"],
@@ -23,7 +23,7 @@ describe("Unit Functions", () => {
   });
 });
 
-describe("rem() function", () => {
+describe("@function rem()", () => {
   it.each([
     ["rem(10px)", "0.63rem"],
     ["rem(16)", "1rem"],
@@ -38,7 +38,7 @@ describe("rem() function", () => {
   });
 });
 
-describe("em() function", () => {
+describe("@function em()", () => {
   it.each([
     ["em(16px)", "1em"],
     ["em(32px)", "2em"],
