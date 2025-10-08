@@ -1,6 +1,7 @@
 @use "sass:color";
 @use "sass:meta";
 @use "sass:math";
+@use "sass:map";
 @use "sass:string";
 
 ////
@@ -85,4 +86,80 @@
     @warn "lighten() function: Unrecognized color format `#{$color}`. Returning original color.";
     @return $color;
   }
+}
+
+/// Generate a map of shades for a given color, ranging from lightest to darkest.
+/// @param {Color} $color - The base color to generate shades from.
+/// @param {Number} $base-level - The base level for the color (default is 400).
+/// @return {Map} A map of shades.
+@function generateShades($color, $base-level: 400) {
+  @if meta.type-of($color) != "color" {
+    @error "Expected a color for $color, got #{meta.type-of($color)}";
+  }
+
+  // Extract the base lightness
+  $base-lightness: color.channel($color, "lightness", $space: hsl);
+  $shades: ();
+
+  // Standard shade levels
+  $levels: (
+    100,
+    150,
+    200,
+    250,
+    300,
+    350,
+    400,
+    450,
+    500,
+    550,
+    600,
+    650,
+    700,
+    750,
+    800
+  );
+
+  @each $level in $levels {
+    @if $level == $base-level {
+      $shades: map.merge(
+        $shades,
+        (
+          $level: $color,
+        )
+      );
+    } @else if $level < $base-level {
+      // Calculate the lighter shades
+      $factor: math.div($base-level - $level, $base-level - 100);
+      $lightness-value: $base-lightness + $factor * (100% - $base-lightness);
+      $lightness-value: math.min($lightness-value, 97.5%);
+
+      @if math.unit($lightness-value) == "" {
+        $lightness-value: $lightness-value * 1%;
+      }
+
+      $shades: map.merge(
+        $shades,
+        (
+          $level: changeLightness($color, $lightness-value),
+        )
+      );
+    } @else {
+      // Calculate the darker shades
+      $factor: math.div($level - $base-level, 1000 - $base-level);
+      $lightness-value: $base-lightness * (1 - $factor);
+
+      @if math.unit($lightness-value) == "" {
+        $lightness-value: $lightness-value * 1%;
+      }
+
+      $shades: map.merge(
+        $shades,
+        (
+          $level: changeLightness($color, $lightness-value),
+        )
+      );
+    }
+  }
+  @return $shades;
 }

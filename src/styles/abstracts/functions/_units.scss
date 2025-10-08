@@ -37,7 +37,7 @@
 /// @return {Number} - The value converted to rem units, rounded to two decimal places.
 /// @throw "Invalid value `#{$value}` for rem() function. Please provide a valid number with or without unit."
 @function rem($value) {
-  $result: (stripUnit($value) / stripUnit(t.$font-root-size)) * 1rem;
+  $result: calc(stripUnit($value) / stripUnit(t.$font-root-size)) * 1rem;
   $roundedResult: math.div(math.floor($result * 100 + 0.5), 100);
 
   @return $roundedResult;

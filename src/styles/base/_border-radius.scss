@@ -1,0 +1,7 @@
+@use "./../abstracts/settings/border-radius" as br;
+
+:root {
+  @each $br, $value in br.$border-radius-map {
+    --border-radius-#{$br}: #{$value};
+  }
+}

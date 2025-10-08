@@ -1,0 +1,19 @@
+@use "./../functions/_index" as *;
+@use "./typography" as *;
+@use "sass:map";
+
+////
+/// @group settings-typography
+////
+
+/// Typography font scale
+/// This scale includes font size calculations for text based on viewport width and other settings
+/// @type map
+$typography-scale-map: (
+  body: sizeClamp(rem($font-root-size), rem($font-base-size)),
+  heading: (
+    small: sizeClamp(rem(calc($font-title-size / 1.5)), rem($font-title-size)),
+    medium:
+      sizeClamp(rem(calc($font-heading-size / 1.25)), rem($font-heading-size)),
+  ),
+);

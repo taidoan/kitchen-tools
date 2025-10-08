@@ -1,0 +1,16 @@
+////
+/// @groupp settings-zindex
+////
+
+/// Z-Index map for managing stacking contexts in the project.
+/// @type map
+$z-index-map: (
+  "base": 0,
+  "backdrop": 10,
+  "tooltip": 100,
+  "header": 200,
+  "menu": 300,
+  "modal": 400,
+  "alert": 500,
+  "loading": 600,
+);

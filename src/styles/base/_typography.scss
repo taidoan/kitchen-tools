@@ -1,0 +1,18 @@
+@use "./../abstracts/settings/typography-scale" as ts;
+@use "sass:map";
+
+:root {
+  --fs-body: #{map.get(ts.$typography-scale-map, body)};
+  --fs-heading-small: #{map.get(
+      map.get(ts.$typography-scale-map, heading),
+      small
+    )};
+  --fs-heading-medium: #{map.get(
+      map.get(ts.$typography-scale-map, heading),
+      medium
+    )};
+}
+
+body {
+  font-size: var(--fs-body);
+}

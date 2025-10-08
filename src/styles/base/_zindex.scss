@@ -1,0 +1,7 @@
+@use "./../abstracts/settings/zindex" as z;
+
+:root {
+  @each $z, $value in z.$z-index-map {
+    --z-index-#{$z}: #{$value};
+  }
+}

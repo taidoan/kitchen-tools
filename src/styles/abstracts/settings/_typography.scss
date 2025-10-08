@@ -1,1 +1,24 @@
+////
+/// @group settings-typography
+/// These units can be stripped whenever needed
+////
+
+/// Root font size
+/// This is used to calculate rem and em sizes across the project.
+/// @type number
 $font-root-size: 16px !default;
+
+/// Base font size for body text
+/// This is the default font size for most text elements.
+/// @type number
+$font-base-size: 20px !default;
+
+/// Font size for titles
+/// This size is typically used for main titles and headings.
+/// @type number
+$font-title-size: 28px !default;
+
+/// Font size for headings
+/// This size is typically used for section titles.
+/// @type number
+$font-heading-size: 40px !default;

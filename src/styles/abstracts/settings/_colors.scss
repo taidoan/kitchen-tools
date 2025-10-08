@@ -1,0 +1,26 @@
+@use "sass:map";
+@use "./../functions/colors" as c;
+
+////
+/// @group settings-colors
+////
+
+/// The color palette for the project.
+/// @type map
+$color-palette: (
+  "bittersweet": hsla(360, 83%, 65%, 1),
+  "rasin-black": hsla(236, 21%, 14%, 1),
+  "true-blue": hsla(217, 60%, 47%, 1),
+  "baby-powder": hsla(120, 60%, 99%, 1),
+  "dusty-indigo": hsla(235, 21%, 50%, 1),
+);
+
+/// Applied colors for the project.
+/// @type map
+$project-colors: (
+  "primary": c.generateShades(map.get($color-palette, "true-blue")),
+  "secondary": c.generateShades(map.get($color-palette, "dusty-indigo")),
+  "accent": c.generateShades(map.get($color-palette, "bittersweet")),
+  "white": c.generateShades(map.get($color-palette, "baby-powder")),
+  "black": c.generateShades(map.get($color-palette, "rasin-black")),
+);
