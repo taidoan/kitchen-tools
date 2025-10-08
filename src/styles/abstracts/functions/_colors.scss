@@ -34,3 +34,55 @@
     hsl($h, $s, $lightness)
   );
 }
+
+/// Darkens a given color by a specified percentage
+/// @param {Color} $color - The base color to darken.
+/// @param {Number} $amount - The percentage to darken the color (0% to 100%).
+/// @return {Color} The darkened color.
+@function darken($color, $amount) {
+  @if meta.type-of($color) != "color" {
+    @error "Expected a color for $color, got #{meta.type-of($color)}";
+  }
+
+  $darkened-color: color.mix($color, black, $amount, $method: rgb);
+  $color-str: meta.inspect($color);
+
+  @if string.index($color-str, "#") {
+    @return $darkened-color;
+  } @else if string.index($color-str, "hsl") {
+    @return $darkened-color;
+  } @else if string.index($color-str, "rgb") {
+    @return $darkened-color;
+  } @else if string.index($color-str, "hsla") {
+    @return $darkened-color;
+  } @else {
+    @warn "darken() function: Unrecognized color format `#{$color}`. Returning original color.";
+    @return $color;
+  }
+}
+
+/// Lighten a given color by a specified percentage
+/// @param {Color} $color - The base color to lighten.
+/// @param {Number} $amount - The percentage to lighten the color (0% to 100%).
+/// @return {Color} The lightened color.
+@function lighten($color, $amount) {
+  @if meta.type-of($color) != "color" {
+    @error "Expected a color for $color, got #{meta.type-of($color)}";
+  }
+
+  $lightened-color: color.mix($color, white, $amount, $method: rgb);
+  $color-str: meta.inspect($color);
+
+  @if string.index($color-str, "#") {
+    @return $lightened-color;
+  } @else if string.index($color-str, "hsl") {
+    @return $lightened-color;
+  } @else if string.index($color-str, "rgb") {
+    @return $lightened-color;
+  } @else if string.index($color-str, "hsla") {
+    @return $lightened-color;
+  } @else {
+    @warn "lighten() function: Unrecognized color format `#{$color}`. Returning original color.";
+    @return $color;
+  }
+}
