@@ -74,4 +74,5 @@
   color: var(--nav-item-icon-clr);
   width: ab.rem(20);
   height: ab.rem(20);
+  transition: height 0.3s, width 0.3s, color 0.3s;
 }

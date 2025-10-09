@@ -1,0 +1,18 @@
+@use "./../../../styles/abstracts/_index" as ab;
+
+.card__outer {
+  background: var(--card-glass-bg);
+  border: 1px solid var(--card-glass-border-clr);
+  border-radius: var(--border-radius-large);
+  backdrop-filter: var(--bg-blur);
+  padding: ab.rem(16);
+  box-shadow: var(--shadow-card);
+}
+
+.card__inner {
+  background: var(--card-bg);
+  border: 2px solid var(--card-border-clr);
+  border-radius: var(--border-radius-medium);
+  padding: ab.rem(40);
+  box-shadow: var(--shadow-card-inner);
+}

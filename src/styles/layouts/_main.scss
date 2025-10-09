@@ -1,0 +1,5 @@
+@use "./../abstracts/_index" as ab;
+
+.main-content {
+  padding: ab.rem(40);
+}
