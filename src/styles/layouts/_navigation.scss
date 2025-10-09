@@ -1,0 +1,12 @@
+@use "./../../styles/abstracts/_index" as ab;
+
+.navigation {
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: ab.rem(16);
+  }
+}

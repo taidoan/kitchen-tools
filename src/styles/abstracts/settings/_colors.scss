@@ -13,6 +13,8 @@ $color-palette: (
   "true-blue": hsla(217, 60%, 47%, 1),
   "baby-powder": hsla(120, 60%, 99%, 1),
   "dusty-indigo": hsla(235, 21%, 50%, 1),
+  "snow-white": hsla(0, 0%, 99%, 1),
+  "grey": hsla(0, 0%, 81%, 1),
 );
 
 /// Applied colors for the project.
@@ -21,6 +23,8 @@ $project-colors: (
   "primary": c.generateShades(map.get($color-palette, "true-blue")),
   "secondary": c.generateShades(map.get($color-palette, "dusty-indigo")),
   "accent": c.generateShades(map.get($color-palette, "bittersweet")),
-  "white": c.generateShades(map.get($color-palette, "baby-powder")),
+  "white": c.generateShades(map.get($color-palette, "snow-white")),
+  "off-white": c.generateShades(map.get($color-palette, "baby-powder")),
   "black": c.generateShades(map.get($color-palette, "rasin-black")),
+  "grey": c.generateShades(map.get($color-palette, "grey")),
 );

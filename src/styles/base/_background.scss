@@ -1,0 +1,65 @@
+:root {
+  --background: radial-gradient(
+      34.51% 52.37% at -13.61% 60.86%,
+      #b92044 0%,
+      rgba(151, 207, 247, 0) 100%
+    ),
+    radial-gradient(
+      55.62% 132.61% at 0% 100%,
+      #371dff 0%,
+      rgba(77, 163, 236, 0) 100%
+    ),
+    radial-gradient(
+      71.11% 83.34% at 1.67% 13.7%,
+      #0cb07f 0%,
+      #8572bf 52.88%,
+      rgba(104, 255, 245, 0) 100%
+    ),
+    radial-gradient(
+      73.75% 85.47% at 17.15% 3.98%,
+      #b71c48 0%,
+      rgba(157, 209, 255, 0) 100%
+    ),
+    radial-gradient(
+      59.65% 97.65% at 0.85% 111.69%,
+      #4deccc 0%,
+      rgba(77, 163, 236, 0) 100%
+    ),
+    #bfdde0;
+  --bg-blur: blur(4px);
+}
+
+[data-theme="dark"] {
+  --background: radial-gradient(
+      34.51% 52.37% at -13.61% 60.86%,
+      #3d3d3d 0%,
+      rgba(62, 62, 62, 0) 100%
+    ),
+    radial-gradient(
+      55.62% 132.61% at 0% 100%,
+      #0a192c 0%,
+      rgba(138, 138, 138, 0) 100%
+    ),
+    radial-gradient(
+      71.11% 83.34% at 1.67% 13.7%,
+      #1c509f 0%,
+      #19214c 52.88%,
+      rgba(52, 52, 52, 0) 100%
+    ),
+    radial-gradient(
+      73.75% 85.47% at 17.15% 3.98%,
+      #a89fd5 0%,
+      rgba(80, 80, 80, 0) 100%
+    ),
+    radial-gradient(
+      49.17% 83.5% at 6.04% 110.09%,
+      #263057 0%,
+      rgba(49, 135, 220, 0) 100%
+    ),
+    #21222b;
+}
+
+body {
+  transition: background 0.3s ease;
+  background: var(--background);
+}

@@ -14,5 +14,37 @@
 }
 
 body {
+  font-family: var(--ff-roboto), Arial, Helvetica, sans-serif;
   font-size: var(--fs-body);
+  color: var(--text-clr);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.35;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: 900;
+}
+
+h1,
+h2 {
+  font-family: var(--ff-roboto);
+}
+
+h3,
+h4,
+h5 {
+  font-family: var(--ff-roboto-condensed);
+}
+
+h1 {
+  font-size: var(--fs-heading-medium);
+}
+
+h2 {
+  font-size: var(--fs-heading-small);
 }

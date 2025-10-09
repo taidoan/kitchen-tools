@@ -2,10 +2,10 @@
 /// @group settings-layout
 ////
 
-/// The maximum width for the project layout.
+/// Max width of the site layout in PX, if needed we can strip out the unit.
 /// @type number
-$project-max-width: 1100px !default;
+$project-max-width: 1360px;
 
-/// The minimum width for the project layout.
+/// Min width of the site layout in PX, if needed we can strip out the unit.
 /// @type number
-$project-min-width: 320px !default;
+$project-min-width: 320px;

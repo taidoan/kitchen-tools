@@ -1,0 +1,75 @@
+@use "./../../../styles/abstracts/_index" as ab;
+
+.container {
+  background-color: var(--nav-item-bg);
+  border: 2px solid var(--nav-item-border-clr);
+  border-radius: var(--border-radius-small);
+  padding: ab.rem(12);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &[data-collapsed="true"] {
+    flex-direction: column;
+    gap: ab.rem(8);
+    font-size: 1rem;
+
+    .icon {
+      display: none;
+    }
+
+    .switch {
+      margin: 0;
+    }
+  }
+}
+
+.label {
+  display: flex;
+  gap: ab.rem(8);
+  align-items: center;
+}
+
+.icon {
+  width: ab.rem(24);
+  height: ab.rem(24);
+  color: var(--clr-primary-400);
+}
+
+:root {
+  --switch-bg-clr: hsla(0, 0%, 0%, 0.1);
+}
+
+:global(html[data-theme="dark"]) {
+  --switch-bg-clr: hsla(0, 0%, 100%, 0.15);
+}
+
+.switch {
+  border-radius: ab.rem(33);
+  background-color: var(--switch-bg-clr);
+  position: relative;
+  height: ab.rem(34);
+  width: ab.rem(64);
+  padding: ab.rem(4);
+  cursor: pointer;
+  display: flex;
+
+  &--active {
+    .switch__thumb {
+      transform: translateX(ab.rem(30));
+      background-color: var(--clr-primary-400);
+      border: 1px solid var(--clr-primary-400);
+    }
+  }
+}
+
+.switch__thumb {
+  background-color: hsla(0, 0%, 100%, 0.6);
+  border: 1px solid hsla(0, 0%, 100%, 0.32);
+  box-shadow: var(--shadow-sm);
+  height: ab.rem(26);
+  width: ab.rem(26);
+  border-radius: var(--border-radius-circle);
+  display: block;
+  transition: transform 0.3s ease;
+}

@@ -11,14 +11,19 @@ $font-root-size: 16px !default;
 /// Base font size for body text
 /// This is the default font size for most text elements.
 /// @type number
-$font-base-size: 20px !default;
+$font-base-size: 16px !default;
 
 /// Font size for titles
 /// This size is typically used for main titles and headings.
 /// @type number
-$font-title-size: 28px !default;
+$font-title-size: 38px !default;
+
+/// Font size for small titles
+/// This size is typically used for subtitles or secondary headings.
+/// @type number
+$font-title-size-sm: 28px !default;
 
 /// Font size for headings
 /// This size is typically used for section titles.
 /// @type number
-$font-heading-size: 40px !default;
+$font-heading-size: 48px !default;

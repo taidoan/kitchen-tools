@@ -12,8 +12,7 @@
 $typography-scale-map: (
   body: sizeClamp(rem($font-root-size), rem($font-base-size)),
   heading: (
-    small: sizeClamp(rem(calc($font-title-size / 1.5)), rem($font-title-size)),
-    medium:
-      sizeClamp(rem(calc($font-heading-size / 1.25)), rem($font-heading-size)),
+    small: sizeClamp(rem(calc($font-title-size-sm)), rem($font-title-size)),
+    medium: sizeClamp(rem(calc($font-title-size)), rem($font-heading-size)),
   ),
 );

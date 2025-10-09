@@ -1,0 +1,7 @@
+@use "./../../../styles/abstracts/_index" as ab;
+
+.divider {
+  background-color: var(--divider-bg);
+  margin-block: ab.rem(24);
+  display: block;
+}

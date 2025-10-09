@@ -11,19 +11,17 @@
 /// @param {Number} $min - The minimum padding value (in px, em, rem, etc.) to be used when the viewport width is at or below the minimum width defined by the project.
 /// @param {Number} $max - The maximum padding value to be used when the viewport width is at or above the maximum width defined by the project.
 /// @return {String} - A CSS clamp expression that adjusts the padding value based on the viewport width, ensuring it is responsive within the defined range.
-@function sizeClamp($min, $max) {
+@function sizeClamp($min-value, $max-value) {
   $factor: calc(
-    ($max - $min) / (rem(d.$project-max-width) - rem(d.$project-min-width))
+    1 / (rem(d.$project-max-width) - rem(d.$project-min-width)) *
+      ($max-value - $min-value)
   );
-  $factor: calc(math.round($factor * 100) / 100);
-  $intercept: $min - (rem(d.$project-min-width) * $factor);
-  $intercept: calc(math.round($intercept * 100) / 100);
-
-  $calc: string.unquote("#{$intercept} + #{ $factor * 100 }vw");
-
+  $calc-value: string.unquote(
+    "#{ $min-value - (rem(d.$project-min-width) * $factor) } + #{ 100vw * $factor }"
+  );
   @return clamp(
-    #{if($min > $max, $max, $min)},
-    #{$calc},
-    #{if($min > $max, $min, $max)}
+    #{if($min-value > $max-value, $max-value, $min-value)},
+    #{$calc-value},
+    #{if($min-value > $max-value, $min-value, $max-value)}
   );
 }
