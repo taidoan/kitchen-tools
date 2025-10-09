@@ -1,0 +1,18 @@
+////
+/// @group settings-animation
+////
+
+/// Transition duration
+/// This is used for transitions between different states of an element.
+/// @type number
+$transition-duration: 0.4s;
+
+/// Transition duration (fast)
+/// This is used for transitions between different states of an element.
+/// @type number
+$transition-duration-fast: 0.3s;
+
+/// Transition duration (slow)
+/// This is used for transitions between different states of an element.
+/// @type number
+$transition-duration-slow: 0.6s;

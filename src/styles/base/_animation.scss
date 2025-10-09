@@ -1,0 +1,7 @@
+@use "./../abstracts/settings/animation" as a;
+
+:root {
+  --transition-duration: #{a.$transition-duration};
+  --transition-duration-fast: #{a.$transition-duration-fast};
+  --transition-duration-slow: #{a.$transition-duration-slow};
+}

@@ -1,5 +1,9 @@
 @use "./../abstracts/_index" as ab;
 
+:root {
+  --spacing-gap: #{ab.rem(40)};
+}
+
 html,
 body {
   height: 100%;

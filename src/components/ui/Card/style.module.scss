@@ -7,6 +7,11 @@
   backdrop-filter: var(--bg-blur);
   padding: ab.rem(16);
   box-shadow: var(--shadow-card);
+  display: flex;
+}
+
+.card__grow {
+  flex: 1;
 }
 
 .card__inner {
@@ -15,4 +20,8 @@
   border-radius: var(--border-radius-medium);
   padding: ab.rem(40);
   box-shadow: var(--shadow-card-inner);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }

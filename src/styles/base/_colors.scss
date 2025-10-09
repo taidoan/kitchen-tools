@@ -36,6 +36,26 @@
 
   /* DIVIDER */
   --divider-bg: hsla(0, 0%, 0%, 0.075);
+
+  /* BUTTONS */
+  --btn-bg: linear-gradient(
+    285.83deg,
+    var(--clr-primary-400) 31.48%,
+    var(--clr-primary-500) 90.08%
+  );
+  --btn-text-clr: var(--clr-white-400);
+  --btn-border-clr: hsla(0, 0%, 100%, 1);
+  --btn-hover-bg: linear-gradient(
+    285.83deg,
+    var(--clr-primary-500) 31.48%,
+    var(--clr-primary-700) 90.08%
+  );
+
+  --btn-disabled-bg: hsla(0, 0%, 78%, 33%);
+  --btn-disabled-text-clr: hsla(0, 0%, 63%, 95%);
+  --btn-disabled-border-clr: hsla(0, 0%, 63%, 10%);
+
+  --btn-enabled-bg: hsla(218, 28%, 34%, 50%);
 }
 
 [data-theme="dark"] {
@@ -47,7 +67,7 @@
 
   /* CARD */
   --card-bg: hsla(214, 59%, 5%, 0.46);
-  --card-border-clr: hsla(0, 0%, 100%, 25%);
+  --card-border-clr: hsla(0, 0%, 100%, 22.5%);
 
   /* INPUTS */
   --input-bg: hsla(0, 0%, 0%, 0.2);
@@ -68,6 +88,9 @@
 
   /* DIVIDER */
   --divider-bg: hsla(0, 0%, 100%, 0.17);
+
+  /* BUTTONS */
+  --btn-border-clr: hsla(0, 0%, 100%, 0.1);
 
   color-scheme: dark;
 }

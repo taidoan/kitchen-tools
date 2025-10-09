@@ -1,10 +1,22 @@
 import clsx from "clsx";
-import style from "./style.module.scss";
+import scss from "./style.module.scss";
 
-const Card = ({ children }: { children: React.ReactNode }) => {
+type CardProps = {
+  children: React.ReactNode;
+  textAlign?: "left" | "center" | "right";
+  style?: React.CSSProperties;
+  grow?: boolean;
+};
+
+const Card = ({ children, textAlign = "left", style, grow }: CardProps) => {
   return (
-    <div className={clsx(style.card__outer)}>
-      <div className={clsx(style.card__inner)}>{children}</div>
+    <div
+      className={clsx(scss.card__outer, { [scss.card__grow]: grow })}
+      style={style}
+    >
+      <div className={clsx(scss.card__inner, [`text-align--${textAlign}`])}>
+        {children}
+      </div>
     </div>
   );
 };

@@ -9,3 +9,11 @@ $project-max-width: 1360px;
 /// Min width of the site layout in PX, if needed we can strip out the unit.
 /// @type number
 $project-min-width: 320px;
+
+/// Main padding & gap used throughout the site layout in PX, if needed we can strip out the unit.
+/// @type number
+$project-layout-gap: 40px;
+
+/// Button padding in PX, if needed we can strip out the unit.
+/// @type number
+$project-button-padding: 16px;

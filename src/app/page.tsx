@@ -1,5 +1,6 @@
 import { Container, MainContentContainer } from "@/components/layout/Container";
 import { Sidebar } from "@/components/layout/Sidebar";
+import { Button } from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import { Divider } from "@/components/ui/Divider";
 
@@ -9,26 +10,35 @@ export default function Home() {
       <Sidebar />
       <MainContentContainer>
         <Card>
-          <h1 className="text-3xl font-bold underline">Hello world!</h1>
+          <h2>Welcome</h2>
           <Divider height={4} width={240} />
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima
-            dignissimos sed quisquam odit voluptates earum officia quasi at.
-            Tempore possimus aperiam laudantium voluptates velit, accusamus
-            earum quos architecto accusantium in? Quos quaerat quae perferendis
-            doloremque praesentium dolores voluptates exercitationem vitae
-            minima cupiditate nobis soluta qui, minus fuga quasi itaque maiores
-            sit temporibus dolor, debitis architecto cumque eligendi. Eveniet,
-            quo tenetur. Iure laudantium quibusdam mollitia. Optio inventore
-            maxime repudiandae facere delectus dolor nihil provident. Quidem a
-            dolores eos. Qui voluptatibus ex et, voluptatem possimus explicabo.
-            Atque voluptas labore minus corrupti aspernatur. Recusandae
-            quibusdam non modi officia dolores quidem quo neque ad, voluptas
-            fugiat doloribus vitae, dolor ipsum maxime accusamus maiores labore
-            a alias illum, fugit iure voluptatibus aperiam voluptatum provident.
-            At.
+            Welcome to your Kitchen Tools Dashboard! Here you’ll find a
+            collection of handy tools to make daily operations easier. From
+            generating food delivery reports and planning specials to tracking
+            sales performance. Everything you need to keep your kitchen running
+            at its best, all in one place.
           </p>
         </Card>
+        <div className="home__quick-links">
+          <Card textAlign="center" grow={true}>
+            <h2>FDT</h2>
+            <p>Food Delivery Times</p>
+            <Button href="/fdt">Go to FDT</Button>
+          </Card>
+          <Card textAlign="center" grow={true}>
+            <h2>Specials</h2>
+            <p>Weekly Specials Planner</p>
+            <Button href="/specials" disabled>
+              Go to Specials
+            </Button>
+          </Card>
+          <Card textAlign="center" grow={true}>
+            <h2>Sales</h2>
+            <p>Sales Performance Tracker</p>
+            <Button>Go to Sales</Button>
+          </Card>
+        </div>
       </MainContentContainer>
     </Container>
   );

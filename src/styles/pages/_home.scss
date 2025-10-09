@@ -1,8 +1,8 @@
 @use "./../abstracts/_index" as ab;
 
-.main-content {
-  padding: var(--spacing-gap);
+.home__quick-links {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: var(--spacing-gap);
+  width: 100%;
 }
