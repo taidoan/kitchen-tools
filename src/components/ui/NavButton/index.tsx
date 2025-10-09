@@ -1,3 +1,5 @@
+import style from "./style.module.scss";
+
 type NavButtonProps = {
   onClick?: () => void;
 };
@@ -10,6 +12,7 @@ export const NavButton = ({ onClick }: NavButtonProps) => {
       height="46"
       fill="none"
       onClick={onClick}
+      className={style.button}
     >
       <path fill="#fff" d="M11 13h27v25H11z" />
       <path

@@ -41,7 +41,11 @@ const ThemeToggle = ({ collapsed }: ThemeToggleProps) => {
         ) : (
           <IconMoonFilled className={clsx(style.icon)} />
         )}
-        {theme === "light" ? "Light Mode" : "Dark Mode"}
+        {theme === "light" ? (
+          <span className={style["label__text"]}>Light Mode</span>
+        ) : (
+          <span className={style["label__text"]}>Dark Mode</span>
+        )}
       </div>
       <div
         className={clsx(style.switch, {

@@ -11,15 +11,26 @@
 
   &[data-collapsed="true"] {
     flex-direction: column;
-    gap: ab.rem(8);
+    gap: ab.rem(16);
     font-size: 1rem;
 
-    .icon {
+    .label__text {
       display: none;
     }
 
     .switch {
       margin: 0;
+      width: ab.rem(52);
+      height: ab.rem(30);
+    }
+
+    .switch__thumb {
+      height: ab.rem(22);
+      width: ab.rem(22);
+    }
+
+    .switch--active .switch__thumb {
+      transform: translateX(ab.rem(22));
     }
   }
 }
@@ -33,15 +44,17 @@
 .icon {
   width: ab.rem(24);
   height: ab.rem(24);
-  color: var(--clr-primary-400);
+  color: var(--switch-icon-clr);
 }
 
 :root {
   --switch-bg-clr: hsla(0, 0%, 0%, 0.1);
+  --switch-icon-clr: var(--clr-primary-400);
 }
 
 :global(html[data-theme="dark"]) {
   --switch-bg-clr: hsla(0, 0%, 100%, 0.15);
+  --switch-icon-clr: var(--clr-white-400);
 }
 
 .switch {

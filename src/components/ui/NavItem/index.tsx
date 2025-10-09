@@ -43,7 +43,7 @@ export const NavItem = ({
       data-collapsed={collapsed}
     >
       {icon ?? icon}
-      {children}
+      <span className={style["nav-item__text"]}>{children}</span>
     </Link>
   );
 };

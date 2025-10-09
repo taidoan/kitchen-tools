@@ -40,6 +40,10 @@
       width: ab.rem(32);
       height: ab.rem(32);
     }
+
+    .nav-item__text {
+      display: none;
+    }
   }
 }
 
