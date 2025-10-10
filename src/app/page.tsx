@@ -1,8 +1,8 @@
 import { Container, MainContentContainer } from "@/components/layout/Container";
 import { Sidebar } from "@/components/layout/Sidebar";
-import { Button } from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import { Divider } from "@/components/ui/Divider";
+import { QuickLink } from "@/components/ui/QuickLink";
 
 export default function Home() {
   return (
@@ -21,23 +21,27 @@ export default function Home() {
           </p>
         </Card>
         <div className="home__quick-links">
-          <Card textAlign="center" grow={true}>
-            <h2>FDT</h2>
-            <p>Food Delivery Times</p>
-            <Button href="/fdt">Go to FDT</Button>
-          </Card>
-          <Card textAlign="center" grow={true}>
-            <h2>Specials</h2>
-            <p>Weekly Specials Planner</p>
-            <Button href="/specials" disabled>
-              Go to Specials
-            </Button>
-          </Card>
-          <Card textAlign="center" grow={true}>
-            <h2>Sales</h2>
-            <p>Sales Performance Tracker</p>
-            <Button>Go to Sales</Button>
-          </Card>
+          <QuickLink
+            title="FDT"
+            description="Food Delivery Times"
+            icon="fdt"
+            href="/fdt"
+            cta="Open"
+          />
+          <QuickLink
+            title="Specials"
+            description="Specials Generator"
+            icon="special"
+            href="/specials"
+            cta="Generate"
+          />
+          <QuickLink
+            title="Sales"
+            description="Top Sales Report"
+            icon="sales"
+            href="/sales"
+            cta="View"
+          />
         </div>
       </MainContentContainer>
     </Container>

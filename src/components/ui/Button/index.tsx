@@ -10,6 +10,7 @@ export type ButtonProps = {
   disabled?: boolean;
   className?: string;
   enabled?: boolean;
+  centered?: boolean;
 };
 
 export const Button = ({
@@ -19,12 +20,14 @@ export const Button = ({
   children,
   className,
   enabled,
+  centered,
 }: ButtonProps) => {
   const classes = clsx(
     style.button,
     className,
     disabled && style.disabled,
-    enabled && style["button--enabled"]
+    enabled && style["button--enabled"],
+    centered && style["button--centered"]
   );
   if (href) {
     return (

@@ -1,0 +1,45 @@
+@use "./../../../styles/abstracts/_index" as ab;
+
+:global(:root) {
+  --icon-size: #{ab.rem(20)};
+}
+
+.icon {
+  --icon-clr: var(--nav-item-icon-clr);
+  width: var(--icon-size);
+  height: var(--icon-size);
+  color: var(--icon-clr);
+  transition: height 0.3s, width 0.3s, color 0.3s;
+
+  &-size--small {
+    --icon-size: #{ab.rem(20)};
+  }
+
+  &-size--base {
+    --icon-size: #{ab.rem(28)};
+  }
+
+  &-size--medium {
+    --icon-size: #{ab.rem(48)};
+  }
+
+  &-size--large {
+    --icon-size: #{ab.rem(80)};
+  }
+
+  &-clr--primary {
+    --icon-clr: var(--clr-primary-400);
+  }
+
+  &-clr--dark {
+    --icon-clr: hsla(0, 0%, 7%, 25%);
+
+    [data-theme="dark"] & {
+      --icon-clr: hsla(0, 0%, 100%, 12.5%);
+    }
+  }
+
+  &-clr--light {
+    --icon-clr: hsla(0, 0%, 100%, 75%);
+  }
+}

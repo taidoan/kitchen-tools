@@ -5,7 +5,7 @@
   border: 1px solid var(--card-glass-border-clr);
   border-radius: var(--border-radius-large);
   backdrop-filter: var(--bg-blur);
-  padding: ab.rem(16);
+  padding: ab.rem(12);
   box-shadow: var(--shadow-card);
   display: flex;
 }
@@ -18,7 +18,7 @@
   background: var(--card-bg);
   border: 2px solid var(--card-border-clr);
   border-radius: var(--border-radius-medium);
-  padding: ab.rem(40);
+  padding: var(--spacing-gap);
   box-shadow: var(--shadow-card-inner);
   flex: 1;
   display: flex;

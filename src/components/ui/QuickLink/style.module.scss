@@ -1,0 +1,24 @@
+@use "./../../../styles/abstracts/_index" as ab;
+
+.quicklink {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: ab.rem(32);
+}
+
+.quicklink__content {
+  display: flex;
+  flex-direction: column;
+  gap: ab.rem(24);
+  align-items: center;
+}
+
+.quicklink__text {
+}
+
+.quicklink__title {
+  font-family: var(--ff-roboto-condensed);
+  text-transform: uppercase;
+  font-size: var(--fs-heading-medium);
+}

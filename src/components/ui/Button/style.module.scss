@@ -69,4 +69,8 @@
       all: unset;
     }
   }
+
+  &--centered {
+    margin-inline: auto;
+  }
 }
