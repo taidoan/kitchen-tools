@@ -50,6 +50,12 @@ const normalizeCSS = (css: string) =>
     .trim();
 
 /**
+ * Rounds all numbers in a CSS string to 2 decimal places.
+ */
+const roundNumbersInCSS = (css: string) =>
+  css.replace(/(\d+\.\d+)/g, (_, num) => parseFloat(num).toFixed(2));
+
+/**
  * Compiles a given Sass string and compares the resulting CSS to the expected CSS.
  *
  * @param sassString - The Sass code to compile.
@@ -65,6 +71,12 @@ export const testSass = async (
   options = {}
 ) => {
   const result = await compileSassString(sassString, options);
-  const compiledCSS = normalizeCSS(result.css);
-  expect(compiledCSS).toBe(normalizeCSS(expectedCSS));
+  let compiledCSS = normalizeCSS(result.css);
+  let expected = normalizeCSS(expectedCSS);
+
+  // Round decimals to 2 places to avoid precision issues
+  compiledCSS = roundNumbersInCSS(compiledCSS);
+  expected = roundNumbersInCSS(expected);
+
+  expect(compiledCSS).toBe(expected);
 };

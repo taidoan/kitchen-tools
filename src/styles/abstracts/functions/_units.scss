@@ -58,3 +58,36 @@
   @return $roundedResult;
   @error "Invalid value `#{$value}` or context `#{$context}` for em() function. Please provide valid numbers with or without units.";
 }
+
+/// Checks if a given value is in 'em' units.
+/// @param {Number} $value - The value to be checked.
+/// @return {Number|Boolean} - Returns the value if it is in 'em' units, otherwise returns false.
+@function is-em($value) {
+  @if is-number($value) and math.unit($value) == "em" {
+    @return $value;
+  } @else {
+    @return false;
+  }
+}
+
+/// Checks if a given value is in 'rem' units.
+/// @param {Number} $value - The value to be checked.
+/// @return {Number|Boolean} - Returns the value if it is in 'rem' units, otherwise returns false.
+@function is-rem($value) {
+  @if is-number($value) and math.unit($value) == "rem" {
+    @return $value;
+  } @else {
+    @return false;
+  }
+}
+
+/// Checks if a given value is in 'px' units.
+/// @param {Number} $value - The value to be checked.
+/// @return {Number|Boolean} - Returns the value if it is in 'px' units, otherwise returns false.
+@function is-px($value) {
+  @if is-number($value) and math.unit($value) == "px" {
+    @return $value;
+  } @else {
+    @return false;
+  }
+}

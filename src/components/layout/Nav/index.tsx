@@ -1,12 +1,13 @@
 import { NavItem } from "@/components/ui/NavItem";
+import clsx from "clsx";
 
 type NavBarProps = {
   collapsed?: boolean;
-};
+} & React.ComponentProps<"nav">;
 
-export const NavBar = ({ collapsed }: NavBarProps) => {
+export const NavBar = ({ collapsed, className }: NavBarProps) => {
   return (
-    <nav className="navigation">
+    <nav className={clsx("navigation", className)}>
       <ul className="navigation__list">
         <li className="navigation__item">
           <NavItem href="/" type="home" collapsed={collapsed}>
@@ -24,12 +25,12 @@ export const NavBar = ({ collapsed }: NavBarProps) => {
           </NavItem>
         </li>
         <li className="navigation__item">
-          <NavItem href="/" type="special" collapsed={collapsed}>
+          <NavItem href="/specials" type="special" collapsed={collapsed}>
             Food Specials
           </NavItem>
         </li>
         <li className="navigation__item">
-          <NavItem href="/" type="wastage" collapsed={collapsed}>
+          <NavItem href="/wastage" type="wastage" collapsed={collapsed}>
             Wastage Tracker
           </NavItem>
         </li>

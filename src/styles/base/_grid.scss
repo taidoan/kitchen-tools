@@ -1,7 +1,7 @@
 @use "./../abstracts/_index" as ab;
 
 :root {
-  --spacing-gap: #{ab.rem(40)};
+  --spacing-gap: #{ab.sizeClamp(ab.rem(20), ab.rem(40))};
 }
 
 html,
@@ -14,4 +14,9 @@ body {
 .container {
   display: flex;
   align-items: flex-start;
+  flex-direction: column;
+
+  @include ab.mq("base-lg") {
+    flex-direction: row;
+  }
 }

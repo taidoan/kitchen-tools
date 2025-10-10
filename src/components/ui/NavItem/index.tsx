@@ -1,13 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import style from "./style.module.scss";
-import {
-  IconClockHour1Filled,
-  IconCoinPoundFilled,
-  IconDiscountFilled,
-  IconTrashFilled,
-  IconHomeFilled,
-} from "@tabler/icons-react";
-import { JSX } from "react";
+import { usePathname } from "next/navigation";
 import { clsx } from "clsx";
 import { Icon } from "../Icon";
 
@@ -26,10 +21,12 @@ export const NavItem = ({
   active,
   collapsed,
 }: NavItemProps) => {
+  const pathname = usePathname();
+
   return (
     <Link
       className={clsx(style["nav-item"], {
-        [style["nav-item--active"]]: active,
+        [style["nav-item--active"]]: pathname === href,
       })}
       href={href}
       data-collapsed={collapsed}

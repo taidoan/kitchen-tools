@@ -18,12 +18,12 @@ export const Sidebar = () => {
       <div>
         <div className="sidebar__header" data-collapsed={!isOpen}>
           <NavButton onClick={toggleSidebar} />
-          {isOpen && <h2>Kitchen Tools</h2>}
+          <h2 className="sidebar__title">Kitchen Tools</h2>
         </div>
-        {isOpen && <Divider height={1} />}
-        <NavBar collapsed={!isOpen} />
+        <Divider height={1} className="sidebar__divider" />
+        <NavBar collapsed={!isOpen} className="sidebar__nav" />
       </div>
-      <div>
+      <div className="sidebar__tools">
         <ThemeToggle collapsed={!isOpen} />
       </div>
     </aside>
