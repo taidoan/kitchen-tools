@@ -1,0 +1,38 @@
+@use "./../abstracts/_index" as ab;
+
+.form__label {
+  display: flex;
+  gap: ab.rem(8);
+  align-items: center;
+
+  &-text {
+    font-weight: 600;
+  }
+
+  &-small-text {
+    color: var(--clr-secondary-400);
+    font-size: 1rem;
+  }
+
+  &--required {
+    color: var(--clr-accent-400);
+  }
+}
+
+.form__input {
+  display: flex;
+  flex-direction: column;
+  gap: ab.rem(8);
+
+  &--checkbox {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.form__checkbox-label {
+  flex-wrap: wrap;
+  column-gap: ab.rem(8);
+  row-gap: 0;
+}

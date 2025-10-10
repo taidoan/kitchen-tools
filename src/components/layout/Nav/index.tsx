@@ -15,7 +15,7 @@ export const NavBar = ({ collapsed, className }: NavBarProps) => {
           </NavItem>
         </li>
         <li className="navigation__item">
-          <NavItem href="/productivity" type="fdt" active collapsed={collapsed}>
+          <NavItem href="/productivity" type="fdt" collapsed={collapsed}>
             FDTs
           </NavItem>
         </li>

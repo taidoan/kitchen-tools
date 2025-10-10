@@ -53,7 +53,7 @@
 ///
 /// @throw "Invalid value `#{$value}` or context `#{$context}` for em() function. Please provide valid numbers with or without units."
 @function em($value, $context: t.$font-root-size) {
-  $result: (stripUnit($value) / stripUnit($context)) * 1em;
+  $result: calc(stripUnit($value) / stripUnit($context)) * 1em;
   $roundedResult: math.div(math.floor($result * 100 + 0.5), 100);
   @return $roundedResult;
   @error "Invalid value `#{$value}` or context `#{$context}` for em() function. Please provide valid numbers with or without units.";

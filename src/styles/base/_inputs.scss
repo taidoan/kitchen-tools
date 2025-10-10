@@ -1,7 +1,8 @@
 @use "./../abstracts/_index" as ab;
 
 input,
-textarea {
+textarea,
+select {
   background-color: var(--input-bg);
   border: ab.rem(1) solid var(--input-border-clr);
   padding: ab.rem(22);

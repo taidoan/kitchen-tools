@@ -7,6 +7,7 @@ type CardProps = {
   style?: React.CSSProperties;
   grow?: boolean;
   className?: string;
+  padding?: "small" | "medium" | "large";
 };
 
 const Card = ({
@@ -14,6 +15,7 @@ const Card = ({
   textAlign = "left",
   style,
   grow,
+  padding,
   className,
 }: CardProps) => {
   return (
@@ -25,7 +27,8 @@ const Card = ({
         className={clsx(
           scss.card__inner,
           [`text-align--${textAlign}`],
-          className
+          className,
+          padding && scss[`card__inner--padding-${padding}`]
         )}
       >
         {children}
@@ -35,3 +38,36 @@ const Card = ({
 };
 
 export default Card;
+
+export const OuterCard = ({ children, style, className, grow }: CardProps) => {
+  return (
+    <div
+      className={clsx(scss.card__outer, className, { [scss.card__grow]: grow })}
+      style={style}
+    >
+      {children}
+    </div>
+  );
+};
+
+export const InnerCard = ({
+  children,
+  style,
+  className,
+  textAlign,
+  padding,
+}: CardProps) => {
+  return (
+    <div
+      className={clsx(
+        scss.card__inner,
+        [`text-align--${textAlign}`],
+        className,
+        padding && scss[`card__inner--padding-${padding}`]
+      )}
+      style={style}
+    >
+      {children}
+    </div>
+  );
+};

@@ -1,0 +1,13 @@
+@use "./../../../styles/abstracts/_index" as ab;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.row {
+  display: flex;
+  gap: ab.rem(16);
+  flex-wrap: wrap;
+}
