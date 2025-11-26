@@ -67,13 +67,15 @@ export const parseServiceSummary = (data: string): ServiceSummary => {
 
   lines.shift();
 
-  const summary = (site: string, range: string): ServiceSummary => ({
+  const createSummary = (site: string, range: string): ServiceSummary => ({
     ...JSON.parse(JSON.stringify(DEFAULT_SERVICE_SUMMARY)),
     siteName: site,
     dateRange: range,
   });
 
-  createKey({ serviceSummary: summary(site, range), lines });
+  const summary = createSummary(site, range);
 
-  return summary(site, range);
+  createKey({ serviceSummary: summary, lines });
+
+  return summary;
 };

@@ -1,5 +1,7 @@
 import type { ProductivityResult as ProductivityResultProps } from "@/app/productivity/types";
 import { SalesComponent } from "./Sales";
+import { ServiceSummaryComponent } from "./ServiceSummary";
+import { ProductivityComponent } from "./Productivity";
 
 export const ProductivityResult = ({
   sales,
@@ -16,6 +18,20 @@ export const ProductivityResult = ({
   return (
     <div>
       Hello, <SalesComponent sales={sales} salesForecast={salesTarget} />
+      <ServiceSummaryComponent
+        serviceSummary={serviceSummary}
+        floorLates={floorLates}
+        kitLates={kitLates}
+        prepTarget={prepTarget}
+        foodLift={foodLift}
+        lateTarget={lateTarget}
+        manualHolds={manualHolds}
+      />
+      <ProductivityComponent
+        productivity={productivity}
+        prepTarget={prepTarget}
+        lateTarget={lateTarget}
+      />
     </div>
   );
 };

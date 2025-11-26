@@ -80,7 +80,7 @@ export const PREP_TARGET_OPTIONS = [
 // DO NOT EDIT THIS
 export const DEFAULT_FORM_OPTIONS = {
   sales: sales,
-  salesTarget: sales_forecast,
+  salesForecast: sales_forecast,
   lateTarget: late_percentage_target,
   prepTarget: preparation_target,
   foodLift: food_lift,
@@ -88,7 +88,6 @@ export const DEFAULT_FORM_OPTIONS = {
   manualHolds: show_manual_holds,
   floorLates: show_floor_lates,
   copiedServiceData: "",
-  copiedProdData: "",
 };
 
 export const DEFAULT_SERVICE_SUMMARY = {
