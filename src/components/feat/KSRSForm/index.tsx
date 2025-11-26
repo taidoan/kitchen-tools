@@ -1,14 +1,36 @@
+"use client";
+import type { KSRSForm as KSRSFormProps, FormData } from "./types";
+
 import clsx from "clsx";
 import style from "./style.module.scss";
 import * as config from "@config";
+import { useState } from "react";
 import { OuterCard, InnerCard } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { Textarea } from "@/components/ui/Textarea";
 import { Button } from "@/components/ui/Button";
+import { parseServiceSummary } from "@/lib/utils/parseServiceSummary";
+import { parseProductivityData } from "@/lib/utils/parseProductivity";
 
-export const KSRSForm = () => {
+export const KSRSForm = ({
+  onSubmit,
+  submitted,
+  initialValues = {},
+}: KSRSFormProps) => {
+  const [activeTab, setActiveTab] = useState<string>("dataEntry");
+
+  const [formData, setFormData] = useState<FormData>(
+    () =>
+      ({
+        ...config.DEFAULT_FORM_OPTIONS,
+        ...initialValues,
+      } as FormData)
+  );
+
+  const [error, setError] = useState<string>("");
+
   const checkboxFields = [
     { id: "kitLates", label: "Kitchen Lates", field: "kitLates" },
     { id: "floorLates", label: "Floor Lates", field: "floorLates" },
@@ -16,13 +38,46 @@ export const KSRSForm = () => {
     { id: "holds", label: "Manual Holds", field: "manualHolds" },
   ] as const;
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError("");
+
+    if (!formData.copiedServiceData.trim()) {
+      setError("Please enter Service Summary Data");
+      return;
+    }
+
+    if (!formData.copiedProductivityData.trim()) {
+      setError("Please enter Productivity Data");
+      return;
+    }
+
+    try {
+      const parsedServiceSummary = parseServiceSummary(
+        formData.copiedServiceData
+      );
+      const parsedProductivityData = parseProductivityData(
+        formData.copiedProductivityData
+      );
+
+      onSubmit({
+        ...formData,
+        parsedServiceSummary,
+        parsedProductivityData,
+      });
+    } catch (err) {
+      setError((err as Error).message);
+      return;
+    }
+  };
+
   return (
     <OuterCard className={clsx(style.form)}>
       <InnerCard padding="medium" className={clsx(style["intro"])}>
         <div className={clsx(style["button__group"])}>
           <Button>Data Entry</Button>
-          <Button>Result</Button>
-          <Button>Print</Button>
+          <Button disabled={!submitted}>Result</Button>
+          <Button disabled={activeTab !== "result"}>Print</Button>
         </div>
         <p>
           Set your sales and performance targets, select any optional

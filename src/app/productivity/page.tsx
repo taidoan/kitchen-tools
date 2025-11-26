@@ -1,9 +1,23 @@
+"use client";
+import type { FormData as FormDataProps } from "@/components/feat/KSRSForm/types";
+
+import { useState } from "react";
 import { Container, MainContentContainer } from "@/components/layout/Container";
 import { Sidebar } from "@/components/layout/Sidebar";
 import Card, { OuterCard, InnerCard } from "@/components/ui/Card";
 import { KSRSForm } from "@/components/feat/KSRSForm";
 import { Divider } from "@/components/ui/Divider";
 export default function Productivity() {
+  const [formData, setFormData] = useState<FormDataProps | null>(null);
+  const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<string>("dataEntry");
+
+  const handleFormSubmit = (data: FormDataProps) => {
+    setFormData(data);
+    setActiveTab(activeTab);
+    setFormSubmitted(true);
+  };
+
   return (
     <Container>
       <Sidebar />
@@ -18,7 +32,15 @@ export default function Productivity() {
             Graphics&quot; in your print settings.
           </p>
         </Card>
-        <KSRSForm />
+        {activeTab === "dataEntry" ? (
+          <KSRSForm
+            onSubmit={handleFormSubmit}
+            submitted={formSubmitted}
+            activeTab={activeTab}
+          />
+        ) : (
+          "form submitted"
+        )}
       </MainContentContainer>
     </Container>
   );
