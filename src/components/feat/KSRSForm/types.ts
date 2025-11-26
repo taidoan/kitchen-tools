@@ -1,4 +1,8 @@
-import type { ParsedData } from "@/app/productivity/types";
+import type {
+  ParsedData,
+  ServiceSummary,
+  ProductivityData,
+} from "@/app/productivity/types";
 
 export type FormData = {
   sales: number | null;
@@ -11,6 +15,8 @@ export type FormData = {
   manualHolds: boolean;
   copiedServiceData: string;
   copiedProductivityData: string;
+  parsedServiceSummary: ServiceSummary;
+  parsedProductivityData: ProductivityData;
 };
 
 export type KSRSForm = {

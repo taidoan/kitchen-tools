@@ -31,6 +31,32 @@ export const KSRSForm = ({
 
   const [error, setError] = useState<string>("");
 
+  const updateField = <K extends keyof FormData>(
+    field: K,
+    value: FormData[K]
+  ) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    setError("");
+  };
+
+  const inputFields = [
+    { id: "sales", label: "Actual Sales", type: "number" },
+    { id: "salesForecast", label: "Sales Forecast", type: "number" },
+  ];
+
+  const selectFields = [
+    {
+      id: "latesTarget",
+      label: "Late Order Target",
+      options: config.LATE_TARGET_OPTIONS,
+    },
+    {
+      id: "prepTarget",
+      label: "Preparation Target",
+      options: config.PREP_TARGET_OPTIONS,
+    },
+  ];
+
   const checkboxFields = [
     { id: "kitLates", label: "Kitchen Lates", field: "kitLates" },
     { id: "floorLates", label: "Floor Lates", field: "floorLates" },
@@ -65,6 +91,8 @@ export const KSRSForm = ({
         parsedServiceSummary,
         parsedProductivityData,
       });
+
+      setActiveTab("result");
     } catch (err) {
       setError((err as Error).message);
       return;
@@ -86,73 +114,110 @@ export const KSRSForm = ({
         </p>
       </InnerCard>
 
-      <div className={style.row}>
-        <InnerCard padding="small">
-          <Input id="actualSales" label="Actual Sales" placeholder="10,000" />
-        </InnerCard>
-        <InnerCard padding="small">
-          <Input
-            id="salesForecast"
-            label="Sales Forecast"
-            placeholder="15,000"
-          />
-        </InnerCard>
-      </div>
+      <form onSubmit={handleSubmit} className={style.form}>
+        <div className={style.row}>
+          {inputFields.map((f) => {
+            const fieldValue = formData[f.id as keyof FormData];
+            const inputValue =
+              typeof fieldValue === "number" || typeof fieldValue === "string"
+                ? fieldValue
+                : "";
 
-      <div className={style.row}>
-        <InnerCard padding="small">
-          <Select id="latesTarget" label="Late Order Target" required>
-            {config.LATE_TARGET_OPTIONS.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </Select>
-        </InnerCard>
-        <InnerCard padding="small">
-          <Select id="prepTarget" label="Preparation Target" required>
-            {config.PREP_TARGET_OPTIONS.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </Select>
-        </InnerCard>
-      </div>
+            return (
+              <InnerCard key={f.id} padding="small">
+                <Input
+                  id={f.id}
+                  label={f.label}
+                  type={f.type}
+                  placeholder={f.id === "sales" ? "10,000" : "15,000"}
+                  value={inputValue as string | number}
+                  onChange={(e) => {
+                    if (f.type === "number") {
+                      updateField(
+                        f.id as keyof FormData,
+                        Number(e.target.value)
+                      );
+                    } else {
+                      updateField(f.id as keyof FormData, e.target.value);
+                    }
+                  }}
+                />
+              </InnerCard>
+            );
+          })}
+        </div>
 
-      <div className={style.row}>
-        {checkboxFields.map(({ id, label, field }) => (
-          <InnerCard key={id} className={style.checkboxCard} padding="small">
-            <Checkbox id={id} label={label} />
+        <div className={style.row}>
+          {selectFields.map((f) => (
+            <InnerCard key={f.id} padding="small">
+              <Select
+                id={f.id}
+                label={f.label}
+                required
+                value={formData[f.id as keyof FormData] as number}
+                onChange={(e) =>
+                  updateField(f.id as keyof FormData, Number(e.target.value))
+                }
+              >
+                {f.options.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </Select>
+            </InnerCard>
+          ))}
+        </div>
+
+        <div className={style.row}>
+          {checkboxFields.map(({ id, label, field }) => (
+            <InnerCard key={id} className={style.checkboxCard} padding="small">
+              <Checkbox
+                id={id}
+                label={label}
+                checked={formData[field]}
+                onChange={(e) => updateField(field, e.target.checked)}
+              />
+            </InnerCard>
+          ))}
+        </div>
+
+        <div className={style.row}>
+          <InnerCard padding="small">
+            <Textarea
+              id="prodData"
+              label="Productivity Data"
+              required
+              rows={6}
+              placeholder="Enter productivity data here..."
+              value={formData.copiedProductivityData || ""}
+              onChange={(e) =>
+                updateField("copiedProductivityData", e.target.value)
+              }
+            />
           </InnerCard>
-        ))}
-      </div>
+        </div>
 
-      <div className={style.row}>
-        <InnerCard padding="small">
-          <Textarea
-            id="prodData"
-            label="Productivity Data"
-            required
-            rows={6}
-            placeholder="Enter productivity data here..."
-          />
-        </InnerCard>
-      </div>
+        <div className={style.row}>
+          <InnerCard padding="small">
+            <Textarea
+              id="serviceData"
+              label="Service Data"
+              required
+              rows={6}
+              placeholder="Enter service summary data here..."
+              value={formData.copiedServiceData || ""}
+              onChange={(e) => updateField("copiedServiceData", e.target.value)}
+            />
+          </InnerCard>
+        </div>
 
-      <div className={style.row}>
-        <InnerCard padding="small">
-          <Textarea
-            id="serviceData"
-            label="Service Data"
-            required
-            rows={6}
-            placeholder="Enter service summary data here..."
-          />
-        </InnerCard>
-      </div>
+        {error && <p className={style.error}>{error}</p>}
 
-      <Button centered>Submit</Button>
+        <Button type="submit" centered>
+          Submit
+        </Button>
+      </form>
     </OuterCard>
   );
 };

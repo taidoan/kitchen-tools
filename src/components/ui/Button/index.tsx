@@ -3,7 +3,8 @@ import Link from "next/link";
 import clsx from "clsx";
 import style from "./style.module.scss";
 
-export type ButtonProps = {
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   href?: string;
   onClick?: () => void;
@@ -11,7 +12,7 @@ export type ButtonProps = {
   className?: string;
   enabled?: boolean;
   centered?: boolean;
-};
+}
 
 export const Button = ({
   href,

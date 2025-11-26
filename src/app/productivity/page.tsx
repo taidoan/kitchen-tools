@@ -1,4 +1,5 @@
 "use client";
+import type { ServiceSummary, ProductivityData } from "./types";
 import type { FormData as FormDataProps } from "@/components/feat/KSRSForm/types";
 
 import { useState } from "react";
@@ -6,6 +7,7 @@ import { Container, MainContentContainer } from "@/components/layout/Container";
 import { Sidebar } from "@/components/layout/Sidebar";
 import Card, { OuterCard, InnerCard } from "@/components/ui/Card";
 import { KSRSForm } from "@/components/feat/KSRSForm";
+import { ProductivityResult } from "@/components/feat/ProductivityResult";
 import { Divider } from "@/components/ui/Divider";
 export default function Productivity() {
   const [formData, setFormData] = useState<FormDataProps | null>(null);
@@ -14,7 +16,7 @@ export default function Productivity() {
 
   const handleFormSubmit = (data: FormDataProps) => {
     setFormData(data);
-    setActiveTab(activeTab);
+    setActiveTab("result");
     setFormSubmitted(true);
   };
 
@@ -37,9 +39,40 @@ export default function Productivity() {
             onSubmit={handleFormSubmit}
             submitted={formSubmitted}
             activeTab={activeTab}
+            initialValues={
+              formData
+                ? {
+                    sales: formData.sales,
+                    salesForecast: formData.salesForecast,
+                    latesTarget: formData.latesTarget,
+                    prepTarget: formData.prepTarget,
+                    foodLift: formData.foodLift,
+                    kitLates: formData.kitLates,
+                    floorLates: formData.floorLates,
+                    manualHolds: formData.manualHolds,
+                    copiedServiceData: formData.copiedServiceData,
+                    copiedProductivityData: formData.copiedProductivityData,
+                  }
+                : {}
+            }
           />
         ) : (
-          "form submitted"
+          <ProductivityResult
+            sales={formData?.sales || null}
+            salesTarget={formData?.salesForecast || null}
+            lateTarget={formData?.latesTarget || 25}
+            prepTarget={formData?.prepTarget || 8}
+            foodLift={formData?.foodLift || false}
+            kitLates={formData?.kitLates || false}
+            manualHolds={formData?.manualHolds || true}
+            floorLates={formData?.floorLates || false}
+            serviceSummary={
+              formData?.parsedServiceSummary || ({} as ServiceSummary)
+            }
+            productivity={
+              formData?.parsedProductivityData || ({} as ProductivityData)
+            }
+          />
         )}
       </MainContentContainer>
     </Container>
