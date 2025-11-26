@@ -11,3 +11,17 @@
   gap: ab.rem(16);
   flex-wrap: wrap;
 }
+
+.button__group {
+  display: flex;
+  gap: ab.rem(20);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: ab.rem(24);
+  text-align: center;
+}

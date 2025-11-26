@@ -12,6 +12,10 @@
   &-small-text {
     color: var(--clr-secondary-400);
     font-size: 1rem;
+
+    [data-theme="dark"] & {
+      color: var(--clr-grey-600);
+    }
   }
 
   &--required {

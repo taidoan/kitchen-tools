@@ -18,11 +18,11 @@ export const KSRSForm = () => {
 
   return (
     <OuterCard className={clsx(style.form)}>
-      <InnerCard padding="medium">
-        <div>
-          <Button>Submit</Button>
-          <Button>Reset</Button>
-          <Button>Download Data</Button>
+      <InnerCard padding="medium" className={clsx(style["intro"])}>
+        <div className={clsx(style["button__group"])}>
+          <Button>Data Entry</Button>
+          <Button>Result</Button>
+          <Button>Print</Button>
         </div>
         <p>
           Set your sales and performance targets, select any optional
@@ -75,17 +75,29 @@ export const KSRSForm = () => {
 
       <div className={style.row}>
         <InnerCard padding="small">
-          <Textarea id="prodData" label="Productivity Data" required rows={6} />
+          <Textarea
+            id="prodData"
+            label="Productivity Data"
+            required
+            rows={6}
+            placeholder="Enter productivity data here..."
+          />
         </InnerCard>
       </div>
 
       <div className={style.row}>
         <InnerCard padding="small">
-          <Textarea id="serviceData" label="Service Data" required rows={6} />
+          <Textarea
+            id="serviceData"
+            label="Service Data"
+            required
+            rows={6}
+            placeholder="Enter service summary data here..."
+          />
         </InnerCard>
       </div>
 
-      <Button>Submit</Button>
+      <Button centered>Submit</Button>
     </OuterCard>
   );
 };
