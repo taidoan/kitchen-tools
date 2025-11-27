@@ -31,6 +31,7 @@ export const ProductivityResult = ({
         productivity={productivity}
         prepTarget={prepTarget}
         lateTarget={lateTarget}
+        className="fdt-table"
       />
     </div>
   );

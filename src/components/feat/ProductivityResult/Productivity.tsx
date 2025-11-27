@@ -1,18 +1,22 @@
 import type { ProductivityData } from "@/app/productivity/types";
+import clsx from "clsx";
+import style from "./style.module.scss";
 
 type ProductivityComponentProps = {
   productivity: ProductivityData | null;
   prepTarget: number;
   lateTarget: number;
+  className?: string;
 };
 
 export const ProductivityComponent = ({
   productivity,
   prepTarget,
   lateTarget,
+  className,
 }: ProductivityComponentProps) => {
   return (
-    <table>
+    <table className={clsx(className, style.productivity__table)}>
       <thead>
         <tr>
           {[
@@ -32,15 +36,13 @@ export const ProductivityComponent = ({
         {productivity?.staffMembers.map((member) => {
           return (
             <tr key={member.name}>
-              <td>{member.name}</td>
+              <td className="">{member.name}</td>
               <td data-cell="Prep Time: ">{member.prepTime}</td>
               <td data-cell="Orders: ">{member.orders}</td>
               <td data-cell="Items: ">{member.items}</td>
               <td data-cell="Late Orders: ">
                 {member.lateOrders}{" "}
-                <span className="text-sm">
-                  ({member.lateOrdersPercentage}%)
-                </span>
+                <span>({member.lateOrdersPercentage}%)</span>
               </td>
               <td data-cell="Longest Order: ">{member.longestOrder}</td>
               <td data-cell="Hours Worked: ">{member.hoursWorked}</td>

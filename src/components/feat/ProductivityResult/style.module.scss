@@ -1,0 +1,66 @@
+@use "./../../../styles/abstracts/_index" as ab;
+
+.productivity__table {
+  border: none;
+
+  tr:not(:first-child) {
+    margin-top: ab.rem(12);
+  }
+
+  tr {
+    border: 3px solid var(--clr-black-400);
+    border-top-left-radius: var(--border-radius-base);
+    border-top-right-radius: var(--border-radius-base);
+    flex: nowrap;
+    flex-direction: column;
+  }
+
+  tr td:first-child {
+    background-color: var(--clr-black-400);
+    font-weight: bold;
+    color: var(--clr-white-400);
+
+    &::before {
+      display: none;
+    }
+  }
+
+  td {
+    text-align: left;
+    display: block;
+    padding: ab.rem(12);
+
+    &::before {
+      background-color: transparent;
+      color: inherit;
+      padding: 0;
+    }
+  }
+
+  @include ab.mq("md") {
+    border: 3px solid var(--clr-black-400);
+    tr {
+      flex-direction: row;
+    }
+
+    tr td:first-child {
+      background-color: var(--clr-white-400);
+      color: inherit;
+      font-weight: normal;
+
+      &::before {
+        display: none;
+      }
+    }
+
+    td {
+      display: table-cell;
+      padding: ab.rem(12);
+      text-align: center;
+
+      &::before {
+        content: none;
+      }
+    }
+  }
+}

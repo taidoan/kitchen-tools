@@ -1,0 +1,5 @@
+@use "./../abstracts/_index" as ab;
+
+.fdt-table {
+  margin-top: ab.rem(24);
+}

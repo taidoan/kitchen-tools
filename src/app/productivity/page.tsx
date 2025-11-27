@@ -39,7 +39,7 @@ export default function Productivity() {
           </p>
         </Card>
         <OuterCard className={clsx(style.form)}>
-          <InnerCard padding="medium" className={clsx(style["intro"])}>
+          <InnerCard padding="medium">
             <div className={clsx(style["button__group"])}>
               <Button onClick={() => setActiveTab("dataEntry")}>
                 Data Entry
@@ -62,46 +62,48 @@ export default function Productivity() {
               <strong>copied directly</strong> from KSRS into the fields below.
             </p>
           </InnerCard>
-          {activeTab === "dataEntry" ? (
-            <KSRSForm
-              onSubmit={handleFormSubmit}
-              submitted={formSubmitted}
-              activeTab={activeTab}
-              initialValues={
-                formData
-                  ? {
-                      sales: formData.sales,
-                      salesForecast: formData.salesForecast,
-                      latesTarget: formData.latesTarget,
-                      prepTarget: formData.prepTarget,
-                      foodLift: formData.foodLift,
-                      kitLates: formData.kitLates,
-                      floorLates: formData.floorLates,
-                      manualHolds: formData.manualHolds,
-                      copiedServiceData: formData.copiedServiceData,
-                      copiedProductivityData: formData.copiedProductivityData,
-                    }
-                  : {}
-              }
-            />
-          ) : (
-            <ProductivityResult
-              sales={formData?.sales || null}
-              salesTarget={formData?.salesForecast || null}
-              lateTarget={formData?.latesTarget || 25}
-              prepTarget={formData?.prepTarget || 8}
-              foodLift={formData?.foodLift || false}
-              kitLates={formData?.kitLates || false}
-              manualHolds={formData?.manualHolds || true}
-              floorLates={formData?.floorLates || false}
-              serviceSummary={
-                formData?.parsedServiceSummary || ({} as ServiceSummary)
-              }
-              productivity={
-                formData?.parsedProductivityData || ({} as ProductivityData)
-              }
-            />
-          )}
+          <InnerCard padding="medium">
+            {activeTab === "dataEntry" ? (
+              <KSRSForm
+                onSubmit={handleFormSubmit}
+                submitted={formSubmitted}
+                activeTab={activeTab}
+                initialValues={
+                  formData
+                    ? {
+                        sales: formData.sales,
+                        salesForecast: formData.salesForecast,
+                        latesTarget: formData.latesTarget,
+                        prepTarget: formData.prepTarget,
+                        foodLift: formData.foodLift,
+                        kitLates: formData.kitLates,
+                        floorLates: formData.floorLates,
+                        manualHolds: formData.manualHolds,
+                        copiedServiceData: formData.copiedServiceData,
+                        copiedProductivityData: formData.copiedProductivityData,
+                      }
+                    : {}
+                }
+              />
+            ) : (
+              <ProductivityResult
+                sales={formData?.sales || null}
+                salesTarget={formData?.salesForecast || null}
+                lateTarget={formData?.latesTarget || 25}
+                prepTarget={formData?.prepTarget || 8}
+                foodLift={formData?.foodLift || false}
+                kitLates={formData?.kitLates || false}
+                manualHolds={formData?.manualHolds || true}
+                floorLates={formData?.floorLates || false}
+                serviceSummary={
+                  formData?.parsedServiceSummary || ({} as ServiceSummary)
+                }
+                productivity={
+                  formData?.parsedProductivityData || ({} as ProductivityData)
+                }
+              />
+            )}
+          </InnerCard>
         </OuterCard>
       </MainContentContainer>
     </Container>
