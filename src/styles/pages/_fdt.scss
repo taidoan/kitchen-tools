@@ -1,5 +1,13 @@
 @use "./../abstracts/_index" as ab;
 
-.fdt-table {
+.fdt__table,
+.service-summary__table {
   margin-top: ab.rem(24);
+}
+
+.fdt__instructions {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: ab.rem(12);
 }

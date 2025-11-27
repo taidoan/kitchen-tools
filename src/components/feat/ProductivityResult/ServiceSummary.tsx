@@ -17,7 +17,7 @@ type ServiceSummaryComponentProps = Pick<
   | "foodLift"
   | "lateTarget"
   | "manualHolds"
->;
+> & { className?: string };
 
 export const ServiceSummaryComponent = ({
   serviceSummary,
@@ -27,6 +27,7 @@ export const ServiceSummaryComponent = ({
   prepTarget,
   foodLift,
   lateTarget,
+  className,
 }: ServiceSummaryComponentProps) => {
   const servicePrepTimeClass = generatePrepTimeClasses(
     serviceSummary.averagePreparationTime.total,
@@ -131,7 +132,7 @@ export const ServiceSummaryComponent = ({
   ].filter(Boolean);
 
   return (
-    <div className="table__wrapper">
+    <div className={clsx("table__wrapper", className)}>
       <table>
         <thead>
           <tr>

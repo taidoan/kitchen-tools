@@ -39,7 +39,7 @@ export default function Productivity() {
           </p>
         </Card>
         <OuterCard className={clsx(style.form)}>
-          <InnerCard padding="medium">
+          <InnerCard padding="medium" className={clsx("fdt__instructions")}>
             <div className={clsx(style["button__group"])}>
               <Button onClick={() => setActiveTab("dataEntry")}>
                 Data Entry

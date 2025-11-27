@@ -60,6 +60,12 @@
   --btn-disabled-border-clr: hsla(0, 0%, 63%, 10%);
 
   --btn-enabled-bg: hsla(218, 28%, 34%, 50%);
+
+  /* TABLES */
+  --table-border-clr: var(--clr-black-400);
+  --table-header-text-clr: var(--clr-white-400);
+  --table-cell-bg: var(--clr-white-400);
+  --table-cell-text-clr: var(--clr-black-400);
 }
 
 [data-theme="dark"] {
@@ -96,7 +102,29 @@
   /* BUTTONS */
   --btn-border-clr: hsla(0, 0%, 100%, 0.1);
 
+  /* TABLES */
+  --table-border-clr: var(--clr-black-700);
+  --table-header-text-clr: var(--clr-white-400);
+  --table-cell-bg: #1d212c;
+  --table-cell-text-clr: var(--clr-white-400);
+
+  --clr-warning: #ffa726; // darker orange
+  --clr-success: #9ccc65; // olive-ish lime
+  --clr-fail: #ef5350; // soft red
+
   color-scheme: dark;
+
+  .bg-clr {
+    &--warning {
+      color: var(--table-border-clr);
+    }
+    &--success {
+      color: var(--table-border-clr);
+    }
+    &--failed {
+      color: var(--table-border-clr);
+    }
+  }
 }
 
 .bg-clr {

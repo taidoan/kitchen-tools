@@ -11,7 +11,7 @@ type ProductivityComponentProps = {
   productivity: ProductivityData | null;
   prepTarget: number;
   lateTarget: number;
-  foodLift: boolean;
+  foodLift?: boolean;
   className?: string;
 };
 

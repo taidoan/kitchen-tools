@@ -29,7 +29,6 @@ export const generatePrepTimeClasses = (
   }
 
   if (prepTimeValue <= prepTarget) return "bg-clr--success";
-  if (prepTimeValue < prepTarget + 0.5) return "bg-clr--warning";
   return "bg-clr--failed";
 };
 

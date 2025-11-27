@@ -96,8 +96,6 @@ export const MAX_PREP_TIME_NO_FOOD_LIFT =
 // Prep Target Options
 // These are pretty sensible options for prep targets. Maximum would be nine as company target overall is less than 10:00.
 export const PREP_TARGET_OPTIONS = [
-  { value: 5, label: "5:00" },
-  { value: 5.5, label: "5:30" },
   { value: 6, label: "6:00" },
   { value: 6.5, label: "6:30" },
   { value: 7, label: "7:00" },

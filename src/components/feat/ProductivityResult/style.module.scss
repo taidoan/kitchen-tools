@@ -1,5 +1,55 @@
 @use "./../../../styles/abstracts/_index" as ab;
 
+.intro {
+  @include ab.mq("md") {
+    text-align: center;
+  }
+}
+
+.title {
+  margin-bottom: ab.rem(8);
+}
+
+.keys__container {
+  background-color: var(--input-bg);
+  border: ab.rem(1) solid var(--input-border-clr);
+  padding: ab.rem(16);
+  border-radius: var(--border-radius-small);
+  flex-grow: 1;
+}
+
+.keys__wrapper {
+  display: flex;
+  gap: ab.rem(16);
+  width: 100%;
+  margin-top: ab.rem(16);
+}
+
+.keys__title {
+  margin-bottom: ab.rem(4);
+  font-size: ab.rem(28);
+  font-weight: bold;
+}
+
+.keys__divider {
+  margin-block: ab.rem(12);
+}
+
+.keys__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: ab.rem(4);
+}
+
+.key {
+  display: inline-block;
+  width: ab.rem(8);
+  height: ab.rem(8);
+}
+
 .productivity__table {
   border: none;
 
@@ -8,7 +58,7 @@
   }
 
   tr {
-    border: 3px solid var(--clr-black-400);
+    border: 3px solid var(--table-border-clr);
     border-top-left-radius: var(--border-radius-base);
     border-top-right-radius: var(--border-radius-base);
     flex: nowrap;
@@ -16,9 +66,9 @@
   }
 
   tr td:first-child {
-    background-color: var(--clr-black-400);
+    background-color: var(--table-border-clr);
     font-weight: bold;
-    color: var(--clr-white-400);
+    color: var(--table-header-text-clr);
 
     &::before {
       display: none;
@@ -38,7 +88,16 @@
   }
 
   @include ab.mq("md") {
-    border: 3px solid var(--clr-black-400);
+    border: 3px solid var(--table-border-clr);
+    overflow: hidden;
+
+    thead {
+      display: table-header-group;
+    }
+
+    th {
+      padding: ab.rem(12);
+    }
 
     tr {
       display: table-row;
@@ -47,7 +106,7 @@
     }
 
     tr td:first-child {
-      background-color: var(--clr-white-400);
+      background-color: var(--table-cell-bg);
       color: inherit;
       font-weight: normal;
 
