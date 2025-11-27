@@ -1,4 +1,11 @@
 import type { ProductivityResult } from "@/app/productivity/types";
+import clsx from "clsx";
+import {
+  generatePrepTimeClasses,
+  generateWaitTimeClasses,
+  generateDeliveryTimeClasses,
+  generateLatesClasses,
+} from "@/lib/utils/generateClasses";
 
 type ServiceSummaryComponentProps = Pick<
   ProductivityResult,
@@ -16,19 +23,44 @@ export const ServiceSummaryComponent = ({
   floorLates,
   kitLates,
   manualHolds,
+  prepTarget,
+  foodLift,
+  lateTarget,
 }: ServiceSummaryComponentProps) => {
+  const servicePrepTimeClass = generatePrepTimeClasses(
+    serviceSummary.averagePreparationTime.total,
+    prepTarget
+  );
+
+  const serviceWaitTimeClass = generateWaitTimeClasses(
+    serviceSummary.averageWaitTime.total,
+    foodLift
+  );
+
+  const serviceDeliveryTimeClass = generateDeliveryTimeClasses(
+    serviceSummary.averageDeliveryTime.total
+  );
+
+  const serviceLatesClass = generateLatesClasses(
+    serviceSummary.numberOfLateOrders.total.percentage,
+    lateTarget
+  );
+
   const columns = [
     {
       label: "Prep Time",
       value: serviceSummary.averagePreparationTime.total,
+      className: servicePrepTimeClass,
     },
     {
       label: "Wait Time",
       value: serviceSummary.averageWaitTime.total,
+      className: serviceWaitTimeClass,
     },
     {
       label: "Delivery Time",
       value: serviceSummary.averageDeliveryTime.total,
+      className: serviceDeliveryTimeClass,
     },
     {
       label: "Orders",
@@ -37,6 +69,7 @@ export const ServiceSummaryComponent = ({
     {
       label: "Lates",
       value: `${serviceSummary.numberOfLateOrders.total.count} (${serviceSummary.numberOfLateOrders.total.percentage}%)`,
+      className: serviceLatesClass,
     },
     {
       label: "Items",
@@ -64,6 +97,7 @@ export const ServiceSummaryComponent = ({
       ? {
           label: "Kitchen Lates",
           value: `${serviceSummary.chef1.ordersLate.count} (${serviceSummary.chef1.ordersLate.percentage}%)`,
+          className: serviceLatesClass,
         }
       : null,
   ].filter(Boolean);
@@ -83,7 +117,9 @@ export const ServiceSummaryComponent = ({
           <tr>
             {columns.map((col, index) => (
               <td key={index} data-cell={`${col!.label}`}>
-                <span className="cell__value">{col!.value}</span>
+                <span className={clsx("cell__value", col!.className)}>
+                  {col!.value}
+                </span>
               </td>
             ))}
           </tr>

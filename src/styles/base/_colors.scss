@@ -7,6 +7,10 @@
     }
   }
 
+  --clr-warning: orange;
+  --clr-success: lime;
+  --clr-fail: red;
+
   /* GLASSMORPHISM & BORDER */
   --bg-glass: hsl(from var(--clr-white-400) h s l / 0.75);
   --border-clr: hsla(0, 0%, 100%, 0.8);
@@ -93,4 +97,16 @@
   --btn-border-clr: hsla(0, 0%, 100%, 0.1);
 
   color-scheme: dark;
+}
+
+.bg-clr {
+  &--warning {
+    background-color: var(--clr-warning);
+  }
+  &--success {
+    background-color: var(--clr-success);
+  }
+  &--failed {
+    background-color: var(--clr-fail);
+  }
 }
