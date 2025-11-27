@@ -1,18 +1,35 @@
 import { convertTimeToMinutes } from "./timeConverter";
+import {
+  FLOOR_LATE_MAX_PERCENTAGE,
+  LATE_TARGET_THRESHOLD,
+  MAX_DELIVERY_TIME,
+  NO_FOOD_LIFT_WAIT_TIME,
+  FOOD_LIFT_WAIT_TIME,
+  MAX_PREP_TIME_FOOD_LIFT,
+  MAX_PREP_TIME_NO_FOOD_LIFT,
+} from "@config";
 
 export const generatePrepTimeClasses = (
   prepTime: string | undefined,
-  prepTarget: number
+  prepTarget: number,
+  foodLift?: boolean
 ) => {
   const prepTimeValue = convertTimeToMinutes(prepTime || "0:00");
 
-  if (prepTarget === 9) {
+  if (foodLift === true) {
+    if (prepTarget === MAX_PREP_TIME_FOOD_LIFT) {
+      if (prepTimeValue <= prepTarget) return "bg-clr--success";
+      return "bg-clr--failed";
+    }
+  }
+
+  if (prepTarget === MAX_PREP_TIME_NO_FOOD_LIFT) {
     if (prepTimeValue <= prepTarget) return "bg-clr--success";
     return "bg-clr--failed";
   }
 
   if (prepTimeValue <= prepTarget) return "bg-clr--success";
-  if (prepTimeValue < prepTarget + 1) return "bg-clr--warning";
+  if (prepTimeValue < prepTarget + 0.5) return "bg-clr--warning";
   return "bg-clr--failed";
 };
 
@@ -21,7 +38,8 @@ export const generateWaitTimeClasses = (
   foodLift: boolean
 ) => {
   const waitTimeMinutes = convertTimeToMinutes(waitTime || "0");
-  return waitTimeMinutes <= (foodLift ? 1.5 : 1)
+  return waitTimeMinutes <=
+    (foodLift ? FOOD_LIFT_WAIT_TIME : NO_FOOD_LIFT_WAIT_TIME)
     ? "bg-clr--success"
     : "bg-clr--failed";
 };
@@ -30,7 +48,9 @@ export const generateDeliveryTimeClasses = (
   deliveryTime: string | undefined
 ) => {
   const deliveryTimeMinutes = convertTimeToMinutes(deliveryTime || "0");
-  return deliveryTimeMinutes <= 10 ? "bg-clr--success" : "bg-clr--failed";
+  return deliveryTimeMinutes <= MAX_DELIVERY_TIME
+    ? "bg-clr--success"
+    : "bg-clr--failed";
 };
 
 export const generateLatesClasses = (
@@ -38,6 +58,12 @@ export const generateLatesClasses = (
   lateTarget: number
 ) => {
   if (latePercentage <= lateTarget) return "bg-clr--success";
-  if (latePercentage <= lateTarget + 10) return "bg-clr--warning";
+  if (latePercentage <= lateTarget + LATE_TARGET_THRESHOLD)
+    return "bg-clr--warning";
+  return "bg-clr--failed";
+};
+
+export const generateFloorLatesClasses = (latePercentage: number) => {
+  if (latePercentage <= FLOOR_LATE_MAX_PERCENTAGE) return "bg-clr--success";
   return "bg-clr--failed";
 };

@@ -108,5 +108,6 @@
   }
   &--failed {
     background-color: var(--clr-fail);
+    outline: 1px solid transparent;
   }
 }

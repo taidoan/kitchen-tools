@@ -68,13 +68,43 @@ export const LATE_TARGET_OPTIONS = [
   { value: 30, label: "30%" },
 ];
 
+// Late target threshold for warning class in percentage
+export const LATE_TARGET_THRESHOLD = 10;
+
+// Floor late maximum percentage
+export const FLOOR_LATE_MAX_PERCENTAGE = 3;
+
+// Food lift maximum wait time in minutes
+export const FOOD_LIFT_WAIT_TIME = 1.5;
+
+// No food lift maximum wait time
+export const NO_FOOD_LIFT_WAIT_TIME = 1;
+
+// Maximum prep time in minutes
+export const MAX_PREP_TIME = preparation_target;
+
+// Maximum delivery time in minutes
+export const MAX_DELIVERY_TIME = 10;
+
+// Maximum prep time with food lift
+export const MAX_PREP_TIME_FOOD_LIFT = MAX_DELIVERY_TIME - FOOD_LIFT_WAIT_TIME;
+
+// Maximum prep time without food lift
+export const MAX_PREP_TIME_NO_FOOD_LIFT =
+  MAX_DELIVERY_TIME - NO_FOOD_LIFT_WAIT_TIME;
+
 // Prep Target Options
 // These are pretty sensible options for prep targets. Maximum would be nine as company target overall is less than 10:00.
 export const PREP_TARGET_OPTIONS = [
+  { value: 5, label: "5:00" },
+  { value: 5.5, label: "5:30" },
   { value: 6, label: "6:00" },
+  { value: 6.5, label: "6:30" },
   { value: 7, label: "7:00" },
+  { value: 7.5, label: "7:30" },
   { value: 8, label: "8:00" },
-  { value: 9, label: "9:00" },
+  { value: MAX_PREP_TIME_FOOD_LIFT, label: "8:30" },
+  { value: MAX_PREP_TIME_NO_FOOD_LIFT, label: "9:00" },
 ];
 
 // DO NOT EDIT THIS
@@ -90,6 +120,7 @@ export const DEFAULT_FORM_OPTIONS = {
   copiedServiceData: "",
 };
 
+// DO NOT EDIT THIS
 export const DEFAULT_SERVICE_SUMMARY = {
   siteName: "Wetherspoons",
   dateRange: "",

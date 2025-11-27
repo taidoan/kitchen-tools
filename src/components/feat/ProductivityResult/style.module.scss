@@ -39,8 +39,11 @@
 
   @include ab.mq("md") {
     border: 3px solid var(--clr-black-400);
+
     tr {
-      flex-direction: row;
+      display: table-row;
+      flex-direction: initial;
+      overflow: visible;
     }
 
     tr td:first-child {

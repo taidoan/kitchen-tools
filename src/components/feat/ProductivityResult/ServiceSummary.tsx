@@ -5,6 +5,7 @@ import {
   generateWaitTimeClasses,
   generateDeliveryTimeClasses,
   generateLatesClasses,
+  generateFloorLatesClasses,
 } from "@/lib/utils/generateClasses";
 
 type ServiceSummaryComponentProps = Pick<
@@ -29,7 +30,8 @@ export const ServiceSummaryComponent = ({
 }: ServiceSummaryComponentProps) => {
   const servicePrepTimeClass = generatePrepTimeClasses(
     serviceSummary.averagePreparationTime.total,
-    prepTarget
+    prepTarget,
+    foodLift
   );
 
   const serviceWaitTimeClass = generateWaitTimeClasses(
@@ -44,6 +46,11 @@ export const ServiceSummaryComponent = ({
   const serviceLatesClass = generateLatesClasses(
     serviceSummary.numberOfLateOrders.total.percentage,
     lateTarget
+  );
+
+  const serviceFloorLatesClass = generateFloorLatesClasses(
+    serviceSummary.numberOfLateOrders.total.percentage -
+      serviceSummary.chef1.ordersLate.percentage
   );
 
   const columns = [
@@ -68,7 +75,14 @@ export const ServiceSummaryComponent = ({
     },
     {
       label: "Lates",
-      value: `${serviceSummary.numberOfLateOrders.total.count} (${serviceSummary.numberOfLateOrders.total.percentage}%)`,
+      value: (
+        <>
+          {serviceSummary.numberOfLateOrders.total.count}{" "}
+          <span className="text--small">
+            ({serviceSummary.numberOfLateOrders.total.percentage}%)
+          </span>
+        </>
+      ),
       className: serviceLatesClass,
     },
     {
@@ -84,19 +98,33 @@ export const ServiceSummaryComponent = ({
     floorLates
       ? {
           label: "Floor Lates",
-          value:
-            serviceSummary.numberOfLateOrders.total.count! -
-            serviceSummary.chef1.ordersLate.count +
-            ` (${
-              serviceSummary.numberOfLateOrders.total.percentage -
-              serviceSummary.chef1.ordersLate.percentage
-            }%)`,
+          value: (
+            <>
+              {serviceSummary.numberOfLateOrders.total.count! -
+                serviceSummary.chef1.ordersLate.count}{" "}
+              <span className="text--small">
+                (
+                {serviceSummary.numberOfLateOrders.total.percentage -
+                  serviceSummary.chef1.ordersLate.percentage}
+                %)
+              </span>
+            </>
+          ),
+          className: serviceFloorLatesClass,
         }
       : null,
+
     kitLates
       ? {
           label: "Kitchen Lates",
-          value: `${serviceSummary.chef1.ordersLate.count} (${serviceSummary.chef1.ordersLate.percentage}%)`,
+          value: (
+            <>
+              {serviceSummary.chef1.ordersLate.count}{" "}
+              <span className="text--small">
+                ({serviceSummary.chef1.ordersLate.percentage}%)
+              </span>
+            </>
+          ),
           className: serviceLatesClass,
         }
       : null,
@@ -116,10 +144,12 @@ export const ServiceSummaryComponent = ({
         <tbody>
           <tr>
             {columns.map((col, index) => (
-              <td key={index} data-cell={`${col!.label}`}>
-                <span className={clsx("cell__value", col!.className)}>
-                  {col!.value}
-                </span>
+              <td
+                key={index}
+                data-cell={`${col!.label}`}
+                className={col!.className}
+              >
+                <span className={clsx("cell__value")}>{col!.value}</span>
               </td>
             ))}
           </tr>

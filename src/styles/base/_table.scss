@@ -77,14 +77,16 @@ table {
 
     td {
       display: table-cell;
-      padding: ab.rem(12);
+      padding: 0;
       flex-grow: 0;
+
       &::before {
         content: none;
       }
 
       .cell__value {
-        padding: 0;
+        display: block;
+        padding: ab.rem(12);
       }
     }
   }
