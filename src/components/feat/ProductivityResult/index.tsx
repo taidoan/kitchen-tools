@@ -19,7 +19,7 @@ export const ProductivityResult = ({
   productivity,
 }: ProductivityResultProps) => {
   return (
-    <div>
+    <div className="fdt__print">
       <div className={style.intro}>
         <h2 className={style.title}>
           {serviceSummary.siteName

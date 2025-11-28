@@ -79,3 +79,9 @@
     font-size: ab.sizeClamp(ab.rem(20), ab.rem(28));
   }
 }
+
+@media print {
+  .sidebar {
+    display: none;
+  }
+}

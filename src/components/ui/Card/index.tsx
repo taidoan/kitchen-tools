@@ -7,6 +7,7 @@ type CardProps = {
   style?: React.CSSProperties;
   grow?: boolean;
   className?: string;
+  containerClassName?: string;
   padding?: "small" | "medium" | "large";
 };
 
@@ -17,10 +18,15 @@ const Card = ({
   grow,
   padding,
   className,
+  containerClassName,
 }: CardProps) => {
   return (
     <div
-      className={clsx(scss.card__outer, { [scss.card__grow]: grow })}
+      className={clsx(
+        scss.card__outer,
+        { [scss.card__grow]: grow },
+        containerClassName
+      )}
       style={style}
     >
       <div

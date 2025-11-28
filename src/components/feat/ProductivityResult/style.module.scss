@@ -17,6 +17,10 @@
 .keys {
   &__intro {
     text-align: center;
+
+    @media print {
+      display: none;
+    }
   }
 
   &__wrapper {
@@ -104,6 +108,34 @@
       }
     }
   }
+
+  @media print {
+    &__wrapper {
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
+    }
+
+    &__container {
+      background-color: white;
+    }
+
+    &__list {
+      gap: 0;
+    }
+
+    &__item {
+      gap: ab.rem(4);
+    }
+
+    &__label {
+      padding: 0;
+    }
+
+    &__divider {
+      background-color: black;
+      margin-block: ab.rem(4) ab.rem(8);
+    }
+  }
 }
 
 .productivity__sort {
@@ -164,6 +196,46 @@
       display: table-row;
       flex-direction: initial;
       overflow: visible;
+    }
+
+    tr td:first-child {
+      background-color: var(--table-cell-bg);
+      color: inherit;
+      font-weight: normal;
+
+      &::before {
+        display: none;
+      }
+    }
+
+    td {
+      display: table-cell;
+      padding: ab.rem(12);
+      text-align: center;
+
+      &::before {
+        content: none;
+      }
+    }
+  }
+
+  @media print {
+    overflow: visible;
+    border-radius: 0 !important;
+
+    thead {
+      display: table-header-group;
+    }
+
+    th {
+      padding: ab.rem(12);
+    }
+
+    tr {
+      display: table-row;
+      flex-direction: initial;
+      overflow: visible;
+      border-radius: 0 !important;
     }
 
     tr td:first-child {

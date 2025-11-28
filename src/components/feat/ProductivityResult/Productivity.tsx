@@ -133,7 +133,7 @@ export const ProductivityComponent = ({
           </tr>
         </thead>
         <tbody>
-          {sortedStaff.map((member) => {
+          {sortedStaff.map((member, index) => {
             const prepTimeClass = generatePrepTimeClasses(
               member.prepTime,
               prepTarget,
@@ -145,7 +145,7 @@ export const ProductivityComponent = ({
             );
 
             return (
-              <tr key={member.name}>
+              <tr key={`${member.name}-${index}`}>
                 <td>{member.name}</td>
                 <td data-cell="Prep Time: " className={prepTimeClass}>
                   {member.prepTime}

@@ -26,6 +26,8 @@
   --input-border-clr: hsla(0, 0%, 19%, 0.1);
   --input-text-clr: var(--clr-secondary-400);
   --input-text-clr-focus: var(--clr-black-400);
+  --select-dropdown-bg: var(--input-bg);
+  --select-dropdown-text-clr: var(--clr-secondary-400)
 
   /* TEXT */
   --text-clr: var(--clr-black-400);
@@ -86,6 +88,8 @@
   --input-text-clr: var(--clr-secondary-200);
   --input-text-clr-focus: var(--clr-white-400);
 
+  --select-dropdown-bg: #252a38;
+
   /* TEXT */
   --text-clr: var(--clr-white-400);
 
@@ -127,6 +131,20 @@
     &--failed {
       color: var(--table-border-clr);
     }
+  }
+}
+
+@media print {
+  :root {
+    --text-clr: black;
+    --table-border-clr: black;
+    --table-header-text-clr: white;
+    --table-cell-bg: white;
+    --table-cell-text-clr: black;
+
+    --clr-warning: orange;
+    --clr-success: lime;
+    --clr-fail: red;
   }
 }
 

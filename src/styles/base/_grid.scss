@@ -19,4 +19,12 @@ body {
   @include ab.mq("base-lg") {
     flex-direction: row;
   }
+
+  @media print {
+    display: block !important;
+    flex-direction: unset !important;
+    gap: 0 !important;
+    position: static !important;
+    padding: 0 !important;
+  }
 }

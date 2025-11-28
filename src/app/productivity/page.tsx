@@ -12,13 +12,13 @@ import { Divider } from "@/components/ui/Divider";
 import { Button } from "@/components/ui/Button";
 import style from "./../../components/feat/KSRSForm/style.module.scss";
 import clsx from "clsx";
+import { printArea } from "@/lib/utils/printArea";
 export default function Productivity() {
   const [formData, setFormData] = useState<FormDataProps | null>(null);
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<string>("dataEntry");
 
   const handleFormSubmit = (data: FormDataProps) => {
-    console.log(data);
     setFormData(data);
     setActiveTab("result");
     setFormSubmitted(true);
@@ -28,7 +28,7 @@ export default function Productivity() {
     <Container>
       <Sidebar />
       <MainContentContainer>
-        <Card>
+        <Card containerClassName="fdt__intro">
           <h2>Food Delivery Times</h2>
           <Divider height={4} width={240} />
           <p>
@@ -58,7 +58,14 @@ export default function Productivity() {
               >
                 Result
               </Button>
-              <Button disabled={activeTab !== "result"}>Print</Button>
+              <Button
+                disabled={activeTab !== "result"}
+                onClick={() => {
+                  if (activeTab === "result") printArea();
+                }}
+              >
+                Print
+              </Button>
             </div>
             <p>
               Set your sales and performance targets, select any optional
@@ -66,7 +73,7 @@ export default function Productivity() {
               <strong>copied directly</strong> from KSRS into the fields below.
             </p>
           </InnerCard>
-          <InnerCard padding="medium">
+          <InnerCard padding="medium" className={clsx("fdt__main")}>
             {activeTab === "dataEntry" ? (
               <KSRSForm
                 onSubmit={handleFormSubmit}

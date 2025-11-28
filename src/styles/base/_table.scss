@@ -7,6 +7,11 @@
   @include ab.mq("md") {
     overflow-x: auto;
   }
+
+  @media print {
+    overflow: visible;
+    border-radius: 0;
+  }
 }
 
 table {
@@ -22,11 +27,6 @@ table {
     color: var(--table-header-text-clr);
     font-weight: bold;
     display: none;
-
-    @media print {
-      background-color: var(--table-border-clr);
-      color: var(--table-header-text-clr);
-    }
   }
 
   tr {
@@ -97,6 +97,43 @@ table {
   }
 
   @media print {
+    text-align: center;
+    overflow: visible;
+    border-radius: 0 !important;
     border-collapse: collapse;
+
+    thead {
+      display: table-header-group;
+      width: 100%;
+      background-color: var(--table-border-clr);
+      color: var(--table-header-text-clr);
+    }
+
+    th {
+      padding: ab.rem(12);
+    }
+
+    tr {
+      display: table-row;
+      width: 100%;
+      border-radius: 0 !important;
+    }
+
+    td {
+      display: table-cell;
+      padding: 0;
+      flex-grow: 0;
+      box-shadow: none;
+      border: 3px solid var(--table-border-clr);
+
+      &::before {
+        content: none;
+      }
+
+      .cell__value {
+        display: block;
+        padding: ab.rem(12);
+      }
+    }
   }
 }

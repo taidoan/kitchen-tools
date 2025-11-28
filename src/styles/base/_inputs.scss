@@ -19,6 +19,10 @@ select {
   }
 }
 
+select > option {
+  background: var(--select-dropdown-bg);
+}
+
 .input--small {
   padding: ab.rem(12);
   font-size: ab.rem(16);
