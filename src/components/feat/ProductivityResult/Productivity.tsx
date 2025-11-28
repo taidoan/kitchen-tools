@@ -78,6 +78,26 @@ export const ProductivityComponent = ({
     }
   }, [productivity, sortOption]);
 
+  const headerSortMap: Record<string, { asc: string; desc: string }> = {
+    Name: { asc: "name-asc", desc: "name-desc" },
+    "Prep Time": { asc: "prep-asc", desc: "prep-desc" },
+    Orders: { asc: "orders-asc", desc: "orders-desc" },
+    Items: { asc: "items-asc", desc: "items-desc" },
+    "Late Orders": { asc: "lates-asc", desc: "lates-desc" },
+    "Longest Order": { asc: "longest-asc", desc: "longest-desc" },
+    "Hours Worked": { asc: "hours-asc", desc: "hours-desc" },
+  };
+
+  const handleHeaderClick = (header: string) => {
+    const sortKeys = headerSortMap[header];
+
+    if (!sortKeys) return;
+
+    setSortOption((prev) =>
+      prev === sortKeys.asc ? sortKeys.desc : sortKeys.asc
+    );
+  };
+
   return (
     <div className="fdt__productivity">
       <div className="fdt__sort">
@@ -85,7 +105,8 @@ export const ProductivityComponent = ({
           <h2 className={style.title}>Productivity</h2>
           <p>
             This table shows the performance of kitchen staff members in the
-            various metrics provided by KSRS.
+            various metrics provided by KSRS. You can sort the table using the
+            dropdown below or by clicking on the column headers.
           </p>
         </div>
 
@@ -128,10 +149,13 @@ export const ProductivityComponent = ({
               "Longest Order",
               "Hours Worked",
             ].map((header) => (
-              <th key={header}>{header}</th>
+              <th key={header} onClick={() => handleHeaderClick(header)}>
+                {header}
+              </th>
             ))}
           </tr>
         </thead>
+
         <tbody>
           {sortedStaff.map((member, index) => {
             const prepTimeClass = generatePrepTimeClasses(

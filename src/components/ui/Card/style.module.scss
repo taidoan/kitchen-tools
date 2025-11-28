@@ -5,10 +5,15 @@
   border: 1px solid var(--card-glass-border-clr);
   border-radius: var(--border-radius-large);
   backdrop-filter: var(--bg-blur);
-  padding: ab.rem(12);
+  padding: ab.rem(8);
   box-shadow: var(--shadow-card);
   display: flex;
-  gap: ab.rem(12);
+  gap: ab.rem(8);
+
+  @include ab.mq("md") {
+    padding: ab.rem(12);
+    gap: ab.rem(12);
+  }
 }
 
 .card__grow {

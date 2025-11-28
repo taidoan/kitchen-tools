@@ -190,6 +190,9 @@
 
     th {
       padding: ab.rem(12);
+      cursor: pointer;
+      user-select: none;
+      text-align: center;
     }
 
     tr {
