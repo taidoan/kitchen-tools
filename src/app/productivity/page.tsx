@@ -73,7 +73,7 @@ export default function Productivity() {
                     ? {
                         sales: formData.sales,
                         salesForecast: formData.salesForecast,
-                        latesTarget: formData.latesTarget,
+                        lateTarget: formData.lateTarget,
                         prepTarget: formData.prepTarget,
                         foodLift: formData.foodLift,
                         kitLates: formData.kitLates,
@@ -89,7 +89,7 @@ export default function Productivity() {
               <ProductivityResult
                 sales={formData?.sales || null}
                 salesTarget={formData?.salesForecast || null}
-                lateTarget={formData?.latesTarget || 25}
+                lateTarget={formData?.lateTarget || 25}
                 prepTarget={formData?.prepTarget || 8}
                 foodLift={formData?.foodLift || false}
                 kitLates={formData?.kitLates || false}

@@ -7,7 +7,7 @@ import type {
 export type FormData = {
   sales: number | null;
   salesForecast: number | null;
-  latesTarget: number;
+  lateTarget: number;
   prepTarget: number;
   foodLift: boolean;
   kitLates: boolean;

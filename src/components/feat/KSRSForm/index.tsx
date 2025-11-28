@@ -46,7 +46,7 @@ export const KSRSForm = ({
 
   const selectFields = [
     {
-      id: "latesTarget",
+      id: "lateTarget",
       label: "Late Order Target",
       options: config.LATE_TARGET_OPTIONS,
     },
