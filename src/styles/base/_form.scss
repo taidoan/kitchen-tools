@@ -36,6 +36,11 @@
 
   &--row {
     flex-direction: row;
+
+    input,
+    select {
+      flex-grow: 1;
+    }
   }
 }
 
