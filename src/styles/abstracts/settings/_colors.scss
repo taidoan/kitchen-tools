@@ -15,6 +15,9 @@ $color-palette: (
   "dusty-indigo": hsla(235, 21%, 50%, 1),
   "snow-white": hsla(0, 0%, 99%, 1),
   "grey": hsla(0, 0%, 81%, 1),
+  "lime": hsla(90, 60%, 50%, 1),
+  "orange": hsla(30, 100%, 50%, 1),
+  "red": hsla(0, 100%, 50%, 1),
 );
 
 /// Applied colors for the project.
@@ -27,4 +30,7 @@ $project-colors: (
   "off-white": c.generateShades(map.get($color-palette, "baby-powder")),
   "black": c.generateShades(map.get($color-palette, "rasin-black")),
   "grey": c.generateShades(map.get($color-palette, "grey")),
+  "lime": c.generateShades(map.get($color-palette, "lime")),
+  "orange": c.generateShades(map.get($color-palette, "orange")),
+  "red": c.generateShades(map.get($color-palette, "red")),
 );

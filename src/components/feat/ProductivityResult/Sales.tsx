@@ -1,3 +1,5 @@
+import clsx from "clsx";
+
 type SalesProps = {
   sales: number | null;
   salesForecast: number | null;
@@ -15,15 +17,20 @@ export const SalesComponent = ({ sales, salesForecast }: SalesProps) => {
 
   const formatCurrency = (value: number) =>
     new Intl.NumberFormat("en-GB", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
     }).format(value);
 
   return (
     <p>
       We&apos;ve taken <strong>£{formatCurrency(sales)}</strong> in food sales
       this week. This was <strong>£{formatCurrency(salesDifference)}</strong>{" "}
-      <span>
+      <span
+        className={clsx(
+          isBelowTarget ? "text-clr--failed" : "text-clr--success",
+          "text--small"
+        )}
+      >
         {isBelowTarget
           ? `(-${percentageDifference}%)`
           : `(+${percentageDifference}%)`}

@@ -53,7 +53,7 @@ export const KSRSForm = ({
     {
       id: "prepTarget",
       label: "Preparation Target",
-      options: config.PREP_TARGET_OPTIONS,
+      options: config.PREP_TARGET_OPTIONS(formData.foodLift),
     },
   ];
 

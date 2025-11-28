@@ -10,44 +10,100 @@
   margin-bottom: ab.rem(8);
 }
 
-.keys__container {
-  background-color: var(--input-bg);
-  border: ab.rem(1) solid var(--input-border-clr);
-  padding: ab.rem(16);
-  border-radius: var(--border-radius-small);
-  flex-grow: 1;
+.crib {
+  margin-top: ab.rem(24);
 }
 
-.keys__wrapper {
-  display: flex;
-  gap: ab.rem(16);
-  width: 100%;
-  margin-top: ab.rem(16);
-}
+.keys {
+  &__intro {
+    text-align: center;
+  }
 
-.keys__title {
-  margin-bottom: ab.rem(4);
-  font-size: ab.rem(28);
-  font-weight: bold;
-}
+  &__wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: ab.rem(16);
+    width: 100%;
+    margin-top: ab.rem(16);
 
-.keys__divider {
-  margin-block: ab.rem(12);
-}
+    @include ab.mq("md") {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
 
-.keys__list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: ab.rem(4);
-}
+    @include ab.mq("md-lg") {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
 
-.key {
-  display: inline-block;
-  width: ab.rem(8);
-  height: ab.rem(8);
+  &__container {
+    justify-content: flex-start;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: ab.rem(4);
+  }
+
+  &__title {
+    margin-bottom: ab.rem(4);
+    font-size: ab.rem(24);
+    font-weight: 800;
+    text-transform: uppercase;
+    font-family: var(--ff-roboto-condensed);
+  }
+
+  &__divider {
+    margin-block: ab.rem(8);
+  }
+
+  &__item {
+    font-size: ab.rem(16);
+    display: flex;
+    gap: ab.rem(6);
+    align-items: center;
+  }
+
+  &__label {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    border-radius: ab.rem(8);
+    gap: ab.rem(4);
+    padding: ab.rem(4) ab.rem(6);
+    background-color: var(--input-border-clr);
+
+    &::before {
+      content: "";
+      width: ab.rem(12);
+      height: ab.rem(12);
+      background-color: red;
+      border-radius: ab.rem(3);
+      display: inline-block;
+    }
+
+    &--success {
+      &::before {
+        background-color: var(--clr-success);
+      }
+    }
+
+    &--warning {
+      &::before {
+        background-color: var(--clr-warning);
+      }
+    }
+
+    &--failed {
+      &::before {
+        background-color: var(--clr-fail);
+      }
+    }
+  }
 }
 
 .productivity__table {

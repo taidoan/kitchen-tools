@@ -127,6 +127,8 @@
   }
 }
 
+/* UTILITIES */
+
 .bg-clr {
   &--warning {
     background-color: var(--clr-warning);
@@ -137,5 +139,17 @@
   &--failed {
     background-color: var(--clr-fail);
     outline: 1px solid transparent;
+  }
+}
+
+.text-clr {
+  &--warning {
+    color: var(--clr-warning);
+  }
+  &--success {
+    color: var(--clr-lime-500);
+  }
+  &--failed {
+    color: var(--clr-fail);
   }
 }
