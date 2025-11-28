@@ -1,11 +1,10 @@
 "use client";
 import type { KSRSForm as KSRSFormProps, FormData } from "./types";
 
-import clsx from "clsx";
 import style from "./style.module.scss";
 import * as config from "@config";
 import { useState } from "react";
-import { OuterCard, InnerCard } from "@/components/ui/Card";
+import { InnerCard } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 import { Checkbox } from "@/components/ui/Checkbox";

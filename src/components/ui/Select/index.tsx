@@ -5,6 +5,7 @@ type SelectProps = {
   id: string;
   label: string;
   containerClassName?: string;
+  hideRequiredIndicator?: boolean;
 } & React.SelectHTMLAttributes<HTMLSelectElement>;
 
 export const Select = ({
@@ -12,11 +13,17 @@ export const Select = ({
   label,
   containerClassName,
   className,
+  hideRequiredIndicator,
   ...props
 }: SelectProps) => {
   return (
     <div className={clsx("form__input", containerClassName)}>
-      <Label id={id} label={label} required={props.required} />
+      <Label
+        id={id}
+        label={label}
+        required={props.required}
+        hideRequiredIndicator={hideRequiredIndicator}
+      />
       <select id={id} className={clsx(className)} {...props} />
     </div>
   );

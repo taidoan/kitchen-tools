@@ -5,6 +5,7 @@ type CheckboxProps = {
   id: string;
   label: string;
   containerClassName?: string;
+  hideRequiredIndicator?: boolean;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
 export const Checkbox = ({
@@ -12,6 +13,7 @@ export const Checkbox = ({
   label,
   containerClassName,
   className,
+  hideRequiredIndicator,
   ...props
 }: CheckboxProps) => {
   return (
@@ -22,7 +24,12 @@ export const Checkbox = ({
         containerClassName
       )}
     >
-      <Label id={id} label={label} className="form__checkbox-label" />
+      <Label
+        id={id}
+        label={label}
+        className="form__checkbox-label"
+        hideRequiredIndicator={hideRequiredIndicator}
+      />
       <input type="checkbox" id={id} className={clsx(className)} {...props} />
     </div>
   );

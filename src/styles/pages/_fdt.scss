@@ -1,7 +1,8 @@
 @use "./../abstracts/_index" as ab;
 
 .fdt__table,
-.service-summary__table {
+.service-summary__table,
+.fdt__sort {
   margin-top: ab.rem(24);
 }
 

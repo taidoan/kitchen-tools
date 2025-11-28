@@ -41,7 +41,10 @@ export default function Productivity() {
         <OuterCard className={clsx(style.form)}>
           <InnerCard padding="medium" className={clsx("fdt__instructions")}>
             <div className={clsx(style["button__group"])}>
-              <Button onClick={() => setActiveTab("dataEntry")}>
+              <Button
+                onClick={() => setActiveTab("dataEntry")}
+                enabled={activeTab === "dataEntry"}
+              >
                 Data Entry
               </Button>
               <Button
@@ -51,6 +54,7 @@ export default function Productivity() {
                   }
                 }}
                 disabled={!formSubmitted}
+                enabled={activeTab === "result"}
               >
                 Result
               </Button>
