@@ -1,0 +1,8 @@
+@use "./../abstracts/_index" as ab;
+
+.button__group {
+  display: flex;
+  gap: ab.rem(20);
+  justify-content: center;
+  flex-wrap: wrap;
+}

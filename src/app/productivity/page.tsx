@@ -8,7 +8,6 @@ import { KSRSForm } from "@/components/feat/KSRSForm";
 import { ProductivityResult } from "@/components/feat/ProductivityResult";
 import { Divider } from "@/components/ui/Divider";
 import { Button } from "@/components/ui/Button";
-import style from "./../../components/feat/KSRSForm/style.module.scss";
 import clsx from "clsx";
 import { printArea } from "@/lib/utils/printArea";
 export default function Productivity() {
@@ -34,9 +33,9 @@ export default function Productivity() {
           Graphics&quot; in your print settings.
         </p>
       </Card>
-      <OuterCard className={clsx(style.form)}>
+      <OuterCard className="form__wrapper">
         <InnerCard padding="medium" className={clsx("fdt__instructions")}>
-          <div className={clsx(style["button__group"])}>
+          <div className={clsx("button__group")}>
             <Button
               onClick={() => setActiveTab("dataEntry")}
               enabled={activeTab === "dataEntry"}

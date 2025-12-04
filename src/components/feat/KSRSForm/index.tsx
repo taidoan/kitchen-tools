@@ -99,8 +99,8 @@ export const KSRSForm = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className={style.form}>
-      <div className={style.row}>
+    <form onSubmit={handleSubmit} className="form__container">
+      <div className="form__row">
         {inputFields.map((f) => {
           const fieldValue = formData[f.id as keyof FormData];
           const inputValue =
@@ -129,7 +129,7 @@ export const KSRSForm = ({
         })}
       </div>
 
-      <div className={style.row}>
+      <div className="form__row">
         {selectFields.map((f) => (
           <InnerCard key={f.id} padding="small">
             <Select
@@ -151,7 +151,7 @@ export const KSRSForm = ({
         ))}
       </div>
 
-      <div className={style.row}>
+      <div className="form__row">
         {checkboxFields.map(({ id, label, field }) => (
           <InnerCard key={id} className={style.checkboxCard} padding="small">
             <Checkbox
@@ -164,7 +164,7 @@ export const KSRSForm = ({
         ))}
       </div>
 
-      <div className={style.row}>
+      <div className="form__row">
         <InnerCard padding="small">
           <Textarea
             id="prodData"
@@ -180,7 +180,7 @@ export const KSRSForm = ({
         </InnerCard>
       </div>
 
-      <div className={style.row}>
+      <div className="form__row">
         <InnerCard padding="small">
           <Textarea
             id="serviceData"

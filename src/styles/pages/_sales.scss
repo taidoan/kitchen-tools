@@ -1,0 +1,8 @@
+@use "./../abstracts/_index" as ab;
+
+.sales__instructions {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: ab.rem(12);
+}

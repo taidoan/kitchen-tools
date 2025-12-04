@@ -1,5 +1,18 @@
 @use "./../abstracts/_index" as ab;
 
+.form__container,
+.form__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: ab.rem(16);
+}
+
+.form__row {
+  display: flex;
+  gap: ab.rem(16);
+  flex-wrap: wrap;
+}
+
 .form__label {
   display: flex;
   gap: ab.rem(8);

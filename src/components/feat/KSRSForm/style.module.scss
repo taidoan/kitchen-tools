@@ -1,24 +1,5 @@
 @use "./../../../styles/abstracts/_index" as ab;
 
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.row {
-  display: flex;
-  gap: ab.rem(16);
-  flex-wrap: wrap;
-}
-
-.button__group {
-  display: flex;
-  gap: ab.rem(20);
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
 .intro {
   display: flex;
   flex-direction: column;
