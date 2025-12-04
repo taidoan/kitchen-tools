@@ -1,16 +1,29 @@
 "use client";
 
 import { useState } from "react";
+import { setCookie } from "@/lib/utils/cookies";
 import { NavBar } from "@/components/layout/Nav";
 import { Divider } from "@/components/ui/Divider";
 import { NavButton } from "@/components/ui/NavButton";
 import ThemeToggle from "@/components/ui/ColorThemeToggle";
 
-export const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(true);
+export const Sidebar = ({
+  initialCollapsed,
+}: {
+  initialCollapsed: boolean;
+}) => {
+  const [isOpen, setIsOpen] = useState(!initialCollapsed);
 
-  const toggleSidebar = () => {
+  const toggleSidebar = async () => {
+    const next = !isOpen;
     setIsOpen(!isOpen);
+
+    await setCookie({
+      name: "sidebar-collapsed",
+      value: String(!next),
+      path: "/",
+      expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
+    });
   };
 
   return (
