@@ -40,7 +40,9 @@ export const getSalesValues = ({
         r["Product Name"] &&
         !r["Product Name"].toLowerCase().includes("subtotal") &&
         !r["Product Name"].toLowerCase().includes("no-upsell") &&
-        !r["Product Name"].toLowerCase().includes("plain")
+        !r["Product Name"].toLowerCase().includes("plain") &&
+        !r["Category"]?.toLowerCase().includes("choices/options") &&
+        !r["Category"]?.toLowerCase().includes("extras/options")
     )
     .sort((a, b) => b[col] - a[col])
     .slice(0, numberOfItems);

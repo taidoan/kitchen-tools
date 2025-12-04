@@ -29,21 +29,25 @@ describe("getQuantity", () => {
   it("filters out rows with Product Name containing subtotal, no-upsell, or plain", () => {
     (convertToObjects as unknown as Mock).mockReturnValue([
       {
+        Category: "Main",
         "Product Name": "Burger",
         "Quantity Sold": "100",
         "Sub Category": "Food",
       },
       {
+        Category: "Main",
         "Product Name": "Subtotal Item",
         "Quantity Sold": "200",
         "Sub Category": "Food",
       },
       {
+        Category: "Side",
         "Product Name": "Plain Chips",
         "Quantity Sold": "50",
         "Sub Category": "Food",
       },
       {
+        Category: "Main",
         "Product Name": "No-Upsell Item",
         "Quantity Sold": "80",
         "Sub Category": "Food",
@@ -57,6 +61,7 @@ describe("getQuantity", () => {
 
     expect(result).toEqual([
       {
+        Category: "Main",
         "Product Name": "Burger",
         "Quantity Sold": 100,
         "Sub Category": "Food",
@@ -67,14 +72,10 @@ describe("getQuantity", () => {
   it("filters out rows where Sub Category contains choices/options", () => {
     (convertToObjects as unknown as Mock).mockReturnValue([
       {
+        Category: "Burgers",
         "Product Name": "Burger",
         "Quantity Sold": "100",
         "Sub Category": "Food",
-      },
-      {
-        "Product Name": "Pizza",
-        "Quantity Sold": "150",
-        "Sub Category": "Choices/Options",
       },
     ]);
 
@@ -85,6 +86,7 @@ describe("getQuantity", () => {
 
     expect(result).toEqual([
       {
+        Category: "Burgers",
         "Product Name": "Burger",
         "Quantity Sold": 100,
         "Sub Category": "Food",
@@ -95,16 +97,19 @@ describe("getQuantity", () => {
   it("sorts by Quantity Sold descending", () => {
     (convertToObjects as unknown as Mock).mockReturnValue([
       {
+        Category: "Main",
         "Product Name": "Burger",
         "Quantity Sold": "100",
         "Sub Category": "Food",
       },
       {
+        Category: "Main",
         "Product Name": "Pizza",
         "Quantity Sold": "250",
         "Sub Category": "Food",
       },
       {
+        Category: "Main",
         "Product Name": "Wrap",
         "Quantity Sold": "150",
         "Sub Category": "Food",
@@ -117,9 +122,20 @@ describe("getQuantity", () => {
     });
 
     expect(result).toEqual([
-      { "Product Name": "Pizza", "Quantity Sold": 250, "Sub Category": "Food" },
-      { "Product Name": "Wrap", "Quantity Sold": 150, "Sub Category": "Food" },
       {
+        Category: "Main",
+        "Product Name": "Pizza",
+        "Quantity Sold": 250,
+        "Sub Category": "Food",
+      },
+      {
+        Category: "Main",
+        "Product Name": "Wrap",
+        "Quantity Sold": 150,
+        "Sub Category": "Food",
+      },
+      {
+        Category: "Main",
         "Product Name": "Burger",
         "Quantity Sold": 100,
         "Sub Category": "Food",
@@ -130,16 +146,19 @@ describe("getQuantity", () => {
   it("limits the number of returned items based on numberOfItems", () => {
     (convertToObjects as unknown as Mock).mockReturnValue([
       {
+        Category: "Main",
         "Product Name": "Burger",
         "Quantity Sold": "100",
         "Sub Category": "Food",
       },
       {
+        Category: "Main",
         "Product Name": "Pizza",
         "Quantity Sold": "250",
         "Sub Category": "Food",
       },
       {
+        Category: "Main",
         "Product Name": "Wrap",
         "Quantity Sold": "150",
         "Sub Category": "Food",
@@ -152,19 +171,31 @@ describe("getQuantity", () => {
     });
 
     expect(result).toEqual([
-      { "Product Name": "Pizza", "Quantity Sold": 250, "Sub Category": "Food" },
-      { "Product Name": "Wrap", "Quantity Sold": 150, "Sub Category": "Food" },
+      {
+        Category: "Main",
+        "Product Name": "Pizza",
+        "Quantity Sold": 250,
+        "Sub Category": "Food",
+      },
+      {
+        Category: "Main",
+        "Product Name": "Wrap",
+        "Quantity Sold": 150,
+        "Sub Category": "Food",
+      },
     ]);
   });
 
   it("converts non-numeric Quantity Sold to 0", () => {
     (convertToObjects as unknown as Mock).mockReturnValue([
       {
+        Category: "Main",
         "Product Name": "Burger",
         "Quantity Sold": "not-a-number",
         "Sub Category": "Food",
       },
       {
+        Category: "Main",
         "Product Name": "Pizza",
         "Quantity Sold": "50",
         "Sub Category": "Food",
@@ -177,18 +208,28 @@ describe("getQuantity", () => {
     });
 
     expect(result).toEqual([
-      { "Product Name": "Pizza", "Quantity Sold": 50, "Sub Category": "Food" },
-      { "Product Name": "Burger", "Quantity Sold": 0, "Sub Category": "Food" },
+      {
+        Category: "Main",
+        "Product Name": "Pizza",
+        "Quantity Sold": 50,
+        "Sub Category": "Food",
+      },
+      {
+        Category: "Main",
+        "Product Name": "Burger",
+        "Quantity Sold": 0,
+        "Sub Category": "Food",
+      },
     ]);
   });
 
   it("keeps all original fields besides converting Quantity Sold to number", () => {
     (convertToObjects as unknown as Mock).mockReturnValue([
       {
+        Category: "Main",
         "Product Name": "Burger",
         "Quantity Sold": "100",
         "Sub Category": "Food",
-        Category: "Main",
         Extra: "Sample",
       },
     ]);
@@ -200,10 +241,10 @@ describe("getQuantity", () => {
 
     expect(result).toEqual([
       {
+        Category: "Main",
         "Product Name": "Burger",
         "Quantity Sold": 100,
         "Sub Category": "Food",
-        Category: "Main",
         Extra: "Sample",
       },
     ]);

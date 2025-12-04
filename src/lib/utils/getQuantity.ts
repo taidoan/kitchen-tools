@@ -22,10 +22,10 @@ type QuantityProps = {
 
 export const getQuantity = ({ rows, numberOfItems = 5 }: QuantityProps) => {
   const objects = convertToObjects(rows);
+
   if (!objects.length) return [];
 
   const col = "Quantity Sold";
-
   return [...objects]
     .map(
       (r) =>
@@ -35,18 +35,15 @@ export const getQuantity = ({ rows, numberOfItems = 5 }: QuantityProps) => {
           /* eslint-disable  @typescript-eslint/no-explicit-any */
         } as Record<string, any>)
     )
-    .filter((r) => {
-      const subCategory = r["Sub Category"] || "";
-      const productName = r["Product Name"] || "";
-
-      return (
-        productName &&
-        !productName.toLowerCase().includes("subtotal") &&
-        !productName.toLowerCase().includes("no-upsell") &&
-        !productName.toLowerCase().includes("plain") &&
-        !subCategory.toLowerCase().includes("choices/options")
-      );
-    })
+    .filter(
+      (r) =>
+        r["Product Name"] &&
+        !r["Product Name"].toLowerCase().includes("subtotal") &&
+        !r["Product Name"].toLowerCase().includes("no-upsell") &&
+        !r["Product Name"].toLowerCase().includes("plain") &&
+        !r["Category"]?.toLowerCase().includes("choices/options") &&
+        !r["Category"]?.toLowerCase().includes("extras/options")
+    )
     .sort((a, b) => b[col] - a[col])
     .slice(0, numberOfItems);
 };

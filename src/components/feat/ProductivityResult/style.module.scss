@@ -138,6 +138,133 @@
   }
 }
 
+.service-summary__table {
+  text-align: left;
+  width: 100%;
+  border: 3px solid var(--table-border-clr);
+  border-spacing: 0;
+  border-radius: var(--border-radius-small);
+  padding: 0;
+
+  thead {
+    background-color: var(--table-border-clr);
+    color: var(--table-header-text-clr);
+    font-weight: bold;
+    display: none;
+  }
+
+  th {
+    user-select: none;
+  }
+
+  tr {
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom-left-radius: var(--border-radius-small);
+    border-bottom-right-radius: var(--border-radius-small);
+    overflow: hidden;
+  }
+
+  td {
+    color: var(--table-cell-text-clr);
+    border: 0;
+    box-shadow: 0 0 0 3px var(--table-border-clr);
+    line-height: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    flex-grow: 1;
+    text-align: center;
+
+    &::before {
+      background-color: var(--table-border-clr);
+      color: var(--table-header-text-clr);
+      font-weight: bold;
+      content: attr(data-cell);
+      padding: ab.rem(12);
+    }
+
+    .cell__value {
+      padding: ab.rem(12);
+    }
+  }
+
+  @include ab.mq("md-lg") {
+    text-align: center;
+    overflow: hidden;
+
+    thead {
+      display: table-header-group;
+      width: 100%;
+    }
+
+    th {
+      padding: ab.rem(12);
+    }
+
+    tr {
+      display: table-row;
+      width: 100%;
+    }
+
+    td {
+      display: table-cell;
+      padding: 0;
+      flex-grow: 0;
+
+      &::before {
+        content: none;
+      }
+
+      .cell__value {
+        display: block;
+        padding: ab.rem(12);
+      }
+    }
+  }
+
+  @media print {
+    text-align: center;
+    overflow: visible;
+    border-radius: 0 !important;
+    border-collapse: collapse;
+
+    thead {
+      display: table-header-group;
+      width: 100%;
+      background-color: var(--table-border-clr);
+      color: var(--table-header-text-clr);
+    }
+
+    th {
+      padding: ab.rem(12);
+    }
+
+    tr {
+      display: table-row;
+      width: 100%;
+      border-radius: 0 !important;
+    }
+
+    td {
+      display: table-cell;
+      padding: 0;
+      flex-grow: 0;
+      box-shadow: none;
+      border: 3px solid var(--table-border-clr);
+
+      &::before {
+        content: none;
+      }
+
+      .cell__value {
+        display: block;
+        padding: ab.rem(12);
+      }
+    }
+  }
+}
+
 .productivity__sort {
   display: flex;
   flex-wrap: nowrap;

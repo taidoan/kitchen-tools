@@ -3,32 +3,47 @@ import { InnerCard } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
 import { Textarea } from "@/components/ui/Textarea";
 
-export const SalesForm = () => {
+interface SalesFormProps {
+  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  values: { topItems: number; salesData: string };
+  onChange: (field: string, value: string | number) => void;
+}
+
+export const SalesForm: React.FC<SalesFormProps> = ({
+  onSubmit,
+  values,
+  onChange,
+}) => {
   return (
-    <div className="form__container">
+    <form className="form__container" onSubmit={onSubmit}>
       <InnerCard padding="medium" className="form__row">
         <Input
           id="top-items"
+          name="top-items"
           type="number"
           label="Number of products"
           required
-          defaultValue={5}
           min={1}
           max={15}
+          value={values.topItems}
+          onChange={(e) => onChange("topItems", Number(e.target.value))}
         />
       </InnerCard>
       <InnerCard padding="small" className="form__row">
         <Textarea
           id="sales-data"
+          name="sales-data"
           label="Sales Data"
           required
           rows={10}
           placeholder="Paste the product sales data here..."
+          onChange={(e) => onChange("salesData", e.target.value)}
+          value={values.salesData}
         />
       </InnerCard>
       <Button type="submit" centered>
         Submit
       </Button>
-    </div>
+    </form>
   );
 };

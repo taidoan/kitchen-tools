@@ -7,6 +7,7 @@ import {
   generateLatesClasses,
   generateFloorLatesClasses,
 } from "@/lib/utils/generateClasses";
+import style from "./style.module.scss";
 
 type ServiceSummaryComponentProps = Pick<
   ProductivityResult,
@@ -133,7 +134,7 @@ export const ServiceSummaryComponent = ({
 
   return (
     <div className={clsx("table__wrapper", className)}>
-      <table>
+      <table className={style["service-summary__table"]}>
         <thead>
           <tr>
             {columns.map((col, index) => (

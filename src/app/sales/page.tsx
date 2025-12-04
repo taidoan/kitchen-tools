@@ -1,15 +1,41 @@
 "use client";
-
+import type { SalesResult } from "./types";
 import { useState } from "react";
 import clsx from "clsx";
 import Card, { OuterCard, InnerCard } from "@/components/ui/Card";
 import { Divider } from "@/components/ui/Divider";
 import { Button } from "@/components/ui/Button";
 import { SalesForm } from "@/components/feat/SalesForm";
+import { SalesResultComponent } from "@/components/feat/SalesResult";
+import { processCsv } from "@/lib/utils/csv";
+import { printArea } from "@/lib/utils/printArea";
 
 export default function SalesPage() {
   const [activeTab, setActiveTab] = useState<string>("dataEntry");
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
+  const [formValues, setFormValues] = useState({
+    topItems: 5,
+    salesData: "",
+  });
+  const [resultData, setResultData] = useState<SalesResult | null>(null);
+
+  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const numberOfItems = Number(formData.get("top-items")) || 5;
+    const salesData = (formData.get("sales-data") as string) || "";
+
+    const result = processCsv(salesData, numberOfItems) as SalesResult;
+    console.log(result);
+
+    setResultData(result);
+    setFormSubmitted(true);
+    setActiveTab("result");
+  };
+
+  const handleFormChange = (field: string, value: string | number) => {
+    setFormValues((prev) => ({ ...prev, [field]: value }));
+  };
 
   return (
     <>
@@ -41,7 +67,9 @@ export default function SalesPage() {
               Results
             </Button>
             <Button
-              onClick={() => setActiveTab("print")}
+              onClick={() => {
+                if (activeTab === "result") printArea();
+              }}
               disabled={activeTab !== "result"}
             >
               Print
@@ -50,11 +78,21 @@ export default function SalesPage() {
           <p>
             Please enter the number of top products to display (max 15) and
             paste the data from the <strong>CSV</strong> file you&apos;ve
-            exported from Aztec Reporting into the text area below.
+            exported from Aztec Reporting into the text area below. It is best
+            to print this report in portrait mode for better readability.
           </p>
         </InnerCard>
         <InnerCard padding="medium" className={clsx("sales__main")}>
-          <SalesForm />
+          {activeTab === "dataEntry" && (
+            <SalesForm
+              onSubmit={handleFormSubmit}
+              values={formValues}
+              onChange={handleFormChange}
+            />
+          )}
+          {activeTab === "result" && resultData && (
+            <SalesResultComponent resultData={resultData} />
+          )}
         </InnerCard>
       </OuterCard>
     </>

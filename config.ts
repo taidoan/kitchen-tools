@@ -193,7 +193,6 @@ export const DEFAULT_SERVICE_SUMMARY = {
 // Hidden product sales columns
 export const HIDDEN_SALES_COLUMNS = [
   "Product Division",
-  "Category",
   "Sub Category",
   "Destination",
   "Portion",
@@ -202,4 +201,12 @@ export const HIDDEN_SALES_COLUMNS = [
   "% of Sub-Cat",
   "% of Total Sales",
   "Net Value of Sales",
+];
+
+export const SALES_SUMMARY_LABELS = [
+  "SubTotal",
+  "Sub-Cat Total",
+  "Category Total",
+  "Total",
+  "Division Total",
 ];

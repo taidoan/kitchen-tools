@@ -1,5 +1,4 @@
-import { HIDDEN_SALES_COLUMNS } from "@config";
-import { getTotals } from "./getTotals";
+import { HIDDEN_SALES_COLUMNS, SALES_SUMMARY_LABELS } from "@config";
 import { getSalesValues } from "./getSalesValues";
 import { getQuantity } from "./getQuantity";
 /**
@@ -27,10 +26,11 @@ import { getQuantity } from "./getQuantity";
  */
 
 export const csvToRows = (csv: string) => {
+  if (!csv.trim()) return [];
+
   return csv
-    .trim()
     .split(/\r?\n/)
-    .map((line) => line.split(",").map((cell) => cell.trim()))
+    .map((line) => line.split(",").map((cell) => (cell ?? "").trim()))
     .filter((row) => row.some((cell) => cell !== ""));
 };
 
@@ -60,9 +60,14 @@ export const csvToRows = (csv: string) => {
  * // => [['name','age'], ['Alice','30'], ['Bob','25']]
  */
 export const cleanCSVData = (csv: string) => {
-  const rows = csvToRows(csv).filter((r) =>
-    r.some((cell) => cell.trim() !== "")
-  );
+  const rows = csv
+    .split("\n")
+    .map((r) => r.split("\t").map((c) => c.replace(/\u00A0/g, " ").trim()))
+    .filter((r) => r.some((cell) => cell !== ""))
+    .filter(
+      (r) => r[0] && !SALES_SUMMARY_LABELS.includes(r[0].replace(/\s+/g, ""))
+    );
+
   if (!rows.length) return [];
 
   const header = rows[0];
@@ -78,9 +83,6 @@ export const cleanCSVData = (csv: string) => {
 
 export const processCsv = (raw: string, numberOfItems = 5) => {
   const cleanedRows = cleanCSVData(raw);
-
-  const totals = getTotals(cleanedRows);
-
   const topSales = getSalesValues({
     rows: { rows: cleanedRows },
     numberOfItems: numberOfItems,
@@ -91,5 +93,5 @@ export const processCsv = (raw: string, numberOfItems = 5) => {
     numberOfItems: numberOfItems,
   });
 
-  return { totals, topSales, topQuantity };
+  return { topSales, topQuantity };
 };

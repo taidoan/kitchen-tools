@@ -15,16 +15,15 @@ export interface RowObject {
 export const convertToObjects = ({ rows }: RowObject) => {
   if (!rows || rows.length < 2) return [];
 
-  // Finds the header row from the report by looking for "Product Name"
   const headerIndex = rows.findIndex((r) =>
     r.some((cell) => cell.toLowerCase().includes("product name"))
   );
   if (headerIndex < 0 || headerIndex === rows.length - 1) return [];
 
-  const headers = rows[headerIndex];
+  const headers = rows[headerIndex].map((h) => h.trim());
   const dataRows = rows.slice(headerIndex + 1);
 
   return dataRows.map((row) =>
-    Object.fromEntries(headers.map((h, i) => [h, row[i] || ""]))
+    Object.fromEntries(headers.map((h, i) => [h, (row[i] || "").trim()]))
   );
 };

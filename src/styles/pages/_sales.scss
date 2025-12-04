@@ -6,3 +6,63 @@
   flex-direction: column;
   gap: ab.rem(12);
 }
+
+.sales__result {
+  display: flex;
+  gap: ab.rem(24);
+  flex-direction: column;
+
+  @include ab.mq("md") {
+    flex-direction: row;
+
+    & > div {
+      flex-grow: 1;
+    }
+  }
+}
+
+.sales__divider {
+  margin-block: ab.rem(12) !important;
+}
+
+.sales__table {
+  margin-top: ab.rem(24);
+}
+
+@media print {
+  /* Print container */
+  .sales__print {
+    visibility: visible;
+    width: 100%;
+    padding: 0 !important;
+    box-sizing: border-box;
+    position: static !important;
+    overflow: visible !important;
+    height: auto !important;
+    display: block !important;
+    flex-direction: unset !important;
+    gap: 0 !important;
+    margin: 0 !important;
+  }
+
+  .sales__result {
+    display: flex !important;
+    gap: ab.rem(24) !important;
+    flex-direction: row !important;
+  }
+
+  .sales__table td {
+    padding: ab.rem(8) !important;
+  }
+
+  .sales__instructions,
+  .sales__intro,
+  .sales__divider {
+    display: none !important;
+  }
+
+  .sales__title {
+    text-transform: uppercase !important;
+    font-size: ab.rem(28) !important;
+  }
+}
