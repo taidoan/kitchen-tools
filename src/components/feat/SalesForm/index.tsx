@@ -24,7 +24,7 @@ export const SalesForm: React.FC<SalesFormProps> = ({
           label="Number of products"
           required
           min={1}
-          max={15}
+          max={30}
           value={values.topItems}
           onChange={(e) => onChange("topItems", Number(e.target.value))}
         />

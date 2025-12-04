@@ -11,7 +11,7 @@ export const SalesResultComponent = ({ resultData }: SalesResultProps) => {
     <div className={clsx("sales__result", "sales__print")}>
       <div className="sales__quantity">
         <h3 className="sales__title">
-          Top {resultData.topQuantity.length} by Quantity
+          Top {resultData.topQuantity.length} Products by Quantity
         </h3>
         <Divider className="sales__divider" />
         <p>
@@ -38,7 +38,7 @@ export const SalesResultComponent = ({ resultData }: SalesResultProps) => {
 
       <div className="sales__value">
         <h3 className="sales__title">
-          Top {resultData.topSales.length} by Sales
+          Top {resultData.topSales.length} Products by Sales
         </h3>
         <Divider className="sales__divider" />
         <p>
@@ -56,7 +56,12 @@ export const SalesResultComponent = ({ resultData }: SalesResultProps) => {
             {resultData.topSales.map((item, index) => (
               <tr key={index}>
                 <td>{item["Product Name"]}</td>
-                <td>{item["Value of Sales"]}</td>
+                <td>
+                  {new Intl.NumberFormat("en-GB", {
+                    style: "currency",
+                    currency: "GBP",
+                  }).format(Number(item["Value of Sales"]))}
+                </td>
               </tr>
             ))}
           </tbody>

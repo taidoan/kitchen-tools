@@ -76,7 +76,7 @@ export default function SalesPage() {
             </Button>
           </div>
           <p>
-            Please enter the number of top products to display (max 15) and
+            Please enter the number of top products to display (max 30) and
             paste the data from the <strong>CSV</strong> file you&apos;ve
             exported from Aztec Reporting into the text area below. It is best
             to print this report in portrait mode for better readability.
