@@ -189,3 +189,17 @@ export const DEFAULT_SERVICE_SUMMARY = {
     manualHolds: 0,
   },
 };
+
+// Hidden product sales columns
+export const HIDDEN_SALES_COLUMNS = [
+  "Product Division",
+  "Category",
+  "Sub Category",
+  "Destination",
+  "Portion",
+  "% of Division",
+  "% of Category",
+  "% of Sub-Cat",
+  "% of Total Sales",
+  "Net Value of Sales",
+];
