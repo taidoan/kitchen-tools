@@ -67,3 +67,14 @@
     }
   }
 }
+
+.nav-item--disabled {
+  background-color: var(--nav-item-disabled);
+  pointer-events: none;
+  cursor: not-allowed;
+  color: var(--nav-item-disabled-text-clr);
+
+  svg {
+    color: var(--nav-item-disabled-icon-clr);
+  }
+}

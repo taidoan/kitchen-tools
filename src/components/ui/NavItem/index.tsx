@@ -12,6 +12,7 @@ type NavItemProps = {
   type?: "home" | "fdt" | "special" | "sales" | "wastage";
   active?: boolean;
   collapsed?: boolean;
+  disabled?: boolean;
 };
 
 export const NavItem = ({
@@ -20,6 +21,7 @@ export const NavItem = ({
   type,
   active,
   collapsed,
+  disabled,
 }: NavItemProps) => {
   const pathname = usePathname();
 
@@ -27,9 +29,11 @@ export const NavItem = ({
     <Link
       className={clsx(style["nav-item"], {
         [style["nav-item--active"]]: pathname === href,
+        [style["nav-item--disabled"]]: disabled,
       })}
       href={href}
       data-collapsed={collapsed}
+      aria-disabled={disabled}
     >
       {type && (
         <Icon

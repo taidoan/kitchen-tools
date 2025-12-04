@@ -21,16 +21,16 @@ export default function Home() {
           title="FDT"
           description="Food Delivery Times"
           icon="fdt"
-          href="/fdt"
+          href="/productivity"
           cta="Open"
         />
-        <QuickLink
+        {/* <QuickLink
           title="Specials"
           description="Specials Generator"
           icon="special"
           href="/specials"
           cta="Generate"
-        />
+        /> */}
         <QuickLink
           title="Sales"
           description="Top Sales Report"
