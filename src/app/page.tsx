@@ -9,11 +9,11 @@ export default function Home() {
         <h2>Welcome</h2>
         <Divider height={4} width={240} />
         <p>
-          Welcome to your Kitchen Tools Dashboard! Here you’ll find a collection
-          of handy tools to make daily operations easier. From generating food
-          delivery reports and planning specials to tracking sales performance.
-          Everything you need to keep your kitchen running at its best, all in
-          one place.
+          Welcome to your Kitchen Tools Dashboard! Here you&apos;ll find a
+          collection of handy tools to make daily operations easier. From
+          generating food delivery reports and planning specials to tracking
+          sales performance. Everything you need to keep your kitchen running at
+          its best, all in one place.
         </p>
       </Card>
       <div className="home__quick-links">
