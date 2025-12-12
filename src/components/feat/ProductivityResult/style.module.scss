@@ -110,6 +110,11 @@
   }
 
   @media print {
+    &__intro {
+      display: block;
+      text-align: left;
+    }
+
     &__wrapper {
       page-break-inside: avoid !important;
       break-inside: avoid !important;
