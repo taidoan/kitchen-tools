@@ -37,7 +37,7 @@ export default function SalesPage() {
 
   return (
     <>
-      <Card containerClassName="sales__intro">
+      <Card containerClassName="page__intro">
         <h2>Sales Overview</h2>
         <Divider height={4} width={240} />
         <p>
@@ -49,7 +49,7 @@ export default function SalesPage() {
         </p>
       </Card>
       <OuterCard className={clsx("form__wrapper")}>
-        <InnerCard padding="medium" className={clsx("sales__instructions")}>
+        <InnerCard padding="medium" className={clsx("page__instructions")}>
           <div className={clsx("button__group")}>
             <Button
               onClick={() => setActiveTab("dataEntry")}

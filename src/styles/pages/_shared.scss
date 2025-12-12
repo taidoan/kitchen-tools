@@ -1,0 +1,33 @@
+@use "./../abstracts/_index" as ab;
+
+.page__instructions {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: ab.rem(12);
+}
+
+.page__divider {
+  margin-block: ab.rem(12) !important;
+}
+
+@media print {
+  .page__print {
+    visibility: visible;
+    width: 100%;
+    padding: 0 !important;
+    box-sizing: border-box;
+    position: static !important;
+    overflow: visible !important;
+    height: auto !important;
+    display: block !important;
+    flex-direction: unset !important;
+    gap: 0 !important;
+    margin: 0 !important;
+  }
+
+  .page__instructions,
+  .page__intro {
+    display: none !important;
+  }
+}

@@ -23,7 +23,7 @@ export default function Productivity() {
 
   return (
     <>
-      <Card containerClassName="fdt__intro">
+      <Card containerClassName="page__intro">
         <h2>Food Delivery Times</h2>
         <Divider height={4} width={240} />
         <p>
@@ -34,7 +34,7 @@ export default function Productivity() {
         </p>
       </Card>
       <OuterCard className="form__wrapper">
-        <InnerCard padding="medium" className={clsx("fdt__instructions")}>
+        <InnerCard padding="medium" className={clsx("page__instructions")}>
           <div className={clsx("button__group")}>
             <Button
               onClick={() => setActiveTab("dataEntry")}
