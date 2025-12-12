@@ -6,10 +6,33 @@ import Card, { OuterCard, InnerCard } from "@/components/ui/Card";
 import { Divider } from "@/components/ui/Divider";
 import { Button } from "@/components/ui/Button";
 import { printArea } from "@/lib/utils/printArea";
+import { WastageForm } from "@/components/feat/WastageForm";
+import { parseWastage } from "@/lib/utils/parseWastage";
 
 export default function WastagePage() {
   const [activeTab, setActiveTab] = useState<string>("dataEntry");
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
+  const [parsedResults, setParsedResults] = useState<any[]>([]);
+
+  const [formValues, setFormValues] = useState({
+    topItems: 15,
+    wastageData: "",
+  });
+
+  const handleFormChange = (field: string, value: string | number) => {
+    setFormValues((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setFormSubmitted(true);
+
+    const parsed = parseWastage(
+      formValues.wastageData,
+      Number(formValues.topItems)
+    );
+    setParsedResults(parsed);
+  };
 
   return (
     <>
@@ -19,11 +42,12 @@ export default function WastagePage() {
         <p>
           This tool is designed to help you analyze and track food wastage in
           your kitchen. By inputting your wastage data from the wastage report
-          available on <strong>COGNOS</strong>. This might be usefuly for
-          setting up your stock tracker or identifying areas where wastage can
-          be reduced.
+          available on <strong>COGNOS</strong>. This might be useful for setting
+          up your stock tracker or identifying areas where wastage can be
+          reduced.
         </p>
       </Card>
+
       <OuterCard className={clsx("form__wrapper")}>
         <InnerCard padding="medium" className={clsx("page__instructions")}>
           <div className={clsx("button__group")}>
@@ -53,12 +77,49 @@ export default function WastagePage() {
             Please enter the number of top wasted items you would like to see in
             the results, along with the wastage data copied from the{" "}
             <strong>COGNOS</strong> wastage report. The default and minimum
-            number of items is 15 (the number of products to show on the stock
-            tracker).
+            number of items is 15.
           </p>
         </InnerCard>
+
         <InnerCard padding="medium" className={clsx("wastage__main")}>
-          form here
+          {activeTab === "dataEntry" && (
+            <WastageForm
+              onSubmit={handleFormSubmit}
+              values={formValues}
+              onChange={handleFormChange}
+            />
+          )}
+
+          {activeTab === "result" && parsedResults.length > 0 && (
+            <div className="wastage__results">
+              <table className="wastage__table">
+                <thead>
+                  <tr>
+                    <th>Product</th>
+                    <th>Unit</th>
+                    <th>Quantity</th>
+                    <th>Cost</th>
+                    <th>Entries</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {parsedResults.map((item, idx) => (
+                    <tr key={idx}>
+                      <td>{item.product}</td>
+                      <td>{item.unit}</td>
+                      <td>{item.quantity}</td>
+                      <td>£{item.cost}</td>
+                      <td>{item.entries}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          {activeTab === "result" && parsedResults.length === 0 && (
+            <p>No wastage data available.</p>
+          )}
         </InnerCard>
       </OuterCard>
     </>
