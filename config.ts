@@ -262,4 +262,6 @@ export const PRODUCT_ALIASES: Record<string, string> = {
   "Cheese Slic": "Cheddar Slices",
   "Smokey Non": "Smokey Non Carne",
   "Pizza Butte": "Pizza Butter",
+  "Roasted Veg": "Roasted Veg Mix",
+  "Honey Yoghu": "Greek Yoghurt",
 };
