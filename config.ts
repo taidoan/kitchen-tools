@@ -244,7 +244,7 @@ export const PRODUCT_ALIASES: Record<string, string> = {
   "Chicken Bre": "Chicken Breast",
   "Froz Sausag": "Sausages",
   "Eggs Free R": "Eggs",
-  "Cheese Sauce": "Cheese Sauce",
+  "Cheese Sauc": "Cheese Sauce",
   '12" Tortill': '12" Wraps',
   "American Ch": "American Cheese",
   "Garlic & He": "Garlic & Herb Dip",
