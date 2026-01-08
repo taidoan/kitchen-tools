@@ -1,4 +1,4 @@
-import type { ProductivityData } from "@/app/productivity/types";
+import type { ProductivityData } from "@components/feat/Productivity/types";
 import { convertToMinutesSeconds, convertToHHMM } from "./timeConverter";
 
 export const parseProductivityData = (data: string): ProductivityData => {
