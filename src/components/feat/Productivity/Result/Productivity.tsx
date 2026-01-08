@@ -1,5 +1,5 @@
 "use client";
-import type { ProductivityData } from "@/app/productivity/types";
+import type { ProductivityData } from "../types";
 import { useState, useMemo } from "react";
 import clsx from "clsx";
 import style from "./style.module.scss";
@@ -7,7 +7,7 @@ import {
   generatePrepTimeClasses,
   generateLatesClasses,
 } from "@/lib/utils/generateClasses";
-import { Select } from "@/components/ui/Select";
+import { Select } from "@/components/ui";
 
 type ProductivityComponentProps = {
   productivity: ProductivityData | null;
@@ -100,7 +100,7 @@ export const ProductivityComponent = ({
 
   return (
     <div className="fdt__productivity">
-      <div className="fdt__sort">
+      <div className="results__sort">
         <div>
           <h2 className={style.title}>Productivity</h2>
           <p>
@@ -110,7 +110,7 @@ export const ProductivityComponent = ({
           </p>
         </div>
 
-        <form className={clsx("fdt__sort__form")}>
+        <form className={clsx("results__sort__form")}>
           <Select
             id="sort-select"
             label="Sort by"

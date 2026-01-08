@@ -1,9 +1,9 @@
-import type { ProductivityResult as ProductivityResultProps } from "@/app/productivity/types";
+import type { ProductivityResult as ProductivityResultProps } from "../types";
+import { DEFAULT_SERVICE_SUMMARY } from "@config";
 import { SalesComponent } from "./Sales";
 import { ServiceSummaryComponent } from "./ServiceSummary";
 import { ProductivityComponent } from "./Productivity";
 import { KeysComponent } from "./Keys";
-import { DEFAULT_SERVICE_SUMMARY } from "@config";
 import style from "./style.module.scss";
 
 export const ProductivityResult = ({
@@ -19,7 +19,7 @@ export const ProductivityResult = ({
   productivity,
 }: ProductivityResultProps) => {
   return (
-    <div className="fdt__print">
+    <div className="page__print">
       <div className={style.intro}>
         <h2 className={style.title}>
           {serviceSummary.siteName

@@ -1,0 +1,37 @@
+@use "./../abstracts/_index" as ab;
+
+.wastage__table {
+  margin-top: ab.rem(16);
+
+  & + & {
+    margin-top: ab.rem(24);
+  }
+
+  &-other__header {
+    text-align: left;
+    padding: ab.rem(16);
+  }
+
+  &-other__header-cell {
+    background-color: var(--table-header-bg-alt);
+  }
+
+  &-total-bg {
+    background-color: var(--table-header-bg);
+    color: var(--table-header-text-clr);
+  }
+}
+
+@media print {
+  .wastage__table td {
+    padding: ab.rem(4) !important;
+  }
+
+  .wastage__table th {
+    padding: ab.rem(8) !important;
+  }
+
+  .wastage__table-other__header-cell {
+    display: none !important;
+  }
+}

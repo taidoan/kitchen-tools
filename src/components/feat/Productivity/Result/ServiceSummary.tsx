@@ -1,4 +1,4 @@
-import type { ProductivityResult } from "@/app/productivity/types";
+import type { ProductivityResult } from "../types";
 import clsx from "clsx";
 import {
   generatePrepTimeClasses,

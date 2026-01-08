@@ -1,17 +1,18 @@
 "use client";
-import type { KSRSForm as KSRSFormProps, FormData } from "./types";
-
-import style from "./style.module.scss";
+import type { KSRSForm as KSRSFormProps, FormData } from "../types";
 import * as config from "@config";
 import { useState } from "react";
-import { InnerCard } from "@/components/ui/Card";
-import { Input } from "@/components/ui/Input";
-import { Select } from "@/components/ui/Select";
-import { Checkbox } from "@/components/ui/Checkbox";
-import { Textarea } from "@/components/ui/Textarea";
-import { Button } from "@/components/ui/Button";
+import {
+  InnerCard,
+  Input,
+  Select,
+  Checkbox,
+  Textarea,
+  Button,
+} from "@/components/ui";
 import { parseServiceSummary } from "@/lib/utils/parseServiceSummary";
 import { parseProductivityData } from "@/lib/utils/parseProductivity";
+import style from "../style.module.scss";
 
 export const KSRSForm = ({
   onSubmit,

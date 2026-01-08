@@ -1,5 +1,5 @@
-import type { SalesResult } from "@/app/sales/types";
-import { Divider } from "@/components/ui/Divider";
+import type { SalesResult } from "../types";
+import { Divider } from "@/components/ui";
 import clsx from "clsx";
 
 type SalesResultProps = {
@@ -8,7 +8,7 @@ type SalesResultProps = {
 
 export const SalesResultComponent = ({ resultData }: SalesResultProps) => {
   return (
-    <div className={clsx("sales__result", "sales__print")}>
+    <div className={clsx("sales__result", "page__print")}>
       <div className="sales__quantity">
         <h3 className="sales__title">
           Top {resultData.topQuantity.length} Products by Quantity

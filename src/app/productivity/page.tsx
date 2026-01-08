@@ -1,13 +1,13 @@
 "use client";
-import type { ServiceSummary, ProductivityData } from "./types";
-import type { FormData as FormDataProps } from "@/components/feat/KSRSForm/types";
+import type {
+  FormData as FormDataProps,
+  ServiceSummary,
+  ProductivityData,
+} from "@components/feat/Productivity/types";
 
 import { useState } from "react";
-import Card, { OuterCard, InnerCard } from "@/components/ui/Card";
-import { KSRSForm } from "@/components/feat/KSRSForm";
-import { ProductivityResult } from "@/components/feat/ProductivityResult";
-import { Divider } from "@/components/ui/Divider";
-import { Button } from "@/components/ui/Button";
+import { KSRSForm, ProductivityResult } from "@/components/feat/Productivity";
+import { Card, OuterCard, InnerCard, Divider, Button } from "@/components/ui";
 import clsx from "clsx";
 import { printArea } from "@/lib/utils/printArea";
 export default function Productivity() {
@@ -23,7 +23,7 @@ export default function Productivity() {
 
   return (
     <>
-      <Card containerClassName="fdt__intro">
+      <Card containerClassName="page__intro">
         <h2>Food Delivery Times</h2>
         <Divider height={4} width={240} />
         <p>
@@ -34,7 +34,7 @@ export default function Productivity() {
         </p>
       </Card>
       <OuterCard className="form__wrapper">
-        <InnerCard padding="medium" className={clsx("fdt__instructions")}>
+        <InnerCard padding="medium" className={clsx("page__instructions")}>
           <div className={clsx("button__group")}>
             <Button
               onClick={() => setActiveTab("dataEntry")}

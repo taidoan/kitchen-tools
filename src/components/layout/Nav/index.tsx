@@ -35,13 +35,8 @@ export const NavBar = ({ collapsed, className }: NavBarProps) => {
           </NavItem>
         </li>
         <li className="navigation__item">
-          <NavItem
-            href="/wastage"
-            type="wastage"
-            collapsed={collapsed}
-            disabled={true}
-          >
-            Wastage Tracker
+          <NavItem href="/wastage" type="wastage" collapsed={collapsed}>
+            Wastage Analysis
           </NavItem>
         </li>
       </ul>

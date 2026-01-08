@@ -1,6 +1,4 @@
-import Card from "@/components/ui/Card";
-import { Divider } from "@/components/ui/Divider";
-import { QuickLink } from "@/components/ui/QuickLink";
+import { Card, Divider, QuickLink } from "@/components/ui";
 
 export default function Home() {
   return (
@@ -37,6 +35,13 @@ export default function Home() {
           icon="sales"
           href="/sales"
           cta="View"
+        />
+        <QuickLink
+          title="Wastage"
+          description="Wastage Report"
+          icon="wastage"
+          href="/wastage"
+          cta="Analyze"
         />
       </div>
     </>
