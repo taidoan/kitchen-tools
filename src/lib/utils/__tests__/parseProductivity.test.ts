@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { parseProductivityData } from "../parseProductivity";
-import type { ProductivityData } from "@/app/productivity/types";
+import type { ProductivityData } from "@components/feat/Productivity/types";
 
 describe("parseProductivityData", () => {
   it("parses a valid productivity string", () => {
