@@ -1,4 +1,4 @@
-import type { ServiceSummary } from "@/app/productivity/types";
+import type { ServiceSummary } from "@components/feat/Productivity/types";
 import { convertToMinutesSeconds } from "./timeConverter";
 
 type createKeysProps = {
