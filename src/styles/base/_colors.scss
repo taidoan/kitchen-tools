@@ -72,6 +72,8 @@
   /* TABLES */
   --table-border-clr: var(--clr-black-400);
   --table-header-text-clr: var(--clr-white-400);
+  --table-header-bg: var(--table-border-clr);
+  --table-header-bg-alt: var(--clr-black-350);
   --table-cell-bg: var(--clr-white-400);
   --table-cell-text-clr: var(--clr-black-400);
 }
@@ -119,6 +121,7 @@
 
   /* TABLES */
   --table-border-clr: var(--clr-black-700);
+  --table-header-bg-alt: var(--clr-black-550);
   --table-header-text-clr: var(--clr-white-400);
   --table-cell-bg: #1d212c;
   --table-cell-text-clr: var(--clr-white-400);

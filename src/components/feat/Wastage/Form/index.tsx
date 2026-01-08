@@ -1,13 +1,22 @@
-import { Button, InnerCard, Input, Textarea, Select } from "@/components/ui";
+import {
+  Button,
+  InnerCard,
+  Input,
+  Textarea,
+  Select,
+  Checkbox,
+} from "@/components/ui";
 
 interface WastageFormProps {
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
-  values: { topItems: number; wastageData: string };
+  values: { wastageData: string };
   onChange: (field: string, value: string | number) => void;
   displayMode: string;
   setDisplayMode: (mode: string) => void;
-  topItems: number;
+  topItems: number | undefined;
   setTopItems: (value: number) => void;
+  showAllItems: boolean;
+  setShowAllItems: (value: boolean) => void;
 }
 
 export const WastageForm: React.FC<WastageFormProps> = ({
@@ -18,6 +27,8 @@ export const WastageForm: React.FC<WastageFormProps> = ({
   setDisplayMode,
   topItems,
   setTopItems,
+  showAllItems,
+  setShowAllItems,
 }) => {
   return (
     <form className="form__container" onSubmit={onSubmit}>
@@ -35,17 +46,29 @@ export const WastageForm: React.FC<WastageFormProps> = ({
         </Select>
 
         {displayMode === "aggregated" && (
-          <Input
-            id="top-items"
-            name="top-items"
-            type="number"
-            label="Number of products"
-            required
-            min={15}
-            max={100}
-            value={topItems}
-            onChange={(e) => setTopItems(Number(e.target.value))}
-          />
+          <>
+            <Checkbox
+              id="show-all-items"
+              label="Show all items"
+              checked={showAllItems}
+              onChange={(e) => setShowAllItems(e.target.checked)}
+            />
+
+            {!showAllItems && (
+              <Input
+                id="top-items"
+                name="top-items"
+                type="number"
+                label="Number of products"
+                required
+                min={5}
+                max={100}
+                value={topItems ?? 5}
+                onChange={(e) => setTopItems(Number(e.target.value))}
+                disabled={showAllItems}
+              />
+            )}
+          </>
         )}
       </InnerCard>
 

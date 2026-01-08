@@ -89,11 +89,9 @@ export function aggregateByProduct(
       ...i,
       quantity: Number(i.quantity.toFixed(2)),
       cost: Number(i.cost.toFixed(2)),
-      dates: Array.from(i.dates),
-      reasons: Array.from(i.reasons),
     }))
     .sort((a, b) => b.cost - a.cost)
-    .slice(0, numberOfItems || undefined);
+    .slice(0, numberOfItems);
 }
 
 export function groupByDate(entries: WastageResultItem[]) {
@@ -110,7 +108,7 @@ export function groupByDate(entries: WastageResultItem[]) {
     date,
     totalCost: Number(items.reduce((sum, i) => sum + i.cost, 0).toFixed(2)),
     totalItems: items.length,
-    items,
+    items: items.sort((a, b) => b.cost - a.cost),
   }));
 }
 
@@ -124,10 +122,12 @@ export function groupByReason(entries: WastageResultItem[]) {
     map[e.reason].push(e);
   }
 
-  return Object.entries(map).map(([reason, items]) => ({
-    reason,
-    totalCost: Number(items.reduce((sum, i) => sum + i.cost, 0).toFixed(2)),
-    totalItems: items.length,
-    items,
-  }));
+  return Object.entries(map)
+    .map(([reason, items]) => ({
+      reason,
+      totalCost: Number(items.reduce((sum, i) => sum + i.cost, 0).toFixed(2)),
+      totalItems: items.length,
+      items: items.sort((a, b) => b.cost - a.cost),
+    }))
+    .sort((a, b) => b.totalItems - a.totalItems);
 }

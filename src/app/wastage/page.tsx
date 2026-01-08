@@ -10,21 +10,15 @@ import { WastageForm, WastageResult } from "@/components/feat/Wastage";
 import { printArea } from "@/lib/utils/printArea";
 import { parseWastageEntries } from "@/lib/utils/parseWastage";
 
-import {
-  aggregateByProduct,
-  groupByDate,
-  groupByReason,
-} from "@/lib/utils/parseWastage";
-
 export default function WastagePage() {
   const [activeTab, setActiveTab] = useState<string>("dataEntry");
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
   const [parsedResults, setParsedResults] = useState<WastageResultItem[]>([]);
   const [displayMode, setDisplayMode] = useState<string>("aggregated");
-  const [topItems, setTopItems] = useState(15); // default/minimum 15
+  const [topItems, setTopItems] = useState<number>(15);
+  const [showAllItems, setShowAllItems] = useState<boolean>(false);
 
   const [formValues, setFormValues] = useState({
-    topItems: 15,
     wastageData: "",
   });
 
@@ -39,26 +33,6 @@ export default function WastagePage() {
 
     const parsed = parseWastageEntries(formValues.wastageData);
     setParsedResults(parsed);
-
-    // console.log(
-    //   "Parsed Wastage Entries:",
-    //   parseWastageEntries(formValues.wastageData)
-    // );
-
-    console.log(
-      "Aggregated by Product:",
-      aggregateByProduct(parseWastageEntries(formValues.wastageData))
-    );
-
-    console.log(
-      "Grouped by Date:",
-      groupByDate(parseWastageEntries(formValues.wastageData))
-    );
-
-    console.log(
-      "Grouped by Reason:",
-      groupByReason(parseWastageEntries(formValues.wastageData))
-    );
   };
 
   return (
@@ -103,8 +77,7 @@ export default function WastagePage() {
           <p>
             Please enter the number of top wasted items you would like to see in
             the results, along with the wastage data copied from the{" "}
-            <strong>COGNOS</strong> wastage report. The default and minimum
-            number of items is 15.
+            <strong>COGNOS</strong> wastage report.
           </p>
         </InnerCard>
 
@@ -118,6 +91,8 @@ export default function WastagePage() {
               setDisplayMode={setDisplayMode}
               topItems={topItems}
               setTopItems={setTopItems}
+              showAllItems={showAllItems}
+              setShowAllItems={setShowAllItems}
             />
           )}
 
@@ -126,6 +101,7 @@ export default function WastagePage() {
               result={parsedResults}
               displayMode={displayMode}
               topItems={topItems}
+              showAllItems={showAllItems}
             />
           )}
 
