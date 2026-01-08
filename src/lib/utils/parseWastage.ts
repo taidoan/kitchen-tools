@@ -1,4 +1,5 @@
-import type { WastageResultItem } from "@/app/wastage/types";
+import type { WastageResultItem } from "@components/feat/Wastage/types";
+import { normaliseProductName } from "./normaliseProductName";
 
 export function parseWastageEntries(text: string): WastageResultItem[] {
   if (!text) return [];
@@ -41,7 +42,7 @@ export function parseWastageEntries(text: string): WastageResultItem[] {
       dates: [],
       reasons: [],
       entries: parseFloat(entries.length.toString()),
-      product,
+      product: normaliseProductName(product),
       unit,
       quantity: parseFloat(qty),
       cost: parseFloat(cost.replace("£", "")),
