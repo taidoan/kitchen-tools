@@ -1,12 +1,9 @@
 "use client";
-import type { SalesResult } from "./types";
+import type { SalesResult } from "@components/feat/Sales/types";
 import { useState } from "react";
 import clsx from "clsx";
-import Card, { OuterCard, InnerCard } from "@/components/ui/Card";
-import { Divider } from "@/components/ui/Divider";
-import { Button } from "@/components/ui/Button";
-import { SalesForm } from "@/components/feat/SalesForm";
-import { SalesResultComponent } from "@/components/feat/SalesResult";
+import { Card, OuterCard, InnerCard, Divider, Button } from "@/components/ui";
+import { SalesForm, SalesResultComponent } from "@/components/feat/Sales";
 import { processCsv } from "@/lib/utils/csv";
 import { printArea } from "@/lib/utils/printArea";
 

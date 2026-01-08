@@ -21,3 +21,17 @@
     color: var(--table-header-text-clr);
   }
 }
+
+@media print {
+  .wastage__table td {
+    padding: ab.rem(4) !important;
+  }
+
+  .wastage__table th {
+    padding: ab.rem(8) !important;
+  }
+
+  .wastage__table-other__header-cell {
+    display: none !important;
+  }
+}

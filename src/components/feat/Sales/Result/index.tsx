@@ -1,5 +1,5 @@
-import type { SalesResult } from "@/app/sales/types";
-import { Divider } from "@/components/ui/Divider";
+import type { SalesResult } from "../types";
+import { Divider } from "@/components/ui";
 import clsx from "clsx";
 
 type SalesResultProps = {

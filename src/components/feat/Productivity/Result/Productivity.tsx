@@ -1,5 +1,5 @@
 "use client";
-import type { ProductivityData } from "@/app/productivity/types";
+import type { ProductivityData } from "../types";
 import { useState, useMemo } from "react";
 import clsx from "clsx";
 import style from "./style.module.scss";
@@ -7,7 +7,7 @@ import {
   generatePrepTimeClasses,
   generateLatesClasses,
 } from "@/lib/utils/generateClasses";
-import { Select } from "@/components/ui/Select";
+import { Select } from "@/components/ui";
 
 type ProductivityComponentProps = {
   productivity: ProductivityData | null;

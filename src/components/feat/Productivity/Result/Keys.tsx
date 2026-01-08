@@ -9,10 +9,9 @@ import {
   LATE_PERCENTAGE_TOLERANCE,
 } from "@config";
 import { convertToHHMM } from "@/lib/utils/timeConverter";
+import { Divider, InnerCard } from "@/components/ui";
 import clsx from "clsx";
 import style from "./style.module.scss";
-import { Divider } from "@/components/ui/Divider";
-import { InnerCard } from "@/components/ui/Card";
 
 type KeyProps = {
   prepTarget: number;

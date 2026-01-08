@@ -1,5 +1,9 @@
 @use "./../abstracts/_index" as ab;
 
+.page__intro {
+  transform: translateZ(0);
+}
+
 .page__instructions {
   text-align: center;
   display: flex;

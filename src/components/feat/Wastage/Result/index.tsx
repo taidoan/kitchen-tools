@@ -4,7 +4,7 @@ import type {
   WastageResultItem,
   WastageGroupedByDate,
   WastageGroupedByReason,
-} from "@/app/wastage/types";
+} from "../types";
 import { Select } from "@/components/ui";
 
 import {
@@ -14,6 +14,7 @@ import {
 } from "@/lib/utils/parseWastage";
 
 import React, { useState, useMemo } from "react";
+import clsx from "clsx";
 
 interface WastageResultProps {
   result: Array<WastageResultItem>;
@@ -99,7 +100,7 @@ export const WastageResult = ({
   };
 
   return (
-    <div className="wastage__results">
+    <div className={clsx("wastage__results", "page__print")}>
       <div className="results__sort">
         <form className="results__sort__form">
           <Select

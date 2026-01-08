@@ -1,6 +1,6 @@
 "use client";
 
-import type { WastageResultItem } from "./types";
+import type { WastageResultItem } from "@components/feat/Wastage/types";
 
 import { useState } from "react";
 import clsx from "clsx";
@@ -37,7 +37,7 @@ export default function WastagePage() {
 
   return (
     <>
-      <Card containerClassName="wastage__intro">
+      <Card containerClassName={clsx("wastage__intro", "page__intro")}>
         <h2>Wastage Analysis</h2>
         <Divider height={4} width={240} />
         <p>

@@ -1,13 +1,13 @@
 "use client";
-import type { ServiceSummary, ProductivityData } from "./types";
-import type { FormData as FormDataProps } from "@/components/feat/KSRSForm/types";
+import type {
+  FormData as FormDataProps,
+  ServiceSummary,
+  ProductivityData,
+} from "@components/feat/Productivity/types";
 
 import { useState } from "react";
-import Card, { OuterCard, InnerCard } from "@/components/ui/Card";
-import { KSRSForm } from "@/components/feat/KSRSForm";
-import { ProductivityResult } from "@/components/feat/ProductivityResult";
-import { Divider } from "@/components/ui/Divider";
-import { Button } from "@/components/ui/Button";
+import { KSRSForm, ProductivityResult } from "@/components/feat/Productivity";
+import { Card, OuterCard, InnerCard, Divider, Button } from "@/components/ui";
 import clsx from "clsx";
 import { printArea } from "@/lib/utils/printArea";
 export default function Productivity() {
