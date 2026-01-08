@@ -1,18 +1,27 @@
 "use client";
 
+import type { WastageResultItem } from "./types";
+
 import { useState } from "react";
 import clsx from "clsx";
-import Card, { OuterCard, InnerCard } from "@/components/ui/Card";
-import { Divider } from "@/components/ui/Divider";
-import { Button } from "@/components/ui/Button";
+import { Card, OuterCard, InnerCard, Divider, Button } from "@/components/ui";
+import { WastageForm, WastageResult } from "@/components/feat/Wastage";
+
 import { printArea } from "@/lib/utils/printArea";
-import { WastageForm } from "@/components/feat/WastageForm";
-import { parseWastage } from "@/lib/utils/parseWastage";
+import { parseWastageEntries } from "@/lib/utils/parseWastage";
+
+import {
+  aggregateByProduct,
+  groupByDate,
+  groupByReason,
+} from "@/lib/utils/parseWastage";
 
 export default function WastagePage() {
   const [activeTab, setActiveTab] = useState<string>("dataEntry");
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
-  const [parsedResults, setParsedResults] = useState<any[]>([]);
+  const [parsedResults, setParsedResults] = useState<WastageResultItem[]>([]);
+  const [displayMode, setDisplayMode] = useState<string>("aggregated");
+  const [topItems, setTopItems] = useState(15); // default/minimum 15
 
   const [formValues, setFormValues] = useState({
     topItems: 15,
@@ -26,12 +35,30 @@ export default function WastagePage() {
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormSubmitted(true);
+    setActiveTab("result");
 
-    const parsed = parseWastage(
-      formValues.wastageData,
-      Number(formValues.topItems)
-    );
+    const parsed = parseWastageEntries(formValues.wastageData);
     setParsedResults(parsed);
+
+    // console.log(
+    //   "Parsed Wastage Entries:",
+    //   parseWastageEntries(formValues.wastageData)
+    // );
+
+    console.log(
+      "Aggregated by Product:",
+      aggregateByProduct(parseWastageEntries(formValues.wastageData))
+    );
+
+    console.log(
+      "Grouped by Date:",
+      groupByDate(parseWastageEntries(formValues.wastageData))
+    );
+
+    console.log(
+      "Grouped by Reason:",
+      groupByReason(parseWastageEntries(formValues.wastageData))
+    );
   };
 
   return (
@@ -87,34 +114,19 @@ export default function WastagePage() {
               onSubmit={handleFormSubmit}
               values={formValues}
               onChange={handleFormChange}
+              displayMode={displayMode}
+              setDisplayMode={setDisplayMode}
+              topItems={topItems}
+              setTopItems={setTopItems}
             />
           )}
 
           {activeTab === "result" && parsedResults.length > 0 && (
-            <div className="wastage__results">
-              <table className="wastage__table">
-                <thead>
-                  <tr>
-                    <th>Product</th>
-                    <th>Unit</th>
-                    <th>Quantity</th>
-                    <th>Cost</th>
-                    <th>Entries</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {parsedResults.map((item, idx) => (
-                    <tr key={idx}>
-                      <td>{item.product}</td>
-                      <td>{item.unit}</td>
-                      <td>{item.quantity}</td>
-                      <td>£{item.cost}</td>
-                      <td>{item.entries}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <WastageResult
+              result={parsedResults}
+              displayMode={displayMode}
+              topItems={topItems}
+            />
           )}
 
           {activeTab === "result" && parsedResults.length === 0 && (

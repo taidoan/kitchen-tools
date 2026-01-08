@@ -1,87 +1,133 @@
-export type WastageItem = {
-  product: string;
-  unit: string;
-  quantity: number;
-  cost: number;
-  entries: number;
-};
+import type { WastageResultItem } from "@/app/wastage/types";
 
-function cleanName(raw: string) {
-  const parts = raw
-    .split("\t")
-    .map((p) => p.trim())
-    .filter(Boolean);
-
-  // Remove unwanted prefixes like "Recipe Products"
-  const filtered = parts.filter((p) => p.toLowerCase() !== "recipe products");
-
-  if (filtered.length >= 2) {
-    return {
-      product: filtered[filtered.length - 2],
-      unit: filtered[filtered.length - 1],
-    };
-  }
-
-  return {
-    product: raw.trim(),
-    unit: "",
-  };
-}
-
-export function parseWastage(text: string, topItems: number): WastageItem[] {
+export function parseWastageEntries(text: string): WastageResultItem[] {
   if (!text) return [];
 
   const lines = text
     .split("\n")
-    .map((l) => l.trim())
+    .map((l) => l.replace(/\r/g, ""))
     .filter(Boolean);
 
-  const itemsMap: Record<
-    string,
-    {
-      product: string;
-      unit: string;
-      qty: number;
-      cost: number;
-      occurrences: number;
-    }
-  > = {};
+  let currentDate = "";
+  let currentReason = "";
+
+  const entries: WastageResultItem[] = [];
 
   for (const line of lines) {
-    const match = line.match(/^(.+?)\s+([\d.]+)\s+\£?([\d.]+)$/);
-    if (!match) continue;
-
-    const [, rawName, qtyStr, costStr] = match;
-
-    const { product, unit } = cleanName(rawName); // now an object
-    const key = product.toLowerCase().trim(); // merge duplicates by product only
-
-    const qty = parseFloat(qtyStr);
-    const cost = parseFloat(costStr);
-
-    if (!itemsMap[key]) {
-      itemsMap[key] = {
-        product,
-        unit,
-        qty: 0,
-        cost: 0,
-        occurrences: 0,
-      };
+    if (
+      line.startsWith("Date\t") ||
+      line.startsWith("Wastage Total") ||
+      line.includes("Wastage (Food)")
+    ) {
+      continue;
     }
 
-    itemsMap[key].qty += qty;
-    itemsMap[key].cost += cost;
-    itemsMap[key].occurrences += 1;
+    if (!line.includes("\t")) continue;
+
+    const cols = line.split("\t").map((c) => c.trim());
+
+    while (cols.length < 7) cols.push("");
+
+    const [dateCol, reasonCol, category, product, unit, qty, cost] = cols;
+
+    if (dateCol) currentDate = dateCol;
+    if (reasonCol) currentReason = reasonCol;
+
+    if (!product || !qty || !cost) continue;
+
+    entries.push({
+      date: currentDate,
+      reason: currentReason,
+      dates: [],
+      reasons: [],
+      entries: parseFloat(entries.length.toString()),
+      product,
+      unit,
+      quantity: parseFloat(qty),
+      cost: parseFloat(cost.replace("£", "")),
+    });
   }
 
-  return Object.values(itemsMap)
-    .map((item) => ({
-      product: item.product,
-      unit: item.unit,
-      quantity: Number(item.qty.toFixed(2)),
-      cost: Number(item.cost.toFixed(2)),
-      entries: item.occurrences,
+  return entries;
+}
+
+export function aggregateByProduct(
+  entries: WastageResultItem[],
+  numberOfItems?: number
+) {
+  const map = new Map<string, WastageResultItem>();
+
+  for (const e of entries) {
+    const key = e.product.toLowerCase();
+
+    if (!map.has(key)) {
+      map.set(key, {
+        product: e.product,
+        unit: e.unit,
+        quantity: 0,
+        cost: 0,
+        entries: 0,
+        date: e.date,
+        reason: e.reason,
+        dates: [],
+        reasons: [],
+      });
+    }
+
+    const item = map.get(key);
+    if (!item) continue;
+
+    item.quantity += e.quantity;
+    item.cost += e.cost;
+    item.entries += 1;
+    if (!item.dates.includes(e.date)) item.dates.push(e.date);
+    if (!item.reasons.includes(e.reason)) item.reasons.push(e.reason);
+  }
+
+  return Array.from(map.values())
+    .map((i) => ({
+      ...i,
+      quantity: Number(i.quantity.toFixed(2)),
+      cost: Number(i.cost.toFixed(2)),
+      dates: Array.from(i.dates),
+      reasons: Array.from(i.reasons),
     }))
     .sort((a, b) => b.cost - a.cost)
-    .slice(0, topItems);
+    .slice(0, numberOfItems || undefined);
+}
+
+export function groupByDate(entries: WastageResultItem[]) {
+  const map: Record<string, WastageResultItem[]> = {};
+
+  for (const e of entries) {
+    if (!map[e.date]) {
+      map[e.date] = [];
+    }
+    map[e.date].push(e);
+  }
+
+  return Object.entries(map).map(([date, items]) => ({
+    date,
+    totalCost: Number(items.reduce((sum, i) => sum + i.cost, 0).toFixed(2)),
+    totalItems: items.length,
+    items,
+  }));
+}
+
+export function groupByReason(entries: WastageResultItem[]) {
+  const map: Record<string, WastageResultItem[]> = {};
+
+  for (const e of entries) {
+    if (!map[e.reason]) {
+      map[e.reason] = [];
+    }
+    map[e.reason].push(e);
+  }
+
+  return Object.entries(map).map(([reason, items]) => ({
+    reason,
+    totalCost: Number(items.reduce((sum, i) => sum + i.cost, 0).toFixed(2)),
+    totalItems: items.length,
+    items,
+  }));
 }
