@@ -18,10 +18,8 @@
   display: flex;
   gap: ab.rem(8);
   align-items: center;
-  background-color: var(--btn-enabled-bg);
+  background-color: var(--btn-enabled-bg-light);
   box-shadow: inset 0 0 0 2px var(--btn-border-clr);
-
-  color: var(--clr-white-400);
   border-radius: ab.rem(8);
   border: 0;
   cursor: pointer;
