@@ -1,7 +1,7 @@
 import { PRODUCT_DESCRIPTIONS } from "./descriptions";
 import { PRODUCT_DISCOUNTS } from "./discounts";
 
-export const PRODUCTS = [
+export const PRODUCT_GROUPS = [
   // Breakfast
   {
     description: PRODUCT_DESCRIPTIONS.BENEDICTS,
@@ -120,3 +120,11 @@ export const PRODUCTS = [
     discounts: PRODUCT_DISCOUNTS.MAX,
   },
 ];
+
+export const PRODUCTS = PRODUCT_GROUPS.flatMap((group) =>
+  group.products.map((name) => ({
+    product: name,
+    description: group.description,
+    discounts: group.discounts,
+  }))
+);

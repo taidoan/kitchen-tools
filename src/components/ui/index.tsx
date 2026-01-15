@@ -12,3 +12,4 @@ export { NavItem } from "./NavItem";
 export { QuickLink } from "./QuickLink";
 export { Select } from "./Select";
 export { Textarea } from "./Textarea";
+export { Combobox } from "./Combobox";
