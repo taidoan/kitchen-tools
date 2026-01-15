@@ -13,9 +13,7 @@ type SpecialsFormProps = {
 };
 
 export const SpecialsForm = ({ specials, setSpecials }: SpecialsFormProps) => {
-  const [selectedProduct, setSelectedProduct] = useState<string | null>(
-    PRODUCTS[0].product
-  );
+  const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
   const [selectedDiscount, setSelectedDiscount] = useState<number | null>(
     PRODUCTS[0].discounts[1]
   );
@@ -32,6 +30,14 @@ export const SpecialsForm = ({ specials, setSpecials }: SpecialsFormProps) => {
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (
+      !selectedProduct ||
+      selectedDiscount === null ||
+      specials.some((s) => s.product === selectedProduct)
+    ) {
+      return;
+    }
+
     if (selectedProduct && selectedDiscount !== null && productObj) {
       setSpecials((prev) => [
         ...prev,
@@ -43,7 +49,6 @@ export const SpecialsForm = ({ specials, setSpecials }: SpecialsFormProps) => {
         },
       ]);
 
-      // Reset to next available product (or null)
       const remainingProducts = PRODUCTS.filter(
         (p) => p.product !== selectedProduct
       );
