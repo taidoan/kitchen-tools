@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Roboto, Roboto_Condensed } from "next/font/google";
+import { Roboto, Roboto_Condensed, Lora, Bitter } from "next/font/google";
 import { cookies } from "next/headers";
 import { clsx } from "clsx";
 import "@styles/index.scss";
@@ -13,6 +13,16 @@ const roboto = Roboto({
 
 const robotoCondensed = Roboto_Condensed({
   variable: "--ff-roboto-condensed",
+  subsets: ["latin"],
+});
+
+const bitter = Bitter({
+  variable: "--ff-bitter",
+  subsets: ["latin"],
+});
+
+const lora = Lora({
+  variable: "--ff-lora",
   subsets: ["latin"],
 });
 
@@ -31,7 +41,14 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={clsx(roboto.variable, robotoCondensed.variable)}>
+      <body
+        className={clsx(
+          roboto.variable,
+          robotoCondensed.variable,
+          bitter.variable,
+          lora.variable
+        )}
+      >
         <Container>
           <Sidebar initialCollapsed={collapsed} />
           <MainContentContainer>{children}</MainContentContainer>

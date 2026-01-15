@@ -25,12 +25,7 @@ export const NavBar = ({ collapsed, className }: NavBarProps) => {
           </NavItem>
         </li>
         <li className="navigation__item">
-          <NavItem
-            href="/specials"
-            type="special"
-            collapsed={collapsed}
-            disabled={true}
-          >
+          <NavItem href="/specials" type="special" collapsed={collapsed}>
             Food Specials
           </NavItem>
         </li>

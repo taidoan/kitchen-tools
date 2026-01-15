@@ -7,6 +7,7 @@
  * throughout the project, ensuring consistency and maintainability.
  */
 import { join, resolve } from "path";
+export { PRODUCTS } from "@products/products";
 const rootDir = resolve(process.cwd());
 
 const paths = {

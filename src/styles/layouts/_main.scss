@@ -6,6 +6,8 @@
   flex-direction: column;
   gap: var(--spacing-gap);
   flex: 1;
+  min-width: 0;
+  box-sizing: border-box;
 
   @media print {
     padding: 0 !important;

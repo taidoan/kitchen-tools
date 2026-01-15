@@ -41,6 +41,10 @@
   flex-direction: column;
   gap: ab.rem(8);
 
+  &--small {
+    gap: ab.rem(4);
+  }
+
   &--checkbox {
     flex-direction: row;
     align-items: center;
