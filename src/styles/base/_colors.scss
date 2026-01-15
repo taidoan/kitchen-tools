@@ -69,6 +69,11 @@
   --btn-enabled-bg: hsla(218, 28%, 34%, 50%);
   --btn-enabled-outline: var(--btn-enabled-bg);
 
+  --btn-control-bg: var(--clr-secondary-150);
+  --btn-control-text-clr: var(--clr-secondary-400);
+  --btn-control-bg-hover: var(--clr-secondary-250);
+  --btn-control-text-clr-hover: var(--clr-white-400);
+
   /* TABLES */
   --table-border-clr: var(--clr-black-400);
   --table-header-text-clr: var(--clr-white-400);
@@ -118,6 +123,11 @@
   --btn-border-clr: hsla(0, 0%, 100%, 0.1);
   --btn-enabled-bg: hsla(218, 28%, 34%, 50%);
   --btn-enabled-outline: hsla(0, 0%, 0%, 0.15);
+
+  --btn-control-bg: hsla(218, 28%, 34%, 25%);
+  --btn-control-text-clr: hsla(0, 0%, 100%, 0.5);
+  --btn-control-bg-hover: hsla(218, 28%, 34%, 90%);
+  --btn-control-text-clr-hover: var(--clr-white-400);
 
   /* TABLES */
   --table-border-clr: var(--clr-black-700);

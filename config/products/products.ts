@@ -119,6 +119,11 @@ export const PRODUCT_GROUPS = [
     description: PRODUCT_DESCRIPTIONS.CHICKEN_MELT,
     discounts: PRODUCT_DISCOUNTS.MAX,
   },
+  {
+    products: ["Ham, Egg & Chips"],
+    description: PRODUCT_DESCRIPTIONS.CHIPS,
+    discounts: PRODUCT_DISCOUNTS.MAX,
+  },
 ];
 
 export const PRODUCTS = PRODUCT_GROUPS.flatMap((group) =>

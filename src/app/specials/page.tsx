@@ -1,8 +1,27 @@
+"use client";
+import type { Special } from "@components/feat/Specials/Form/types";
+import { useState } from "react";
 import clsx from "clsx";
 import { Card, OuterCard, InnerCard, Divider, Button } from "@/components/ui";
 import { SpecialsForm } from "@/components/feat/Specials/Form";
+import { SpecialsItem } from "@/components/feat/Specials/Form/Item";
 
 export default function SpecialsPage() {
+  const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
+  const [specials, setSpecials] = useState<Special[]>([]);
+
+  const handleSpecialsClear = () => {
+    setSpecials([]);
+  };
+
+  const updateSpecial = (index: number, updates: Partial<Special>) => {
+    setSpecials((prev) =>
+      prev.map((special, i) =>
+        i === index ? { ...special, ...updates } : special
+      )
+    );
+  };
+
   return (
     <>
       <Card containerClassName={clsx("specials__intro", "page__intro")}>
@@ -19,7 +38,7 @@ export default function SpecialsPage() {
         <InnerCard padding="medium" className={clsx("page__instructions")}>
           <div className={clsx("button__group")}>
             <Button>Products</Button>
-            <Button disabled>Specials</Button>
+            <Button disabled>Specials Menu</Button>
             <Button disabled>Print</Button>
           </div>
           <p>
@@ -28,8 +47,33 @@ export default function SpecialsPage() {
           </p>
         </InnerCard>
 
-        <InnerCard padding="medium" className={clsx("wastage__main")}>
-          <SpecialsForm />
+        <InnerCard padding="medium" className={clsx("specials__main")}>
+          <SpecialsForm specials={specials} setSpecials={setSpecials} />
+          {specials.length > 0 && (
+            <>
+              <div className={clsx("specials__list")}>
+                {specials.map((special, idx) => (
+                  <SpecialsItem
+                    key={idx}
+                    product={special.product}
+                    discount={special.discount}
+                    description={special.description}
+                    editable={special.editable}
+                    onToggleEdit={() => {
+                      updateSpecial(idx, { editable: !special.editable });
+                    }}
+                    onRemove={() => {
+                      setSpecials((prev) => prev.filter((_, i) => i !== idx));
+                    }}
+                    updateSpecial={(updates) => updateSpecial(idx, updates)}
+                  />
+                ))}
+              </div>
+              <Button onClick={handleSpecialsClear} className="specials__clear">
+                Clear All
+              </Button>
+            </>
+          )}
         </InnerCard>
       </OuterCard>
     </>

@@ -1,0 +1,35 @@
+@use "./../../../../../styles/abstracts/_index" as ab;
+
+.item {
+  display: flex;
+  flex-direction: row;
+  gap: ab.rem(24);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.controls {
+  display: flex;
+  gap: ab.rem(4);
+}
+
+.title {
+  text-transform: uppercase;
+  margin-bottom: ab.rem(2);
+}
+
+.text {
+  flex: 1;
+}
+
+.discount {
+  padding: ab.rem(4) ab.rem(8);
+  background-color: var(--input-border-clr);
+  width: fit-content;
+  border-radius: ab.rem(8);
+  font-size: ab.rem(16);
+  margin-top: ab.rem(8);
+}

@@ -1,0 +1,62 @@
+@use "./../../../styles/abstracts/_index" as ab;
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius-circle);
+  background-color: var(--btn-control-bg);
+  border: 0;
+  padding: ab.rem(6);
+  transition: border-color var(--transition-duration) ease,
+    color var(--transition-duration) ease,
+    background var(--transition-duration-fast) ease;
+  width: fit-content;
+  cursor: pointer;
+  min-width: ab.rem(28);
+  min-height: ab.rem(28);
+
+  &:hover {
+    background-color: var(--btn-control-bg-hover);
+
+    svg {
+      color: var(--btn-control-text-clr-hover);
+    }
+  }
+
+  svg {
+    width: ab.rem(18);
+    height: ab.rem(18);
+    color: var(--btn-control-text-clr);
+    transition: color var(--transition-duration) ease;
+  }
+
+  &--close:hover {
+    background-color: var(--clr-fail);
+
+    svg {
+      color: white;
+    }
+  }
+
+  &--small {
+    min-width: ab.rem(28);
+    min-height: ab.rem(28);
+    max-height: ab.rem(32);
+    max-width: ab.rem(32);
+  }
+
+  &--medium {
+    min-width: ab.rem(36);
+    min-height: ab.rem(36);
+    max-height: ab.rem(40);
+    max-width: ab.rem(40);
+  }
+
+  &--large {
+    min-width: ab.rem(44);
+    min-height: ab.rem(44);
+    max-height: ab.rem(48);
+    max-width: ab.rem(48);
+  }
+}

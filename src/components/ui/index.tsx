@@ -13,3 +13,4 @@ export { QuickLink } from "./QuickLink";
 export { Select } from "./Select";
 export { Textarea } from "./Textarea";
 export { Combobox } from "./Combobox";
+export { ControlButton } from "./ControlButton";

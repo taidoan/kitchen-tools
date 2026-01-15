@@ -58,6 +58,7 @@ export const Combobox = ({
         isClearable={isClearable}
         placeholder={placeholder}
         inputId={id}
+        instanceId={id}
         className={clsx(className)}
         classNamePrefix="combobox"
         styles={{
