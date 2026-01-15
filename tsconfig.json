@@ -21,6 +21,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "@config": ["./config.ts"],
+      "@config/*": ["./config/*"],
+      "@products/*": ["./config/products/*"],
       "@styles/*": ["./src/styles/*"],
       "@components/*": ["./src/components/*"],
       "@lib/*": ["./src/lib/*"],
