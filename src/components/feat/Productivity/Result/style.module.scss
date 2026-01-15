@@ -118,10 +118,11 @@
     &__wrapper {
       page-break-inside: avoid !important;
       break-inside: avoid !important;
+      align-items: flex-start;
     }
 
     &__container {
-      background-color: white;
+      background-color: white !important;
     }
 
     &__list {
@@ -134,6 +135,7 @@
 
     &__label {
       padding: 0;
+      background: none;
     }
 
     &__divider {
