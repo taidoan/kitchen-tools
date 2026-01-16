@@ -17,6 +17,7 @@ export const PRODUCT_GROUPS = [
       "American Cheese Burger",
       "Classic Beef Burger",
       "Buttermilk Chicken Burger",
+       "Brie & Bacon Burger",
     ],
   },
   {
@@ -29,7 +30,6 @@ export const PRODUCT_GROUPS = [
       "Big Smoke Beef Burger",
       "Big Smoke Buttermilk Chicken Burger",
       "Tennesee Buttermilk Chicken Burger",
-      "Brie & Bacon Burger",
       "Chicken & Stuffing Burger",
       "Big Cheese Burger",
       "Beef Cheese Meltdown",
