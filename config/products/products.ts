@@ -6,7 +6,7 @@ export const PRODUCT_GROUPS = [
   {
     description: PRODUCT_DESCRIPTIONS.BENEDICTS,
     discounts: PRODUCT_DISCOUNTS.MEDIUM,
-    products: ["Eggs Benedict"],
+    products: ["Eggs Benedict", "Miners Benedict", "Mushroom Benedict"],
   },
   // Burgers
   {
@@ -17,7 +17,16 @@ export const PRODUCT_GROUPS = [
       "American Cheese Burger",
       "Classic Beef Burger",
       "Buttermilk Chicken Burger",
-       "Brie & Bacon Burger",
+      "Brie & Bacon Burger",
+    ],
+  },
+  {
+    description: PRODUCT_DESCRIPTIONS.XMAS_BURGERS,
+    discounts: PRODUCT_DISCOUNTS.MAX,
+    products: [
+      "Brie & Bacon Burger",
+      "Chicken & Stuffing Burger",
+      "Buttermilk Chicken & Stuffing Burger",
     ],
   },
   {
@@ -30,7 +39,6 @@ export const PRODUCT_GROUPS = [
       "Big Smoke Beef Burger",
       "Big Smoke Buttermilk Chicken Burger",
       "Tennesee Buttermilk Chicken Burger",
-      "Chicken & Stuffing Burger",
       "Big Cheese Burger",
       "Beef Cheese Meltdown",
       "Buttermilk Chicken Cheese Meltdown",
@@ -48,6 +56,7 @@ export const PRODUCT_GROUPS = [
       "Chicken Korma",
       "Beef Madras",
       "Sweet Potato Curry",
+      "Prawn & Fish Curry",
     ],
   },
   {
@@ -76,10 +85,12 @@ export const PRODUCT_GROUPS = [
     description: PRODUCT_DESCRIPTIONS.JACKET_POTATOES,
     discounts: PRODUCT_DISCOUNTS.MINIMUM,
     products: [
-      "Jacket Poatato with Cheese",
+      "Jacket Potato with Cheese",
       "Jacket Potato with Beans",
       "Jacket Potato with Coleslaw",
       "Jacket Potato with Tuna",
+      "Jacket Potato with Roasted Vegetables",
+      "Jacket Potato with Chilli Non Carne",
     ],
   },
   // Small Plates
@@ -123,6 +134,16 @@ export const PRODUCT_GROUPS = [
     products: ["Ham, Egg & Chips"],
     description: PRODUCT_DESCRIPTIONS.CHIPS,
     discounts: PRODUCT_DISCOUNTS.MAX,
+  },
+  {
+    products: ["Beef Lasagne"],
+    description: PRODUCT_DESCRIPTIONS.LASAGNE,
+    discounts: PRODUCT_DISCOUNTS.MAX,
+  },
+  {
+    products: ["Korean Bowl"],
+    description: PRODUCT_DESCRIPTIONS.KOREAN_BOWL,
+    discounts: PRODUCT_DISCOUNTS.MEDIUM,
   },
 ];
 

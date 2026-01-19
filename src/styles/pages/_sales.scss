@@ -2,8 +2,8 @@
 
 .sales__result {
   display: flex;
-  gap: ab.rem(24);
   flex-direction: column;
+  gap: ab.rem(24);
 
   @include ab.mq("md") {
     flex-direction: row;
@@ -25,8 +25,14 @@
 @media print {
   .sales__result {
     display: flex !important;
-    gap: ab.rem(24) !important;
     flex-direction: row !important;
+    gap: ab.rem(24) !important;
+    width: 100% !important;
+
+    & > div {
+      flex-grow: 1 !important;
+      width: 100% !important;
+    }
   }
 
   .sales__table td {
@@ -38,7 +44,7 @@
   }
 
   .sales__title {
-    text-transform: uppercase !important;
     font-size: ab.rem(24) !important;
+    text-transform: uppercase !important;
   }
 }
