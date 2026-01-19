@@ -8,8 +8,9 @@ type SalesResultProps = {
 
 export const SalesResultComponent = ({ resultData }: SalesResultProps) => {
   return (
-    <div className={clsx("sales__result", "page__print")}>
-      <div className="sales__quantity">
+    <div className={clsx("page__print")}>
+      <div className={clsx("sales__result")}>
+        <div className="sales__quantity">
         <h3 className="sales__title">
           Top {resultData.topQuantity.length} Products by Quantity
         </h3>
@@ -66,6 +67,7 @@ export const SalesResultComponent = ({ resultData }: SalesResultProps) => {
             ))}
           </tbody>
         </table>
+      </div>
       </div>
     </div>
   );

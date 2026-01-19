@@ -6,7 +6,7 @@ export const PRODUCT_GROUPS = [
   {
     description: PRODUCT_DESCRIPTIONS.BENEDICTS,
     discounts: PRODUCT_DISCOUNTS.MEDIUM,
-    products: ["Eggs Benedict"],
+    products: ["Eggs Benedict", "Miners Benedict", "Mushroom Benedict"],
   },
   // Burgers
   {
