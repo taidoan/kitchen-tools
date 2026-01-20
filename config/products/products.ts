@@ -17,7 +17,6 @@ export const PRODUCT_GROUPS = [
       "American Cheese Burger",
       "Classic Beef Burger",
       "Buttermilk Chicken Burger",
-      "Brie & Bacon Burger",
     ],
   },
   {
