@@ -2,6 +2,19 @@ import { PRODUCT_DESCRIPTIONS } from "./descriptions";
 import { PRODUCT_DISCOUNTS } from "./discounts";
 
 export const PRODUCT_GROUPS = [
+  // Burns
+  {
+    description: "Haggis served with swede mash and mashed potatoes.",
+    discounts: PRODUCT_DISCOUNTS.MEDIUM,
+    products: ["Haggis, Neeps & Tatties"]
+},
+
+  {
+    description: "Served with chips and onion rings.",
+    discounts: PRODUCT_DISCOUNTS.MEDIUM,
+    products: ["The Caledonian Burger",
+  },
+
   // Breakfast
   {
     description: PRODUCT_DESCRIPTIONS.BENEDICTS,
