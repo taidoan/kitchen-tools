@@ -10,7 +10,7 @@ export const PRODUCT_GROUPS = [
 },
 
   {
-    description: "Served with chips and onion rings.",
+    description: "Served with chips, onion rings and whiskey sauce.",
     discounts: PRODUCT_DISCOUNTS.MEDIUM,
     products: ["The Caledonian Burger",
   },
