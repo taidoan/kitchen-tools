@@ -157,6 +157,11 @@ export const PRODUCT_GROUPS = [
     description: PRODUCT_DESCRIPTIONS.KOREAN_BOWL,
     discounts: PRODUCT_DISCOUNTS.MEDIUM,
   },
+  {
+    products: ["Steak & Ale Pudding"],
+    description: "Served with either chips or mash, peas & gravy.",
+    discounts: PRODUCT_DISCOUNTS.MAX,
+  },
 ];
 
 export const PRODUCTS = PRODUCT_GROUPS.flatMap((group) =>
