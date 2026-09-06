@@ -21,6 +21,11 @@ export const PRODUCT_GROUPS = [
     ],
   },
   {
+    products: ["Halloumi Burger"],
+    discounts: PRODUCT_DISCOUNTS.MAX,
+    description: ["Served with chips & sweet chilli sauce."],
+  },
+  {
     description: PRODUCT_DESCRIPTIONS.XMAS_BURGERS,
     discounts: PRODUCT_DISCOUNTS.MAX,
     products: [
@@ -106,6 +111,11 @@ export const PRODUCT_GROUPS = [
     products: ["Cod & Chips"],
   },
   {
+    description: PRODUCT_DESCRIPTIONS.COD,
+    discounts: PRODUCT_DISCOUNTS.MEDIUM,
+    products: ["Small Cod & Chips"],
+  },
+  {
     products: ["Alfredo Pasta"],
     description: PRODUCT_DESCRIPTIONS.ALFREDO,
     discounts: PRODUCT_DISCOUNTS.MAX,
@@ -145,6 +155,13 @@ export const PRODUCT_GROUPS = [
     description: PRODUCT_DESCRIPTIONS.KOREAN_BOWL,
     discounts: PRODUCT_DISCOUNTS.MEDIUM,
   },
+  {
+    products: ["Chicken & Broccoli"],
+    description: [
+      "Chicken breast served with mashed potato, peas, tenderstem broccoli & gravy.",
+    ],
+    discounts: PRODUCT_DISCOUNTS.MEDIUM,
+  },
 ];
 
 export const PRODUCTS = PRODUCT_GROUPS.flatMap((group) =>
@@ -152,5 +169,5 @@ export const PRODUCTS = PRODUCT_GROUPS.flatMap((group) =>
     product: name,
     description: group.description,
     discounts: group.discounts,
-  }))
+  })),
 );
