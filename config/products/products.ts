@@ -2,6 +2,19 @@ import { PRODUCT_DESCRIPTIONS } from "./descriptions";
 import { PRODUCT_DISCOUNTS } from "./discounts";
 
 export const PRODUCT_GROUPS = [
+  // Burns
+  {
+    description: "Haggis served with swede mash and mashed potatoes.",
+    discounts: PRODUCT_DISCOUNTS.MEDIUM,
+    products: ["Haggis, Neeps & Tatties"]
+  },
+
+  {
+    description: "Served with chips, onion rings and whiskey sauce.",
+    discounts: PRODUCT_DISCOUNTS.MEDIUM,
+    products: ["The Caledonian Burger"],
+  },
+
   // Breakfast
   {
     description: PRODUCT_DESCRIPTIONS.BENEDICTS,
@@ -17,7 +30,6 @@ export const PRODUCT_GROUPS = [
       "American Cheese Burger",
       "Classic Beef Burger",
       "Buttermilk Chicken Burger",
-      "Brie & Bacon Burger",
     ],
   },
   {
@@ -159,6 +171,13 @@ export const PRODUCT_GROUPS = [
     products: ["Chicken & Broccoli"],
     description: [
       "Chicken breast served with mashed potato, peas, tenderstem broccoli & gravy.",
+    ],
+    discounts: PRODUCT_DISCOUNTS.MEDIUM,
+  },
+    {
+    products: ["Steak & Ale Pudding"],
+    description: [
+      "Served with peas, gravy and either chips or mashed potato.",
     ],
     discounts: PRODUCT_DISCOUNTS.MEDIUM,
   },

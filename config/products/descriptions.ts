@@ -10,7 +10,7 @@ export const PRODUCT_DESCRIPTIONS = {
   GOURMET_BURGERS: "Served with chips & onion rings.",
   CHIPS: CHP_DESCRIPTION,
   BURGERS: CHP_DESCRIPTION,
-  XMAS_BURGERS: "Served with chips & cranberry sauce.",
+  XMAS_BURGERS: "Served with chips.",
   LASAGNE: CHP_SLD_PLN_DESCRIPTION,
   JACKET_POTATOES: SLD_DESCRIPTION,
   SIMPLE_CURRY: "Served with either pilau rice or chips.",
