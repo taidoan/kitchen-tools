@@ -34,7 +34,7 @@ export const PRODUCT_GROUPS = [
   {
     products: ["Halloumi Burger"],
     discounts: PRODUCT_DISCOUNTS.MAX,
-    description: PRODUCTS_DESCRIPTIONS.HALLOUMI_BURGER,
+    description: PRODUCT_DESCRIPTIONS.HALLOUMI_BURGER,
   },
   {
     description: PRODUCT_DESCRIPTIONS.XMAS_BURGERS,
