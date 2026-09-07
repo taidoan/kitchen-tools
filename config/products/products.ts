@@ -6,9 +6,8 @@ export const PRODUCT_GROUPS = [
   {
     description: "Haggis served with swede mash and mashed potatoes.",
     discounts: PRODUCT_DISCOUNTS.MEDIUM,
-    products: ["Haggis, Neeps & Tatties"]
+    products: ["Haggis, Neeps & Tatties"],
   },
-
   {
     description: "Served with chips, onion rings and whiskey sauce.",
     discounts: PRODUCT_DISCOUNTS.MEDIUM,
