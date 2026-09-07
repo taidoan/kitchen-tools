@@ -35,7 +35,7 @@ export const PRODUCT_GROUPS = [
   {
     products: ["Halloumi Burger"],
     discounts: PRODUCT_DISCOUNTS.MAX,
-    description: ["Served with chips & sweet chilli sauce."],
+    description: PRODUCTS.DESCRIPTIONS.HALLOUMI_BURGER,
   },
   {
     description: PRODUCT_DESCRIPTIONS.XMAS_BURGERS,
@@ -169,16 +169,13 @@ export const PRODUCT_GROUPS = [
   },
   {
     products: ["Chicken & Broccoli"],
-    description: [
-      "Chicken breast served with mashed potato, peas, tenderstem broccoli & gravy.",
-    ],
+    description: PRODUCT_DESCRIPTIONS.CHICKEN_BROCCOLI,
     discounts: PRODUCT_DISCOUNTS.MEDIUM,
   },
     {
     products: ["Steak & Ale Pudding"],
-    description: [
+    description:
       "Served with peas, gravy and either chips or mashed potato.",
-    ],
     discounts: PRODUCT_DISCOUNTS.MEDIUM,
   },
 ];
