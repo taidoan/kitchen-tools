@@ -30,6 +30,13 @@ export default function Home() {
           cta="Generate"
         />
         <QuickLink
+          title="LFLs"
+          description="Sales/Volumes LFLs"
+          icon="lfl"
+          href='/lfl'
+          cta="Track"
+        />
+        <QuickLink
           title="Sales"
           description="Top Sales Report"
           icon="sales"

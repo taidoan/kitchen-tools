@@ -20,6 +20,9 @@ export const NavBar = ({ collapsed, className }: NavBarProps) => {
           </NavItem>
         </li>
         <li className="navigation__item">
+          <NavItem href="/lfl" type='lfl'>LFLs</NavItem>
+        </li>
+        <li className="navigation__item">
           <NavItem href="/sales" type="sales" collapsed={collapsed}>
             Sales Report
           </NavItem>

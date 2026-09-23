@@ -9,7 +9,7 @@ import { Icon } from "../Icon";
 type NavItemProps = {
   children: React.ReactNode;
   href: string;
-  type?: "home" | "fdt" | "special" | "sales" | "wastage";
+  type?: "home" | "fdt" | "special" | "sales" | "wastage" | "lfl";
   active?: boolean;
   collapsed?: boolean;
   disabled?: boolean;
