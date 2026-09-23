@@ -9,6 +9,7 @@ const getValueByLabel = (
   label: string,
   targetIndex: number,
 ): number => {
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
   const matchingRow = rawRows.find((row: any[]) => {
     if (!Array.isArray(row)) return false;
     return row.some(

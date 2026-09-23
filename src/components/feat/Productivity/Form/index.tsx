@@ -16,17 +16,16 @@ import style from "../style.module.scss";
 
 export const KSRSForm = ({
   onSubmit,
-  submitted,
   initialValues = {},
 }: KSRSFormProps) => {
   const [activeTab, setActiveTab] = useState<string>("dataEntry");
 
   const [formData, setFormData] = useState<FormData>(
     () =>
-      ({
-        ...config.DEFAULT_FORM_OPTIONS,
-        ...initialValues,
-      } as FormData)
+    ({
+      ...config.DEFAULT_FORM_OPTIONS,
+      ...initialValues,
+    } as FormData)
   );
 
   const [error, setError] = useState<string>("");
