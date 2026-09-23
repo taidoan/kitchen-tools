@@ -17,6 +17,27 @@ describe("convertToObjects", () => {
     expect(convertToObjects({ rows })).toEqual([]);
   });
 
+  it("returns the correct object if header is set to Product Division", () => {
+    const rows = [
+      ["Product Division", "Product Name", "Quantity"],
+      ["Food", "Burgers", "10"],
+      ["Total", "", "100"],
+    ];
+
+    expect(convertToObjects({ rows, header: "product division" })).toEqual([
+      {
+        "Product Division": "Food",
+        "Product Name": "Burgers",
+        Quantity: "10",
+      },
+      {
+        "Product Division": "Total",
+        "Product Name": "",
+        Quantity: "100",
+      },
+    ]);
+  });
+
   it("returns empty array when header row is the last row", () => {
     const rows = [
       ["Value1", "Value2"],

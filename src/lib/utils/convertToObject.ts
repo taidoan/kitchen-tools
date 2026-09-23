@@ -1,5 +1,6 @@
 export interface RowObject {
   rows: string[][];
+  header?: string;
 }
 
 /**
@@ -12,18 +13,30 @@ export interface RowObject {
  * @param rows - An object containing a `rows` property, which is a 2D array of strings representing table data.
  * @returns An array of objects, each representing a row of data mapped to header keys.
  */
-export const convertToObjects = ({ rows }: RowObject) => {
+export const convertToObjects = ({
+  rows,
+  header = "product name",
+}: RowObject) => {
   if (!rows || rows.length < 2) return [];
 
-  const headerIndex = rows.findIndex((r) =>
-    r.some((cell) => cell.toLowerCase().includes("product name"))
-  );
+  let headerIndex;
+
+  if (header === "product division") {
+    headerIndex = rows.findIndex((r) =>
+      r.some((cell) => cell.toLowerCase().includes("product division")),
+    );
+  } else {
+    headerIndex = rows.findIndex((r) =>
+      r.some((cell) => cell.toLowerCase().includes("product name")),
+    );
+  }
+
   if (headerIndex < 0 || headerIndex === rows.length - 1) return [];
 
   const headers = rows[headerIndex].map((h) => h.trim());
   const dataRows = rows.slice(headerIndex + 1);
 
   return dataRows.map((row) =>
-    Object.fromEntries(headers.map((h, i) => [h, (row[i] || "").trim()]))
+    Object.fromEntries(headers.map((h, i) => [h, (row[i] || "").trim()])),
   );
 };

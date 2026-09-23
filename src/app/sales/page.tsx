@@ -23,6 +23,7 @@ export default function SalesPage() {
     const salesData = (formData.get("sales-data") as string) || "";
 
     const result = processCsv(salesData, numberOfItems) as SalesResult;
+    console.log(result)
     setResultData(result);
     setFormSubmitted(true);
     setActiveTab("result");

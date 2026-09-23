@@ -27,10 +27,11 @@
   --input-text-clr: var(--clr-secondary-400);
   --input-text-clr-focus: var(--clr-black-400);
   --select-dropdown-bg: var(--input-bg);
-  --select-dropdown-text-clr: var(--clr-secondary-400)
+  --select-dropdown-text-clr: var(--clr-secondary-400);
 
   /* TEXT */
   --text-clr: var(--clr-black-400);
+  --percentage-clr: var(--clr-black-250);
 
   /* NAV ITEMS */
   --nav-item-bg: hsla(0, 0%, 100%, 0.5);
@@ -105,6 +106,7 @@
 
   /* TEXT */
   --text-clr: var(--clr-white-400);
+  --percentage-clr: var(--clr-white-700);
 
   /* NAV ITEMS */
   --nav-item-bg: hsla(0, 0%, 100%, 0.1);
@@ -159,6 +161,7 @@
 @media print {
   :root {
     --text-clr: black;
+    --percentage-clr: grey;
     --table-border-clr: black;
     --table-header-text-clr: white;
     --table-cell-bg: white;
@@ -196,5 +199,8 @@
   }
   &--failed {
     color: var(--clr-fail);
+  }
+  &--percentage {
+    color: var(--percentage-clr);
   }
 }

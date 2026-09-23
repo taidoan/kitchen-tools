@@ -4,6 +4,7 @@ export interface SalesItem {
   "Quantity Sold": number | string;
   "Value of Sales": number | string;
   "Gross Sales": number | string;
+  "% of Sales"?: number | string;
   /* eslint-disable  @typescript-eslint/no-explicit-any */
   [key: string]: any;
 }
@@ -11,4 +12,6 @@ export interface SalesItem {
 export interface SalesResult {
   topSales: SalesItem[];
   topQuantity: SalesItem[];
+  totalSales: number;
+  totalQuantity: number;
 }

@@ -193,7 +193,7 @@ export const DEFAULT_SERVICE_SUMMARY = {
 
 // Hidden product sales columns
 export const HIDDEN_SALES_COLUMNS = [
-  "Product Division",
+  // "Product Division",
   "Sub Category",
   "Destination",
   "Portion",
