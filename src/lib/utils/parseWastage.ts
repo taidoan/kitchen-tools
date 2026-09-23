@@ -29,7 +29,7 @@ export function parseWastageEntries(text: string): WastageResultItem[] {
 
     while (cols.length < 7) cols.push("");
 
-    const [dateCol, reasonCol, category, product, unit, qty, cost] = cols;
+    const [dateCol, reasonCol, product, unit, qty, cost] = cols;
 
     if (dateCol) currentDate = dateCol;
     if (reasonCol) currentReason = reasonCol;
@@ -54,7 +54,7 @@ export function parseWastageEntries(text: string): WastageResultItem[] {
 
 export function aggregateByProduct(
   entries: WastageResultItem[],
-  numberOfItems?: number
+  numberOfItems?: number,
 ) {
   const map = new Map<string, WastageResultItem>();
 
