@@ -27,14 +27,6 @@ export const getSalesValues = ({
   // Find the column for "Value of Sales"
   const col = "Value of Sales";
   return [...objects]
-    .map(
-      (r) =>
-        ({
-          ...r,
-          [col]: Number(r[col]) || 0,
-          /* eslint-disable  @typescript-eslint/no-explicit-any */
-        } as Record<string, any>)
-    )
     .filter(
       (r) =>
         r["Product Name"] &&
@@ -42,7 +34,15 @@ export const getSalesValues = ({
         !r["Product Name"].toLowerCase().includes("no-upsell") &&
         !r["Product Name"].toLowerCase().includes("plain") &&
         !r["Category"]?.toLowerCase().includes("choices/options") &&
-        !r["Category"]?.toLowerCase().includes("extras/options")
+        !r["Category"]?.toLowerCase().includes("extras/options"),
+    )
+    .map(
+      (r) =>
+        ({
+          ...r,
+          [col]: Number(r[col]) || 0,
+          /* eslint-disable  @typescript-eslint/no-explicit-any */
+        }) as Record<string, any>,
     )
     .sort((a, b) => b[col] - a[col])
     .slice(0, numberOfItems);

@@ -1,6 +1,7 @@
 import { HIDDEN_SALES_COLUMNS, SALES_SUMMARY_LABELS } from "@config";
 import { getSalesValues } from "./getSalesValues";
 import { getQuantity } from "./getQuantity";
+import { getTotalQuantity, getTotalSales } from "./getTotals";
 /**
  * Parse a simple CSV string into an array of rows of trimmed cell values.
  *
@@ -64,9 +65,17 @@ export const cleanCSVData = (csv: string) => {
     .split("\n")
     .map((r) => r.split("\t").map((c) => c.replace(/\u00A0/g, " ").trim()))
     .filter((r) => r.some((cell) => cell !== ""))
-    .filter(
-      (r) => r[0] && !SALES_SUMMARY_LABELS.includes(r[0].replace(/\s+/g, ""))
-    );
+    .filter((r) => {
+      if (!r[0]) return true; // Keep rows that don't have text in column 0 (like product rows)
+      const label = r[0].replace(/\s+/g, "").toLowerCase();
+
+      // Allow the final grand total row through, but keep filtering out other summary labels
+      if (label === "total") {
+        return true;
+      }
+
+      return !SALES_SUMMARY_LABELS.includes(r[0].replace(/\s+/g, ""));
+    });
 
   if (!rows.length) return [];
 
@@ -80,7 +89,6 @@ export const cleanCSVData = (csv: string) => {
 
   return cleaned;
 };
-
 export const processCsv = (raw: string, numberOfItems = 5) => {
   const cleanedRows = cleanCSVData(raw);
   const topSales = getSalesValues({
@@ -93,5 +101,9 @@ export const processCsv = (raw: string, numberOfItems = 5) => {
     numberOfItems: numberOfItems,
   });
 
-  return { topSales, topQuantity };
+  const totalQuantity = getTotalQuantity({ rows: { rows: cleanedRows } });
+
+  const totalSales = getTotalSales({ rows: { rows: cleanedRows } });
+
+  return { topSales, topQuantity, totalQuantity, totalSales };
 };
