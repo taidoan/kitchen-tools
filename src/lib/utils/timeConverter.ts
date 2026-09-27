@@ -76,7 +76,7 @@ export const convertTimeToMinutes = (timeString: string) => {
 export const formatKitchenTime = (decimalMinutes: number) => {
   const clamped = Math.max(0, decimalMinutes);
   const minutes = Math.floor(clamped);
-  let seconds = Math.round((clamped - minutes) * 60);
+  const seconds = Math.round((clamped - minutes) * 60);
 
   if (seconds === 60) {
     return `${minutes + 1}:00`;
