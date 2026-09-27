@@ -3,11 +3,11 @@
 .fdt__table,
 .service-summary__table,
 .fdt__sort {
-  margin-top: ab.rem(24);
+  margin-top: 0;
 }
 
 .fdt__productivity {
-  margin-block: ab.rem(48);
+  margin-block: ab.rem(16) 0;
 }
 
 .fdt__divider {
@@ -47,6 +47,19 @@
   }
 
   .fdt__productivity {
-    margin-block: ab.rem(24) !important;
+    margin-block: 8pt 0 !important;
+  }
+
+  .fdt__table,
+  .fdt__table td,
+  .fdt__table th,
+  .service-summary__table th,
+  .service-summary__table td .cell__value {
+    padding: 5pt 6pt !important;
+    font-size: 10pt !important;
+  }
+
+  .service-summary__table {
+    margin-bottom: 0;
   }
 }

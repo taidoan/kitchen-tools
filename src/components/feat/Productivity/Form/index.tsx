@@ -153,7 +153,7 @@ export const KSRSForm = ({
 
       <div className="form__row">
         {checkboxFields.map(({ id, label, field }) => (
-          <InnerCard key={id} className={style.checkboxCard} padding="small">
+          <InnerCard key={id} padding="small">
             <Checkbox
               id={id}
               label={label}
@@ -170,7 +170,7 @@ export const KSRSForm = ({
             id="prodData"
             label="Productivity Data"
             required
-            rows={6}
+            rows={8}
             placeholder="Enter productivity data here..."
             value={formData.copiedProductivityData}
             onChange={(e) =>
@@ -178,15 +178,12 @@ export const KSRSForm = ({
             }
           />
         </InnerCard>
-      </div>
-
-      <div className="form__row">
         <InnerCard padding="small">
           <Textarea
             id="serviceData"
             label="Service Data"
             required
-            rows={6}
+            rows={8}
             placeholder="Enter service summary data here..."
             value={formData.copiedServiceData}
             onChange={(e) => updateField("copiedServiceData", e.target.value)}

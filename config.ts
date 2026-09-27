@@ -128,6 +128,7 @@ export const DEFAULT_FORM_OPTIONS = {
   manualHolds: show_manual_holds,
   floorLates: show_floor_lates,
   copiedServiceData: "",
+  copiedProductivityData: "",
 };
 
 // DO NOT EDIT THIS

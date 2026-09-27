@@ -1,0 +1,115 @@
+@use "./../abstracts/_index" as ab;
+
+.lfl__paste {
+  display: grid;
+  gap: ab.rem(16);
+  align-items: start;
+
+  @include ab.mq("md") {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.lfl__result {
+  display: flex;
+  flex-direction: column;
+  gap: ab.rem(16);
+}
+
+.lfl__modes {
+  justify-content: center;
+}
+
+.lfl__sub {
+  display: block;
+  margin-top: ab.rem(4);
+}
+
+.lfl__table {
+  td:first-child,
+  th:first-child {
+    text-align: left;
+  }
+
+  th {
+    padding: 0;
+  }
+}
+
+.lfl__sort {
+  appearance: none;
+  background: none;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  padding: ab.rem(12);
+  width: 100%;
+  white-space: normal;
+
+  th:first-child & {
+    text-align: left;
+  }
+
+  &:hover,
+  &--active {
+    text-decoration: underline;
+  }
+}
+
+.lfl__total {
+  td {
+    font-weight: 700;
+  }
+}
+
+@media print {
+  .lfl__modes,
+  .lfl__result .form__input {
+    display: none !important;
+  }
+
+  .lfl__table {
+    color: black;
+    border-color: black !important;
+
+    thead {
+      background: transparent !important;
+      color: black !important;
+    }
+
+    th {
+      color: black !important;
+      background: transparent !important;
+      border-bottom: 1.5pt solid black !important;
+      padding: 5pt 6pt !important;
+      font-size: 9pt;
+      text-transform: uppercase;
+    }
+
+    td {
+      padding: 5pt 6pt !important;
+      font-size: 10pt;
+      color: black !important;
+      background: white !important;
+      border: 0.75pt solid #222 !important;
+    }
+
+    .text-clr--success,
+    .text-clr--failed {
+      font-weight: 700;
+    }
+  }
+
+  .lfl__sort {
+    padding: 0 !important;
+    text-decoration: none !important;
+    color: black !important;
+  }
+
+  .lfl__total td {
+    font-weight: 800;
+    border-top: 1.5pt solid black !important;
+  }
+}

@@ -10,8 +10,10 @@ type TimeGroup = ServiceSummary["averageDeliveryTime"];
 type LateGroup = ServiceSummary["numberOfLateOrders"];
 type ChefGroup = ServiceSummary["chef1"];
 
-const num = (value: string) => parseInt(value, 10);
+const num = (value: string) => parseInt(value, 10) || 0;
 const float = (value: string) => parseFloat(value);
+const percent = (count: number, total: number) =>
+  total > 0 ? Math.round((count / total) * 100) : 0;
 
 const fillTimeGroup = (target: TimeGroup, values: string[]) => {
   target.starters = convertToMinutesSeconds(float(values[0]));
@@ -20,26 +22,18 @@ const fillTimeGroup = (target: TimeGroup, values: string[]) => {
   target.total = convertToMinutesSeconds(float(values[3]));
 };
 
-const fillLateGroup = (
-  target: LateGroup,
-  values: string[],
-  totalCount: number
-) => {
+const fillLateGroup = (target: LateGroup, values: string[]) => {
   target.starters.count = num(values[0]);
-  target.starters.percentage = Math.round(
-    (target.starters.count / totalCount) * 100
-  );
-
   target.mains.count = num(values[1]);
-  target.mains.percentage = Math.round((target.mains.count / totalCount) * 100);
-
   target.desserts.count = num(values[2]);
-  target.desserts.percentage = Math.round(
-    (target.desserts.count / totalCount) * 100
-  );
-
   target.total.count = num(values[3]);
-  target.total.percentage = Math.round((target.total.count / totalCount) * 100);
+};
+
+const applyLatePercentages = (target: LateGroup, totalCount: number) => {
+  target.starters.percentage = percent(target.starters.count, totalCount);
+  target.mains.percentage = percent(target.mains.count, totalCount);
+  target.desserts.percentage = percent(target.desserts.count, totalCount);
+  target.total.percentage = percent(target.total.count ?? 0, totalCount);
 };
 
 const fillChefGroup = (chef: ChefGroup, values: string[]) => {
@@ -47,15 +41,14 @@ const fillChefGroup = (chef: ChefGroup, values: string[]) => {
 
   chef.numberOfOrders = num(values[1]);
   chef.ordersLate.count = num(values[2]);
-  chef.ordersLate.percentage = Math.round(
-    (chef.ordersLate.count / chef.numberOfOrders) * 100
+  chef.ordersLate.percentage = percent(
+    chef.ordersLate.count,
+    chef.numberOfOrders
   );
 
   chef.numberOfItems = num(values[3]);
   chef.itemsLate.count = num(values[4]);
-  chef.itemsLate.percentage = Math.round(
-    (chef.itemsLate.count / chef.numberOfItems) * 100
-  );
+  chef.itemsLate.percentage = percent(chef.itemsLate.count, chef.numberOfItems);
 
   chef.ordersBumped = num(values[5]);
   chef.manualHolds = num(values[6]);
@@ -118,11 +111,7 @@ export const createKey = ({ serviceSummary, lines }: createKeysProps) => {
         break;
 
       case "No. of Late Orders":
-        fillLateGroup(
-          serviceSummary.numberOfLateOrders,
-          values,
-          serviceSummary.numberOfOrders
-        );
+        fillLateGroup(serviceSummary.numberOfLateOrders, values);
         break;
 
       case "No. of Items":
@@ -130,11 +119,7 @@ export const createKey = ({ serviceSummary, lines }: createKeysProps) => {
         break;
 
       case "No. of Late Items":
-        fillLateGroup(
-          serviceSummary.numberOfLateItems,
-          values,
-          serviceSummary.numberOfItems
-        );
+        fillLateGroup(serviceSummary.numberOfLateItems, values);
         break;
 
       case "Table/Meal Checks On-Time":
@@ -152,4 +137,13 @@ export const createKey = ({ serviceSummary, lines }: createKeysProps) => {
         break;
     }
   }
+
+  applyLatePercentages(
+    serviceSummary.numberOfLateOrders,
+    serviceSummary.numberOfOrders
+  );
+  applyLatePercentages(
+    serviceSummary.numberOfLateItems,
+    serviceSummary.numberOfItems
+  );
 };

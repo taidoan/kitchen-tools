@@ -1,16 +1,33 @@
 @use "./../abstracts/_index" as ab;
 
-.form__container,
 .form__wrapper {
+  flex-direction: column;
+}
+
+.form__container {
   display: flex;
   flex-direction: column;
+  align-items: stretch;
   gap: ab.rem(16);
+  width: 100%;
+  min-width: 0;
 }
 
 .form__row {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: start;
   gap: ab.rem(16);
-  flex-wrap: wrap;
+  width: 100%;
+
+  @include ab.mq("md") {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.form__field--short {
+  max-width: ab.rem(220);
+  width: 100%;
 }
 
 .form__label {
@@ -40,6 +57,14 @@
   display: flex;
   flex-direction: column;
   gap: ab.rem(8);
+  min-width: 0;
+  flex: 0 0 auto;
+
+  input:not([type="checkbox"]),
+  textarea,
+  select {
+    width: 100%;
+  }
 
   &--small {
     gap: ab.rem(4);
@@ -48,7 +73,8 @@
   &--checkbox {
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: ab.rem(12);
   }
 
   &--row {

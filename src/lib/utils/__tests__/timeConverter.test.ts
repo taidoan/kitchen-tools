@@ -1,7 +1,9 @@
 import {
   convertToMinutesSeconds,
   convertToHHMM,
+  convertToHoursMinutes,
   convertTimeToMinutes,
+  formatKitchenTime,
 } from "../timeConverter";
 import { describe, it, expect } from "vitest";
 
@@ -21,10 +23,27 @@ describe("convertToHHMM", () => {
   });
 });
 
+describe("convertToHoursMinutes", () => {
+  it("treats the fractional part as minutes", () => {
+    expect(convertToHoursMinutes(8.3)).toBe("08:30");
+    expect(convertToHoursMinutes(8)).toBe("08:00");
+    expect(convertToHoursMinutes(7.15)).toBe("07:15");
+  });
+});
+
 describe("convertTimeToMinutes", () => {
   it("should convert time string to decimal minutes", () => {
     expect(convertTimeToMinutes("8:04")).toBe(8.07);
     expect(convertTimeToMinutes("01:35")).toBe(1.58);
     expect(convertTimeToMinutes("00:07")).toBe(0.12);
+  });
+});
+
+describe("formatKitchenTime", () => {
+  it("formats decimal minutes as M:SS", () => {
+    expect(formatKitchenTime(8)).toBe("8:00");
+    expect(formatKitchenTime(8.5)).toBe("8:30");
+    expect(formatKitchenTime(1.5)).toBe("1:30");
+    expect(formatKitchenTime(10)).toBe("10:00");
   });
 });

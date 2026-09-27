@@ -2,6 +2,7 @@
 
 .divider {
   background-color: var(--divider-bg);
-  margin-block: ab.rem(20);
+  margin-block: 0;
   display: block;
+  flex-shrink: 0;
 }

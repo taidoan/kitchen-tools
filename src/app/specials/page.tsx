@@ -35,13 +35,14 @@ export default function SpecialsPage() {
   return (
     <>
       <Card containerClassName={clsx("specials__intro", "page__intro")}>
-        <h2>Food Specials Generator</h2>
-        <Divider height={4} width={240} />
+        <div className="page__heading">
+          <h2>Food Specials Generator</h2>
+          <Divider height={4} width={240} />
+        </div>
         <p>
-          This tool is designed to help you quickly generate and print out a
-          food specials menu for your location by choosing products and
-          selecting a discount price. Try to aim to keep the specials below 9,
-          you shouldn&apos;t really need to go above that.
+          Build a printable specials menu. Pick a listed product or type a
+          custom item, then set a discount. Keep it to about 9 items if you
+          can.
         </p>
       </Card>
 
@@ -71,9 +72,8 @@ export default function SpecialsPage() {
             </Button>
           </div>
           <p>
-            Choose the products you would like to include in your specials menu
-            and select a discount price. You can edit the name, description and
-            price if needed.
+            Choose a product from the list or type a custom name. You can still
+            edit the name, description and price afterwards.
           </p>
           {activeTab === "menu" && (
             <>

@@ -1,14 +1,12 @@
 import React from "react";
 import {
-  MAX_PREP_TIME_FOOD_LIFT,
-  MAX_PREP_TIME_NO_FOOD_LIFT,
   FOOD_LIFT_WAIT_TIME,
   NO_FOOD_LIFT_WAIT_TIME,
   MAX_DELIVERY_TIME,
-  PREP_TIME_TOLERANCE,
   LATE_PERCENTAGE_TOLERANCE,
 } from "@config";
-import { convertToHHMM } from "@/lib/utils/timeConverter";
+import { formatKitchenTime } from "@/lib/utils/timeConverter";
+import { getPrepThresholds } from "@/lib/utils/generateClasses";
 import { Divider, InnerCard } from "@/components/ui";
 import clsx from "clsx";
 import style from "./style.module.scss";
@@ -32,118 +30,102 @@ export const KeysComponent = ({
     </InnerCard>
   );
 
-  const maxPrepTime = foodLift
-    ? MAX_PREP_TIME_FOOD_LIFT
-    : MAX_PREP_TIME_NO_FOOD_LIFT;
-  const failedTime = Math.min(prepTarget + PREP_TIME_TOLERANCE, maxPrepTime);
-  const showWarning =
-    (!foodLift && prepTarget + PREP_TIME_TOLERANCE < maxPrepTime) ||
-    (foodLift && prepTarget + PREP_TIME_TOLERANCE <= maxPrepTime);
+  const { warnUntil, hasWarning } = getPrepThresholds(prepTarget, foodLift);
+  const waitTime = foodLift ? FOOD_LIFT_WAIT_TIME : NO_FOOD_LIFT_WAIT_TIME;
 
   const generateKeyItem = (
-    value: string | number,
+    value: string,
     label: string,
     variantClass: string,
-    key: string,
-    percentage?: boolean
+    key: string
   ) => (
     <li key={key} className={style.keys__item}>
-      <span className={clsx(style.keys__label, variantClass)}>
-        {value}
-        {percentage ? "%" : ""}
-      </span>{" "}
+      <span className={clsx(style.keys__label, variantClass)}>{value}</span>{" "}
       {label}
     </li>
   );
+
   const prepKeys = renderKeys("Prep Time", [
     generateKeyItem(
-      convertToHHMM(prepTarget),
-      `mins or less`,
-      style[`keys__label--success`],
+      formatKitchenTime(prepTarget),
+      "or under",
+      style["keys__label--success"],
       "prep-target"
     ),
-    showWarning &&
+    hasWarning &&
       generateKeyItem(
-        convertToHHMM(prepTarget),
-        `mins or more`,
-        style[`keys__label--warning`],
+        `${formatKitchenTime(prepTarget)}–${formatKitchenTime(warnUntil)}`,
+        "over target",
+        style["keys__label--warning"],
         "prep-warning"
       ),
     generateKeyItem(
-      convertToHHMM(failedTime),
-      `mins or more`,
-      style[`keys__label--failed`],
+      formatKitchenTime(hasWarning ? warnUntil : prepTarget),
+      "over",
+      style["keys__label--failed"],
       "prep-failed"
     ),
   ]);
 
-  const waitTime = foodLift ? FOOD_LIFT_WAIT_TIME : NO_FOOD_LIFT_WAIT_TIME;
   const waitKeys = renderKeys("Wait Time", [
     generateKeyItem(
-      convertToHHMM(waitTime),
-      `mins or less.`,
-      style[`keys__label--success`],
+      formatKitchenTime(waitTime),
+      "or under",
+      style["keys__label--success"],
       "wait-target"
     ),
     generateKeyItem(
-      convertToHHMM(waitTime),
-      `mins or more.`,
-      style[`keys__label--failed`],
+      formatKitchenTime(waitTime),
+      "over",
+      style["keys__label--failed"],
       "wait-failed"
     ),
   ]);
 
   const lateKeys = renderKeys("Late Orders", [
     generateKeyItem(
-      lateTarget,
-      `or less.`,
-      style[`keys__label--success`],
-      "late-target",
-      true
+      `${lateTarget}%`,
+      "or under",
+      style["keys__label--success"],
+      "late-target"
     ),
     generateKeyItem(
-      lateTarget,
-      `or more.`,
-      style[`keys__label--warning`],
-      "late-warning",
-      true
+      `${lateTarget}–${lateTarget + LATE_PERCENTAGE_TOLERANCE}%`,
+      "over target",
+      style["keys__label--warning"],
+      "late-warning"
     ),
     generateKeyItem(
-      lateTarget + LATE_PERCENTAGE_TOLERANCE,
-      `or more.`,
-      style[`keys__label--failed`],
-      "late-failed",
-      true
+      `${lateTarget + LATE_PERCENTAGE_TOLERANCE}%`,
+      "over",
+      style["keys__label--failed"],
+      "late-failed"
     ),
   ]);
 
   const deliveryKeys = renderKeys("Delivery Time", [
     generateKeyItem(
-      convertToHHMM(MAX_DELIVERY_TIME),
-      `mins or less.`,
-      style[`keys__label--success`],
-      "delivery-target-0"
+      formatKitchenTime(MAX_DELIVERY_TIME),
+      "or under",
+      style["keys__label--success"],
+      "delivery-target"
     ),
     generateKeyItem(
-      convertToHHMM(MAX_DELIVERY_TIME),
-      `mins or more.`,
-      style[`keys__label--failed`],
-      "delivery-failed-1"
+      formatKitchenTime(MAX_DELIVERY_TIME),
+      "over",
+      style["keys__label--failed"],
+      "delivery-failed"
     ),
   ]);
 
   return (
     <div className={clsx(style.crib)}>
       <div className={style.keys__intro}>
-        <h2 className={style.title}>Understanding The Report</h2>
+        <h3 className={style.sectionTitle}>Colour key</h3>
         <p>
           The floor team needs at least{" "}
-          <strong>
-            {foodLift
-              ? convertToHHMM(FOOD_LIFT_WAIT_TIME)
-              : convertToHHMM(NO_FOOD_LIFT_WAIT_TIME)}
-          </strong>{" "}
-          minutes to deliver food sent from the kitchen on time.
+          <strong>{formatKitchenTime(waitTime)}</strong> to run food on time
+          {foodLift ? " with the lift" : ""}.
         </p>
       </div>
       <div className={style.keys__wrapper}>

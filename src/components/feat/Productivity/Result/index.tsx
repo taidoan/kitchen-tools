@@ -1,5 +1,6 @@
 import type { ProductivityResult as ProductivityResultProps } from "../types";
 import { DEFAULT_SERVICE_SUMMARY } from "@config";
+import clsx from "clsx";
 import { SalesComponent } from "./Sales";
 import { ServiceSummaryComponent } from "./ServiceSummary";
 import { ProductivityComponent } from "./Productivity";
@@ -18,28 +19,34 @@ export const ProductivityResult = ({
   serviceSummary,
   productivity,
 }: ProductivityResultProps) => {
+  const siteName =
+    serviceSummary.siteName || DEFAULT_SERVICE_SUMMARY.siteName;
+  const period =
+    productivity?.range || serviceSummary.dateRange || "";
+
   return (
-    <div className="page__print">
-      <div className={style.intro}>
-        <h2 className={style.title}>
-          {serviceSummary.siteName
-            ? serviceSummary.siteName
-            : DEFAULT_SERVICE_SUMMARY.siteName}{" "}
-          Food Delivery Times
-        </h2>
-        {productivity && productivity.range && <p>{productivity.range}</p>}
+    <div className={`page__print ${style.report}`}>
+      <header className={style.intro}>
+        <p className={style.kicker}>Food delivery times</p>
+        <h2 className={style.title}>{siteName}</h2>
+        {period ? <p className={style.period}>{period}</p> : null}
         <SalesComponent sales={sales} salesForecast={salesTarget} />
-      </div>
-      <ServiceSummaryComponent
-        serviceSummary={serviceSummary}
-        floorLates={floorLates}
-        kitLates={kitLates}
-        prepTarget={prepTarget}
-        foodLift={foodLift}
-        lateTarget={lateTarget}
-        manualHolds={manualHolds}
-        className="service-summary__table"
-      />
+      </header>
+      <section className={style.section}>
+        <h3 className={clsx(style.sectionTitle, style.hidePrint)}>
+          Service summary
+        </h3>
+        <ServiceSummaryComponent
+          serviceSummary={serviceSummary}
+          floorLates={floorLates}
+          kitLates={kitLates}
+          prepTarget={prepTarget}
+          foodLift={foodLift}
+          lateTarget={lateTarget}
+          manualHolds={manualHolds}
+          className="service-summary__table"
+        />
+      </section>
       <ProductivityComponent
         productivity={productivity}
         prepTarget={prepTarget}

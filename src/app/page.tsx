@@ -4,51 +4,51 @@ export default function Home() {
   return (
     <>
       <Card>
-        <h2>Welcome</h2>
-        <Divider height={4} width={240} />
+        <div className="page__heading">
+          <h2>Welcome</h2>
+          <Divider height={4} width={240} />
+        </div>
         <p>
-          Welcome to your Kitchen Tools Dashboard! Here you&apos;ll find a
-          collection of handy tools to make daily operations easier. From
-          generating food delivery reports and planning specials to tracking
-          sales performance. Everything you need to keep your kitchen running at
-          its best, all in one place.
+          Tools for day-to-day kitchen work: food delivery times, specials,
+          like-for-like sales, top sellers and wastage. Pick a tool below to
+          get started.
         </p>
       </Card>
       <div className="home__quick-links">
         <QuickLink
           title="FDT"
-          description="Food Delivery Times"
+          description="Food delivery times"
           icon="fdt"
           href="/productivity"
           cta="Open"
         />
         <QuickLink
           title="Specials"
-          description="Specials Generator"
+          description="Build a specials menu"
           icon="special"
           href="/specials"
-          cta="Generate"
+          cta="Open"
         />
         <QuickLink
-          title="LFLs"
-          description="Sales/Volumes LFLs"
+          title="LFL"
+          description="Like-for-like sales"
           icon="lfl"
-          href='/lfl'
-          cta="Track"
+          href="/lfl"
+          cta="Open"
         />
         <QuickLink
           title="Sales"
-          description="Top Sales Report"
+          description="Top products by qty and sales"
           icon="sales"
           href="/sales"
-          cta="View"
+          cta="Open"
         />
         <QuickLink
           title="Wastage"
-          description="Wastage Report"
+          description="Wastage report"
           icon="wastage"
           href="/wastage"
-          cta="Analyze"
+          cta="Open"
         />
       </div>
     </>

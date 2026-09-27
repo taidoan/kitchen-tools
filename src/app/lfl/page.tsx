@@ -1,30 +1,32 @@
 "use client";
-import type { SalesResult } from "@components/feat/Sales/types";
+
 import { useState } from "react";
 import clsx from "clsx";
-import { Card, OuterCard, InnerCard, Divider, Button } from "@/components/ui";
-import { SalesForm, SalesResultComponent } from "@/components/feat/Sales";
-import { processCsv } from "@/lib/utils/csv";
+import { processProductSalesCSV } from "@/lib/utils/csv";
+import { compareLFL, type ComparedProduct } from "@/lib/utils/compareLFL";
 import { printArea } from "@/lib/utils/printArea";
+import { Button, Card, Divider, InnerCard, OuterCard } from "@/components/ui";
+import { LFLForm, LFLResult } from "@/components/feat/LFL";
 
-export default function SalesPage() {
+export default function LFLPage() {
   const [activeTab, setActiveTab] = useState<string>("dataEntry");
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
   const [formValues, setFormValues] = useState({
-    topItems: 5,
-    salesData: "",
+    currentReport: "",
+    previousReport: "",
   });
-  const [resultData, setResultData] = useState<SalesResult | null>(null);
+  const [resultRows, setResultRows] = useState<ComparedProduct[] | null>(null);
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const numberOfItems = Number(formData.get("top-items")) || 5;
-    const salesData = (formData.get("sales-data") as string) || "";
+    const currentReport = (formData.get("current-report") as string) || "";
+    const previousReport = (formData.get("previous-report") as string) || "";
 
-    const result = processCsv(salesData, numberOfItems) as SalesResult;
+    const current = processProductSalesCSV(currentReport);
+    const previous = processProductSalesCSV(previousReport);
 
-    setResultData(result);
+    setResultRows(compareLFL(previous.items, current.items));
     setFormSubmitted(true);
     setActiveTab("result");
   };
@@ -37,13 +39,14 @@ export default function SalesPage() {
     <>
       <Card containerClassName="page__intro">
         <div className="page__heading">
-          <h2>Sales Overview</h2>
+          <h2>Like-for-like comparison</h2>
           <Divider height={4} width={240} />
         </div>
         <p>
-          Lists the top products by quantity sold and by sales value. Use a
-          food or bar <strong>Product Sales</strong> export from Aztec
-          Reporting.
+          Paste two Aztec <strong>Product Sales</strong> reports to see how
+          quantity and sales have changed. Use any matching date range — a
+          week, month, period or year. You can compare individual products, a
+          whole category, or the full report.
         </p>
       </Card>
       <OuterCard className={clsx("form__wrapper")}>
@@ -72,20 +75,21 @@ export default function SalesPage() {
             </Button>
           </div>
           <p>
-            Choose how many products to show (max 30), then paste the Aztec
-            export below. Print in portrait for the clearest layout.
+            Paste the <strong>current report</strong> first, then the{" "}
+            <strong>previous report</strong> for the same date range. Include
+            the header row from Aztec.
           </p>
         </InnerCard>
-        <InnerCard padding="medium" className={clsx("sales__main")}>
+        <InnerCard padding="medium" className={clsx("lfl__main")}>
           {activeTab === "dataEntry" && (
-            <SalesForm
+            <LFLForm
               onSubmit={handleFormSubmit}
               values={formValues}
               onChange={handleFormChange}
             />
           )}
-          {activeTab === "result" && resultData && (
-            <SalesResultComponent resultData={resultData} />
+          {activeTab === "result" && resultRows && (
+            <LFLResult rows={resultRows} />
           )}
         </InnerCard>
       </OuterCard>

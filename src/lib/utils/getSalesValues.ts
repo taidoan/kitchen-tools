@@ -24,7 +24,6 @@ export const getSalesValues = ({
   const objects = convertToObjects(rows);
   if (!objects.length) return [];
 
-  // Find the column for "Value of Sales"
   const col = "Value of Sales";
   return [...objects]
     .filter(
@@ -41,7 +40,6 @@ export const getSalesValues = ({
         ({
           ...r,
           [col]: Number(r[col]) || 0,
-          /* eslint-disable  @typescript-eslint/no-explicit-any */
         }) as Record<string, any>,
     )
     .sort((a, b) => b[col] - a[col])

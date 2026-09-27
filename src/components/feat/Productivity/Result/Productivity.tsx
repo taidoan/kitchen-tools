@@ -7,7 +7,11 @@ import {
   generatePrepTimeClasses,
   generateLatesClasses,
 } from "@/lib/utils/generateClasses";
-import { Select } from "@/components/ui";
+import {
+  sortStaffMembers,
+  type StaffSortDirection,
+  type StaffSortField,
+} from "@/lib/utils/sortStaffMembers";
 
 type ProductivityComponentProps = {
   productivity: ProductivityData | null;
@@ -17,6 +21,16 @@ type ProductivityComponentProps = {
   className?: string;
 };
 
+const COLUMNS: { label: string; field: StaffSortField }[] = [
+  { label: "Name", field: "name" },
+  { label: "Prep Time", field: "prep" },
+  { label: "Orders", field: "orders" },
+  { label: "Items", field: "items" },
+  { label: "Late Orders", field: "lates" },
+  { label: "Longest Order", field: "longest" },
+  { label: "Hours Worked", field: "hours" },
+];
+
 export const ProductivityComponent = ({
   productivity,
   prepTarget,
@@ -24,138 +38,95 @@ export const ProductivityComponent = ({
   lateTarget,
   className,
 }: ProductivityComponentProps) => {
-  const [sortOption, setSortOption] = useState("name-asc");
+  const [sortField, setSortField] = useState<StaffSortField>("name");
+  const [sortDirection, setSortDirection] =
+    useState<StaffSortDirection>("asc");
 
-  const sortedStaff = useMemo(() => {
-    if (!productivity) return [];
+  const sortedStaff = useMemo(
+    () =>
+      sortStaffMembers(
+        productivity?.staffMembers ?? [],
+        sortField,
+        sortDirection
+      ),
+    [productivity, sortField, sortDirection]
+  );
 
-    const staff = [...productivity.staffMembers]; // shallow copy
-
-    switch (sortOption) {
-      case "name-asc":
-        return staff.sort((a, b) => a.name.localeCompare(b.name));
-      case "name-desc":
-        return staff.sort((a, b) => b.name.localeCompare(a.name));
-      case "prep-asc":
-        return staff.sort((a, b) => a.prepTime.localeCompare(b.prepTime));
-      case "prep-desc":
-        return staff.sort((a, b) => b.prepTime.localeCompare(a.prepTime));
-      case "lates-asc":
-        return staff.sort(
-          (a, b) => a.lateOrdersPercentage - b.lateOrdersPercentage
-        );
-      case "lates-desc":
-        return staff.sort(
-          (a, b) => b.lateOrdersPercentage - a.lateOrdersPercentage
-        );
-      case "orders-asc":
-        return staff.sort((a, b) => a.orders - b.orders);
-      case "orders-desc":
-        return staff.sort((a, b) => b.orders - a.orders);
-      case "items-asc":
-        return staff.sort((a, b) => a.items - b.items);
-      case "items-desc":
-        return staff.sort((a, b) => b.items - a.items);
-      case "longest-asc":
-        return staff.sort(
-          (a, b) => parseFloat(a.longestOrder) - parseFloat(b.longestOrder)
-        );
-      case "longest-desc":
-        return staff.sort(
-          (a, b) => parseFloat(b.longestOrder) - parseFloat(a.longestOrder)
-        );
-      case "hours-asc":
-        return staff.sort(
-          (a, b) => parseFloat(a.hoursWorked) - parseFloat(b.hoursWorked)
-        );
-      case "hours-desc":
-        return staff.sort(
-          (a, b) => parseFloat(b.hoursWorked) - parseFloat(a.hoursWorked)
-        );
-
-      default:
-        return staff;
+  const handleHeaderClick = (field: StaffSortField) => {
+    if (sortField === field) {
+      setSortDirection((prev) => (prev === "asc" ? "desc" : "asc"));
+      return;
     }
-  }, [productivity, sortOption]);
-
-  const headerSortMap: Record<string, { asc: string; desc: string }> = {
-    Name: { asc: "name-asc", desc: "name-desc" },
-    "Prep Time": { asc: "prep-asc", desc: "prep-desc" },
-    Orders: { asc: "orders-asc", desc: "orders-desc" },
-    Items: { asc: "items-asc", desc: "items-desc" },
-    "Late Orders": { asc: "lates-asc", desc: "lates-desc" },
-    "Longest Order": { asc: "longest-asc", desc: "longest-desc" },
-    "Hours Worked": { asc: "hours-asc", desc: "hours-desc" },
-  };
-
-  const handleHeaderClick = (header: string) => {
-    const sortKeys = headerSortMap[header];
-
-    if (!sortKeys) return;
-
-    setSortOption((prev) =>
-      prev === sortKeys.asc ? sortKeys.desc : sortKeys.asc
-    );
+    setSortField(field);
+    setSortDirection("asc");
   };
 
   return (
     <div className="fdt__productivity">
-      <div className="results__sort">
-        <div>
-          <h2 className={style.title}>Productivity</h2>
-          <p>
-            This table shows the performance of kitchen staff members in the
-            various metrics provided by KSRS. You can sort the table using the
-            dropdown below or by clicking on the column headers.
-          </p>
-        </div>
-
-        <form className={clsx("results__sort__form")}>
-          <Select
-            id="sort-select"
-            label="Sort by"
-            className="input--small"
-            defaultValue="name-asc"
-            containerClassName={clsx("form__input--row")}
-            hideRequiredIndicator={true}
-            onChange={(e) => setSortOption(e.target.value)}
+      <div className={style.sectionHead}>
+        <h3 className={clsx(style.sectionTitle, style.hidePrint)}>
+          Productivity
+        </h3>
+        <div className={clsx(style.sortInline, style.hidePrint)}>
+          <label htmlFor="sort-field">Sort</label>
+          <select
+            id="sort-field"
+            value={sortField}
+            onChange={(e) => setSortField(e.target.value as StaffSortField)}
           >
-            <option value="name-asc">Name (A-Z)</option>
-            <option value="name-desc">Name (Z-A)</option>
-            <option value="prep-asc">Prep Time (Low to High)</option>
-            <option value="prep-desc">Prep Time (High to Low)</option>
-            <option value="lates-asc">Late % (Low to High)</option>
-            <option value="lates-desc">Late % (High to Low)</option>
-            <option value="orders-asc">Orders (Low to High)</option>
-            <option value="orders-desc">Orders (High to Low)</option>
-            <option value="items-asc">Items (Low to High)</option>
-            <option value="items-desc">Items (High to Low)</option>
-            <option value="longest-asc">Longest Order (Low to High)</option>
-            <option value="longest-desc">Longest Order (High to Low)</option>
-            <option value="hours-asc">Hours Worked (Low to High)</option>
-            <option value="hours-desc">Hours Worked (High to Low)</option>
-          </Select>
-        </form>
+            <option value="name">Name</option>
+            <option value="prep">Prep time</option>
+            <option value="lates">Late %</option>
+            <option value="orders">Orders</option>
+            <option value="items">Items</option>
+            <option value="longest">Longest order</option>
+            <option value="hours">Hours worked</option>
+          </select>
+          <button
+            type="button"
+            className={style.sortDir}
+            onClick={() =>
+              setSortDirection((prev) => (prev === "asc" ? "desc" : "asc"))
+            }
+            aria-label={
+              sortDirection === "asc"
+                ? "Sorted low to high, click for high to low"
+                : "Sorted high to low, click for low to high"
+            }
+          >
+            {sortDirection === "asc" ? "↑" : "↓"}
+          </button>
+        </div>
       </div>
       <table className={clsx(className, style.productivity__table)}>
         <thead>
           <tr>
-            {[
-              "Name",
-              "Prep Time",
-              "Orders",
-              "Items",
-              "Late Orders",
-              "Longest Order",
-              "Hours Worked",
-            ].map((header) => (
-              <th key={header} onClick={() => handleHeaderClick(header)}>
-                {header}
+            {COLUMNS.map(({ label, field }) => (
+              <th
+                key={field}
+                onClick={() => handleHeaderClick(field)}
+                aria-sort={
+                  sortField === field
+                    ? sortDirection === "asc"
+                      ? "ascending"
+                      : "descending"
+                    : "none"
+                }
+                className={clsx(
+                  style.sortHeader,
+                  sortField === field && style["sortHeader--active"]
+                )}
+              >
+                {label}
+                {sortField === field ? (
+                  <span className={style.sortMark} aria-hidden>
+                    {sortDirection === "asc" ? " ▲" : " ▼"}
+                  </span>
+                ) : null}
               </th>
             ))}
           </tr>
         </thead>
-
         <tbody>
           {sortedStaff.map((member, index) => {
             const prepTimeClass = generatePrepTimeClasses(
@@ -170,7 +141,7 @@ export const ProductivityComponent = ({
 
             return (
               <tr key={`${member.name}-${index}`}>
-                <td>{member.name}</td>
+                <td className={style["productivity__name"]}>{member.name}</td>
                 <td data-cell="Prep Time: " className={prepTimeClass}>
                   {member.prepTime}
                 </td>
