@@ -10,25 +10,26 @@ import {
   LATE_PERCENTAGE_TOLERANCE,
 } from "@config";
 
+export const getPrepThresholds = (prepTarget: number, foodLift?: boolean) => {
+  const maxPrepTime = foodLift
+    ? MAX_PREP_TIME_FOOD_LIFT
+    : MAX_PREP_TIME_NO_FOOD_LIFT;
+  const warnUntil = prepTarget + PREP_TIME_TOLERANCE;
+  const hasWarning = warnUntil <= maxPrepTime;
+
+  return { maxPrepTime, warnUntil, hasWarning };
+};
+
 export const generatePrepTimeClasses = (
   prepTime: string | undefined,
   prepTarget: number,
   foodLift?: boolean
 ) => {
   const prepTimeValue = convertTimeToMinutes(prepTime || "0:00");
-
-  const maxPrepTime = foodLift
-    ? MAX_PREP_TIME_FOOD_LIFT
-    : MAX_PREP_TIME_NO_FOOD_LIFT;
+  const { warnUntil, hasWarning } = getPrepThresholds(prepTarget, foodLift);
 
   if (prepTimeValue <= prepTarget) return "bg-clr--success";
-
-  if (
-    prepTarget + PREP_TIME_TOLERANCE <= maxPrepTime &&
-    prepTimeValue <= prepTarget + PREP_TIME_TOLERANCE
-  )
-    return "bg-clr--warning";
-
+  if (hasWarning && prepTimeValue <= warnUntil) return "bg-clr--warning";
   return "bg-clr--failed";
 };
 

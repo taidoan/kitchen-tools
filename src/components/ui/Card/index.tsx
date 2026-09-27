@@ -32,7 +32,8 @@ const Card = ({
       <div
         className={clsx(
           scss.card__inner,
-          [`text-align--${textAlign}`],
+          scss["card__inner--fill"],
+          `text-align--${textAlign}`,
           className,
           padding && scss[`card__inner--padding-${padding}`]
         )}
@@ -67,7 +68,7 @@ export const InnerCard = ({
     <div
       className={clsx(
         scss.card__inner,
-        [`text-align--${textAlign}`],
+        textAlign && `text-align--${textAlign}`,
         className,
         padding && scss[`card__inner--padding-${padding}`]
       )}

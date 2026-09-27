@@ -2,6 +2,8 @@ import { HIDDEN_SALES_COLUMNS, SALES_SUMMARY_LABELS } from "@config";
 import { getSalesValues } from "./getSalesValues";
 import { getQuantity } from "./getQuantity";
 import { getTotalQuantity, getTotalSales } from "./getTotals";
+import { groupItemsByCategory, type ProductItem } from "./groupCategory";
+import { convertToObjects } from "./convertToObject";
 /**
  * Parse a simple CSV string into an array of rows of trimmed cell values.
  *
@@ -60,16 +62,19 @@ export const csvToRows = (csv: string) => {
  * // HIDDEN_SALES_COLUMNS = ['secret']
  * // => [['name','age'], ['Alice','30'], ['Bob','25']]
  */
-export const cleanCSVData = (csv: string) => {
+type CleanCSVOptions = {
+  keepColumns?: string[];
+};
+
+export const cleanCSVData = (csv: string, options?: CleanCSVOptions) => {
   const rows = csv
     .split("\n")
     .map((r) => r.split("\t").map((c) => c.replace(/\u00A0/g, " ").trim()))
     .filter((r) => r.some((cell) => cell !== ""))
     .filter((r) => {
-      if (!r[0]) return true; // Keep rows that don't have text in column 0 (like product rows)
+      if (!r[0]) return true;
       const label = r[0].replace(/\s+/g, "").toLowerCase();
 
-      // Allow the final grand total row through, but keep filtering out other summary labels
       if (label === "total") {
         return true;
       }
@@ -80,15 +85,20 @@ export const cleanCSVData = (csv: string) => {
   if (!rows.length) return [];
 
   const header = rows[0];
+  const keepColumns = options?.keepColumns ?? [];
 
   const keepIndexes = header
-    .map((name, i) => (HIDDEN_SALES_COLUMNS.includes(name) ? null : i))
+    .map((name, i) => {
+      if (keepColumns.includes(name)) return i;
+      return HIDDEN_SALES_COLUMNS.includes(name) ? null : i;
+    })
     .filter((i) => i !== null) as number[];
 
   const cleaned = rows.map((row) => keepIndexes.map((i) => row[i] ?? ""));
 
   return cleaned;
 };
+
 export const processCsv = (raw: string, numberOfItems = 5) => {
   const cleanedRows = cleanCSVData(raw);
   const topSales = getSalesValues({
@@ -102,8 +112,49 @@ export const processCsv = (raw: string, numberOfItems = 5) => {
   });
 
   const totalQuantity = getTotalQuantity({ rows: { rows: cleanedRows } });
-
   const totalSales = getTotalSales({ rows: { rows: cleanedRows } });
 
   return { topSales, topQuantity, totalQuantity, totalSales };
+};
+
+const parseNumber = (value: unknown) => {
+  if (typeof value === "number") return Number.isFinite(value) ? value : 0;
+  return Number(String(value ?? "").replace(/,/g, "").trim()) || 0;
+};
+
+const isSummaryLabel = (value: string) => {
+  const normalised = value.replace(/\s+/g, "").toLowerCase();
+  return SALES_SUMMARY_LABELS.some(
+    (label) => label.replace(/\s+/g, "").toLowerCase() === normalised,
+  );
+};
+
+const toProductItem = (raw: Record<string, unknown>): ProductItem | null => {
+  const productName = String(raw["Product Name"] ?? "").trim();
+  const category = String(raw.Category ?? "").trim();
+
+  if (!productName || !category) return null;
+  if (isSummaryLabel(productName) || isSummaryLabel(category)) return null;
+
+  return {
+    Category: category,
+    "Sub Category": String(raw["Sub Category"] ?? "").trim(),
+    "Product Name": productName,
+    "Quantity Sold": parseNumber(raw["Quantity Sold"]),
+    "Value of Sales": parseNumber(raw["Value of Sales"]),
+    "Gross Sales": parseNumber(raw["Gross Sales"]),
+    Discount: parseNumber(raw.Discount),
+    Promotion: parseNumber(raw.Promotion),
+    Tax: parseNumber(raw.Tax),
+  };
+};
+
+export const processProductSalesCSV = (raw: string) => {
+  const cleanedRows = cleanCSVData(raw, { keepColumns: ["Sub Category"] });
+  const items = convertToObjects({ rows: cleanedRows })
+    .map(toProductItem)
+    .filter((item): item is ProductItem => item !== null);
+  const categories = groupItemsByCategory(items);
+
+  return { items, categories };
 };

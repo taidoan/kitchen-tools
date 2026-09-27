@@ -7,6 +7,7 @@ import {
   generateLatesClasses,
   generateFloorLatesClasses,
 } from "@/lib/utils/generateClasses";
+import { getFloorLates } from "@/lib/utils/getFloorLates";
 import style from "./style.module.scss";
 
 type ServiceSummaryComponentProps = Pick<
@@ -30,6 +31,8 @@ export const ServiceSummaryComponent = ({
   lateTarget,
   className,
 }: ServiceSummaryComponentProps) => {
+  const floorLate = getFloorLates(serviceSummary);
+
   const servicePrepTimeClass = generatePrepTimeClasses(
     serviceSummary.averagePreparationTime.total,
     prepTarget,
@@ -50,9 +53,13 @@ export const ServiceSummaryComponent = ({
     lateTarget
   );
 
+  const kitchenLatesClass = generateLatesClasses(
+    serviceSummary.chef1.ordersLate.percentage,
+    lateTarget
+  );
+
   const serviceFloorLatesClass = generateFloorLatesClasses(
-    serviceSummary.numberOfLateOrders.total.percentage -
-      serviceSummary.chef1.ordersLate.percentage
+    floorLate.percentage
   );
 
   const columns = [
@@ -102,20 +109,13 @@ export const ServiceSummaryComponent = ({
           label: "Floor Lates",
           value: (
             <>
-              {serviceSummary.numberOfLateOrders.total.count! -
-                serviceSummary.chef1.ordersLate.count}{" "}
-              <span className="text--small">
-                (
-                {serviceSummary.numberOfLateOrders.total.percentage -
-                  serviceSummary.chef1.ordersLate.percentage}
-                %)
-              </span>
+              {floorLate.count}{" "}
+              <span className="text--small">({floorLate.percentage}%)</span>
             </>
           ),
           className: serviceFloorLatesClass,
         }
       : null,
-
     kitLates
       ? {
           label: "Kitchen Lates",
@@ -127,7 +127,7 @@ export const ServiceSummaryComponent = ({
               </span>
             </>
           ),
-          className: serviceLatesClass,
+          className: kitchenLatesClass,
         }
       : null,
   ].filter(Boolean);
@@ -142,7 +142,6 @@ export const ServiceSummaryComponent = ({
             ))}
           </tr>
         </thead>
-
         <tbody>
           <tr>
             {columns.map((col, index) => (

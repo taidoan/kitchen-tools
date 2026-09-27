@@ -63,6 +63,17 @@ Kitchen\tAlice\t12\t0\t0\t0\t20\t8
     expect(result.staffMembers[0].lateOrdersPercentage).toBe(0);
   });
 
+  it("treats hours-worked fractions as minutes, not decimal hours", () => {
+    const rawData = `
+2025-01-01 to 2025-01-07
+Station\tName\tAvgTime\tNoOrders\tNoItems\tOrdersLate\tLongestOrder\tHoursWorked
+Kitchen\tAlice\t8.00\t40\t60\t4\t12.00\t8.3
+`;
+
+    const result = parseProductivityData(rawData);
+    expect(result.staffMembers[0].hoursWorked).toBe("08:30");
+  });
+
   it("throws an error for empty input", () => {
     expect(() => parseProductivityData("")).toThrow(
       "Invalid productivity data format"

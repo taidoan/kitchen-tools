@@ -38,14 +38,13 @@ export default function WastagePage() {
   return (
     <>
       <Card containerClassName={clsx("wastage__intro", "page__intro")}>
-        <h2>Wastage Analysis</h2>
-        <Divider height={4} width={240} />
+        <div className="page__heading">
+          <h2>Wastage Analysis</h2>
+          <Divider height={4} width={240} />
+        </div>
         <p>
-          This tool is designed to help you analyze and track food wastage in
-          your kitchen. By inputting your wastage data from the wastage report
-          available on <strong>COGNOS</strong>. This might be useful for setting
-          up your stock tracker or identifying areas where wastage can be
-          reduced.
+          Review kitchen wastage from the <strong>COGNOS</strong> wastage
+          report. Useful for stock tracking and spotting where waste is high.
         </p>
       </Card>
 
@@ -75,9 +74,8 @@ export default function WastagePage() {
             </Button>
           </div>
           <p>
-            Please enter the number of top wasted items you would like to see in
-            the results, along with the wastage data copied from the{" "}
-            <strong>COGNOS</strong> wastage report.
+            Choose how to group the results, then paste the wastage data copied
+            from <strong>COGNOS</strong>.
           </p>
         </InnerCard>
 

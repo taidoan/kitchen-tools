@@ -8,10 +8,11 @@ import {
   IconDiscountFilled,
   IconTrashFilled,
   IconHomeFilled,
+  IconGraphFilled
 } from "@tabler/icons-react";
 
 type IconProps = {
-  variant: "home" | "fdt" | "special" | "sales" | "wastage";
+  variant: "home" | "fdt" | "special" | "sales" | "wastage" | "lfl";
   size?: "small" | "base" | "medium" | "large";
   color?: "default" | "dark" | "light" | "primary";
   style?: React.CSSProperties;
@@ -38,6 +39,7 @@ export const Icon = ({
     special: <IconDiscountFilled className={classes} style={style} />,
     sales: <IconCoinPoundFilled className={classes} style={style} />,
     wastage: <IconTrashFilled className={classes} style={style} />,
+    lfl: <IconGraphFilled className={classes} style={style} />
   };
 
   const icon = ICON_MAP[variant] || null;

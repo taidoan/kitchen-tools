@@ -104,4 +104,33 @@ describe("createKeys", () => {
       manualHolds: 0,
     });
   });
+
+  it("parses late orders after the order total, even if lines are reversed", () => {
+    const summary = makeEmptySummary();
+
+    createKey({
+      serviceSummary: summary,
+      lines: [
+        "No. of Late Orders\t10\t20\t30\t60",
+        "No. of Orders\t0\t0\t0\t100",
+      ],
+    });
+
+    expect(summary.numberOfLateOrders.total).toEqual({
+      count: 60,
+      percentage: 60,
+    });
+  });
+
+  it("does not divide by zero for a chef with no orders", () => {
+    const summary = makeEmptySummary();
+
+    createKey({
+      serviceSummary: summary,
+      lines: ["CHEF1\t0\t0\t0\t0\t0\t0\t0"],
+    });
+
+    expect(summary.chef1.ordersLate.percentage).toBe(0);
+    expect(summary.chef1.itemsLate.percentage).toBe(0);
+  });
 });

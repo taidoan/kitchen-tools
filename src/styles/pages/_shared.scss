@@ -2,6 +2,17 @@
 
 .page__intro {
   transform: translateZ(0);
+
+  p {
+    max-width: ab.rem(720);
+  }
+}
+
+.page__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: ab.rem(8);
 }
 
 .page__instructions {
@@ -9,6 +20,16 @@
   display: flex;
   flex-direction: column;
   gap: ab.rem(12);
+  align-items: center;
+
+  .button__group {
+    width: 100%;
+  }
+
+  p {
+    max-width: ab.rem(640);
+    margin-inline: auto;
+  }
 }
 
 .page__divider {
@@ -18,7 +39,7 @@
 .results__sort {
   display: flex;
   flex-direction: column;
-  gap: ab.rem(24);
+  gap: ab.rem(12);
 
   @include ab.mq("md") {
     align-items: center;

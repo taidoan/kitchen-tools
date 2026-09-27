@@ -24,13 +24,14 @@ export default function Productivity() {
   return (
     <>
       <Card containerClassName="page__intro">
-        <h2>Food Delivery Times</h2>
-        <Divider height={4} width={240} />
+        <div className="page__heading">
+          <h2>Food Delivery Times</h2>
+          <Divider height={4} width={240} />
+        </div>
         <p>
-          This tool generates productivity reports for your kitchens using KSRS
-          data. To ensure that colors are retained when printing, please enable
-          both &quot;Headers and Footers&quot; and &quot;Background
-          Graphics&quot; in your print settings.
+          Build a kitchen productivity report from KSRS data. For print, turn
+          on <strong>Headers and footers</strong> and{" "}
+          <strong>Background graphics</strong> so the colours print.
         </p>
       </Card>
       <OuterCard className="form__wrapper">
@@ -51,7 +52,7 @@ export default function Productivity() {
               disabled={!formSubmitted}
               enabled={activeTab === "result"}
             >
-              Result
+              Results
             </Button>
             <Button
               disabled={activeTab !== "result"}
@@ -63,9 +64,8 @@ export default function Productivity() {
             </Button>
           </div>
           <p>
-            Set your sales and performance targets, select any optional
-            information to display, and enter the data{" "}
-            <strong>copied directly</strong> from KSRS into the fields below.
+            Set sales and performance targets, choose optional extras, then
+            paste the data <strong>copied directly</strong> from KSRS.
           </p>
         </InnerCard>
         <InnerCard padding="medium" className={clsx("fdt__main")}>

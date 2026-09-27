@@ -161,17 +161,35 @@
 @media print {
   :root {
     --text-clr: black;
-    --percentage-clr: grey;
+    --percentage-clr: #333;
     --table-border-clr: black;
     --table-header-text-clr: white;
     --table-cell-bg: white;
     --table-cell-text-clr: black;
 
-    --clr-warning: orange;
-    --clr-success: lime;
-    --clr-fail: red;
+    --clr-warning: #c47b00;
+    --clr-success: #2e7d32;
+    --clr-fail: #c62828;
 
-    --divider-bg: lightgrey;
+    --divider-bg: #222;
+  }
+
+  .bg-clr--success,
+  .bg-clr--warning,
+  .bg-clr--failed {
+    color: #111 !important;
+  }
+
+  .text-clr--success {
+    color: #14532d !important;
+  }
+
+  .text-clr--failed {
+    color: #9b1c1c !important;
+  }
+
+  .text-clr--percentage {
+    color: #333 !important;
   }
 }
 

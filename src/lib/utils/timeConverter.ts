@@ -33,6 +33,31 @@ export const convertToHHMM = (decimalTime: number) => {
 };
 
 /**
+ * Converts KSRS hours-worked values to HH:MM.
+ * The fractional part is minutes (8.3 / 8.30 → 08:30), not a decimal hour
+ * (which would wrongly show 8.3 as 08:18).
+ */
+export const convertToHoursMinutes = (value: number) => {
+  if (!Number.isFinite(value) || value < 0) return "00:00";
+
+  const hours = Math.floor(value);
+  let minutes = Math.round((value - hours) * 100);
+
+  if (minutes >= 60) {
+    const extraHours = Math.floor(minutes / 60);
+    minutes = minutes % 60;
+    return `${String(hours + extraHours).padStart(2, "0")}:${String(
+      minutes
+    ).padStart(2, "0")}`;
+  }
+
+  return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(
+    2,
+    "0"
+  )}`;
+};
+
+/**
  * Converts a time string in the format "MM:SS" to a decimal number of minutes.
  *
  * @param timeString - The time string to convert, formatted as "MM:SS".
@@ -41,6 +66,21 @@ export const convertToHHMM = (decimalTime: number) => {
 export const convertTimeToMinutes = (timeString: string) => {
   if (!timeString) return 0;
   const [minutes, seconds] = timeString.split(":").map(Number);
-  const decimal = minutes + seconds / 60;
+  const decimal = (minutes || 0) + (seconds || 0) / 60;
   return parseFloat(decimal.toFixed(2));
+};
+
+/**
+ * Formats a decimal number of minutes as M:SS (e.g. 8.5 → "8:30").
+ */
+export const formatKitchenTime = (decimalMinutes: number) => {
+  const clamped = Math.max(0, decimalMinutes);
+  const minutes = Math.floor(clamped);
+  let seconds = Math.round((clamped - minutes) * 60);
+
+  if (seconds === 60) {
+    return `${minutes + 1}:00`;
+  }
+
+  return `${minutes}:${String(seconds).padStart(2, "0")}`;
 };

@@ -1,5 +1,5 @@
 import type { ProductivityData } from "@components/feat/Productivity/types";
-import { convertToMinutesSeconds, convertToHHMM } from "./timeConverter";
+import { convertToMinutesSeconds, convertToHoursMinutes } from "./timeConverter";
 
 export const parseProductivityData = (data: string): ProductivityData => {
   if (!data || typeof data !== "string") {
@@ -62,7 +62,7 @@ export const parseProductivityData = (data: string): ProductivityData => {
     const prepTime = convertToMinutesSeconds(parseFloat(avgTime)) || "0:00";
     const longestOrderTime =
       convertToMinutesSeconds(parseFloat(longestOrder)) || "0:00";
-    const hoursWorkedTime = convertToHHMM(parseFloat(hoursWorked)) || "0:00";
+    const hoursWorkedTime = convertToHoursMinutes(parseFloat(hoursWorked) || 0);
 
     productivity.staffMembers.push({
       name,

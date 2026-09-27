@@ -1,22 +1,62 @@
 @use "./../../../../styles/abstracts/_index" as ab;
 
 .form {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) max-content max-content;
+  align-items: end;
   gap: ab.rem(16);
   width: 100%;
   min-width: 0;
-
-  @include ab.mq(850) {
-    flex-direction: row;
-  }
 }
 
 .select {
-  flex: 1;
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+  width: 100% !important;
+  flex: 1 1 auto !important;
+  justify-self: stretch;
+
+  :global(.combobox),
+  :global(.combobox__control) {
+    width: 100% !important;
+    max-width: 100%;
+  }
+
+  :global(.combobox__control) {
+    min-height: ab.rem(48);
+    height: ab.rem(48);
+  }
+}
+
+.description {
+  grid-column: 1 / -1;
   min-width: 0;
 }
 
+.discount {
+  grid-column: 2;
+  grid-row: 1;
+  width: ab.rem(140);
+  min-width: ab.rem(140);
+
+  :global(select) {
+    width: 100%;
+    height: ab.rem(48);
+    min-height: ab.rem(48);
+    padding: ab.rem(8) ab.rem(12);
+    box-sizing: border-box;
+  }
+}
+
 .add__button {
-  justify-self: flex-end;
+  grid-column: 3;
+  grid-row: 1;
+  align-self: end;
+  min-height: ab.rem(48);
+  height: ab.rem(48);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
 }

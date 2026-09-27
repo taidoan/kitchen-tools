@@ -9,7 +9,7 @@ type QuickLinkProps = {
   href?: string;
   className?: string;
   description?: string;
-  icon: "home" | "fdt" | "sales" | "special" | "wastage";
+  icon: "home" | "fdt" | "sales" | "special" | "wastage" | "lfl";
   cta?: string;
 };
 

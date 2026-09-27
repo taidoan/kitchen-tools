@@ -1,8 +1,9 @@
 @use "./../abstracts/_index" as ab;
 
 .home__quick-links {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(#{ab.rem(240)}, 1fr));
+  align-items: stretch;
   gap: var(--spacing-gap);
   width: 100%;
 }

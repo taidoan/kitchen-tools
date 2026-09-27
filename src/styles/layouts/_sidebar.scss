@@ -75,6 +75,10 @@
     gap: 1rem;
   }
 
+  &__divider {
+    margin-block: ab.rem(16) ab.rem(20) !important;
+  }
+
   h2 {
     font-size: ab.sizeClamp(ab.rem(20), ab.rem(28));
   }

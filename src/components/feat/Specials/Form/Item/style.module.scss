@@ -3,6 +3,7 @@
 .item {
   display: flex;
   flex-direction: row;
+  align-items: flex-start;
   gap: ab.rem(24);
 }
 
