@@ -164,13 +164,13 @@ export const PRODUCT_GROUPS = [
   {
     products: ["Korean Bowl"],
     description: PRODUCT_DESCRIPTIONS.KOREAN_BOWL,
-    discounts: PRODUCT_DISCOUNTS.MEDIUM,
+    discounts: PRODUCT_DISCOUNTS.SMALL,
   },
-  {
-    products: ["Chicken & Broccoli"],
-    description: PRODUCT_DESCRIPTIONS.CHICKEN_BROCCOLI,
-    discounts: PRODUCT_DISCOUNTS.MEDIUM,
-  },
+//  {
+//    products: ["Chicken & Broccoli"],
+//    description: PRODUCT_DESCRIPTIONS.CHICKEN_BROCCOLI,
+//    discounts: PRODUCT_DISCOUNTS.MEDIUM,
+//  },
     {
     products: ["Steak & Ale Pudding"],
     description:
