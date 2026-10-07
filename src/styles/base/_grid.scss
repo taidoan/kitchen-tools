@@ -26,5 +26,15 @@ body {
     gap: 0 !important;
     position: static !important;
     padding: 0 !important;
+    overflow: visible !important;
+  }
+}
+
+@media print {
+  html,
+  body {
+    overflow: visible !important;
+    height: auto !important;
+    max-width: none !important;
   }
 }

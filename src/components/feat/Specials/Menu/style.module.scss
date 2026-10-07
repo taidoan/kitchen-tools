@@ -1,11 +1,30 @@
 @use "./../../../../styles/abstracts/_index" as ab;
 
-$ink: #161616;
-$navy: #1e3d59;
-$cream: #f4efe6;
-
 .menu {
+  --specials-ink: #161616;
+  --specials-cream: #f4efe6;
+  --specials-accent: #1e3d59;
   width: 100%;
+
+  &--navy {
+    --specials-accent: #1e3d59;
+  }
+
+  &--claret {
+    --specials-accent: #6b2233;
+  }
+
+  &--forest {
+    --specials-accent: #1d3c32;
+  }
+
+  &--ink {
+    --specials-accent: #2a2a2a;
+  }
+
+  &--espresso {
+    --specials-accent: #3c2415;
+  }
 }
 
 .menu__frame {
@@ -15,10 +34,10 @@ $cream: #f4efe6;
   gap: ab.rem(36);
   font-family: var(--ff-lora);
   line-height: 1.45;
-  color: $ink;
-  background: $cream;
-  border: ab.rem(4) solid $navy;
-  outline: ab.rem(1) solid $navy;
+  color: var(--specials-ink);
+  background: var(--specials-cream);
+  border: ab.rem(4) solid var(--specials-accent);
+  outline: ab.rem(1) solid var(--specials-accent);
   outline-offset: ab.rem(-10);
   padding: ab.rem(36) ab.rem(28) ab.rem(28);
   max-width: ab.rem(720);
@@ -39,7 +58,7 @@ $cream: #f4efe6;
   letter-spacing: 0.28em;
   text-transform: uppercase;
   margin: 0;
-  color: $navy;
+  color: var(--specials-accent);
 }
 
 .title {
@@ -50,14 +69,14 @@ $cream: #f4efe6;
   letter-spacing: 0.12em;
   line-height: 0.95;
   margin: 0;
-  color: $navy;
+  color: var(--specials-accent);
 }
 
 .menu__rule {
   display: block;
   width: ab.rem(72);
   height: ab.rem(3);
-  background: $navy;
+  background: var(--specials-accent);
 }
 
 .menu__list {
@@ -82,7 +101,7 @@ $cream: #f4efe6;
   text-transform: uppercase;
   line-height: 1.15;
   margin: 0;
-  color: $ink;
+  color: var(--specials-ink);
 }
 
 .menu__item-description {
@@ -101,9 +120,9 @@ $cream: #f4efe6;
   text-transform: uppercase;
   margin: ab.rem(4) 0 0;
   padding: ab.rem(6) ab.rem(14);
-  border: ab.rem(2) solid $navy;
-  background: $navy;
-  color: $cream;
+  border: ab.rem(2) solid var(--specials-accent);
+  background: var(--specials-accent);
+  color: var(--specials-cream);
 }
 
 .menu__footer {
@@ -114,7 +133,7 @@ $cream: #f4efe6;
   max-width: ab.rem(440);
   margin-inline: auto;
   padding-top: ab.rem(8);
-  border-top: ab.rem(1) solid $navy;
+  border-top: ab.rem(1) solid var(--specials-accent);
 
   p {
     margin: 0;
@@ -128,7 +147,7 @@ $cream: #f4efe6;
   text-transform: uppercase;
   font-style: normal;
   font-weight: 700;
-  color: $navy;
+  color: var(--specials-accent);
 }
 
 @media print {
@@ -144,19 +163,19 @@ $cream: #f4efe6;
     margin: 0;
     padding: 16mm 14mm 14mm;
     border-width: 3pt;
-    border-color: $navy !important;
+    border-color: var(--specials-accent) !important;
     outline-width: 0.75pt;
-    outline-color: $navy !important;
+    outline-color: var(--specials-accent) !important;
     outline-offset: -8pt;
-    background: $cream !important;
-    color: $ink !important;
+    background: var(--specials-cream) !important;
+    color: var(--specials-ink) !important;
     break-inside: avoid;
   }
 
   .title,
   .menu__date,
   .menu__availability {
-    color: $navy !important;
+    color: var(--specials-accent) !important;
   }
 
   .title {
@@ -164,27 +183,28 @@ $cream: #f4efe6;
   }
 
   .menu__rule {
-    background: $navy !important;
+    background: var(--specials-accent) !important;
   }
 
   .menu__item-title {
     font-size: 16pt;
-    color: $ink !important;
+    color: var(--specials-ink) !important;
   }
 
   .menu__list {
     gap: 16pt;
     flex: 1 1 auto;
+    justify-content: center;
   }
 
   .menu__item-price {
-    background: $navy !important;
-    color: $cream !important;
-    border-color: $navy !important;
+    background: var(--specials-accent) !important;
+    color: var(--specials-cream) !important;
+    border-color: var(--specials-accent) !important;
   }
 
   .menu__footer {
     margin-top: auto;
-    border-top-color: $navy !important;
+    border-top-color: var(--specials-accent) !important;
   }
 }

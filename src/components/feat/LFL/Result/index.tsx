@@ -9,10 +9,20 @@ import {
   aggregateLFLByCategory,
   type ComparedProduct,
 } from "@/lib/utils/compareLFL";
+import {
+  getDateRangeParts,
+  type DateRangeParts,
+} from "@/lib/utils/formatDateRange";
 import type { LFLViewMode } from "../types";
 
 type LFLResultProps = {
   rows: ComparedProduct[];
+  dates?: {
+    currentFrom: string;
+    currentTo: string;
+    previousFrom: string;
+    previousTo: string;
+  };
 };
 
 const currency = new Intl.NumberFormat("en-GB", {
@@ -38,7 +48,7 @@ const ChangeCell = ({
   pct: number | null;
   kind: "qty" | "money";
 }) => {
-  const className =
+  const pctClassName =
     delta > 0 ? "text-clr--success" : delta < 0 ? "text-clr--failed" : "text-clr--percentage";
   const formattedDelta =
     kind === "money"
@@ -48,12 +58,10 @@ const ChangeCell = ({
 
   return (
     <td>
-      <span className={className}>
-        {formattedDelta}
-        {formattedPct ? (
-          <span className="text--small"> ({formattedPct})</span>
-        ) : null}
-      </span>
+      {formattedDelta}
+      {formattedPct ? (
+        <span className={clsx("text--small", pctClassName)}> ({formattedPct})</span>
+      ) : null}
     </td>
   );
 };
@@ -144,6 +152,9 @@ const SortHeader = ({
         {label}
         {active ? (sortDir === "asc" ? " ↑" : " ↓") : ""}
       </button>
+      <span className="lfl__th-print" aria-hidden="true">
+        {label}
+      </span>
     </th>
   );
 };
@@ -275,10 +286,46 @@ const ComparisonTable = ({
   );
 };
 
-export const LFLResult = ({ rows }: LFLResultProps) => {
-  const [mode, setMode] = useState<LFLViewMode>("products");
+const DatePill = ({ children }: { children: string }) => (
+  <span className="lfl__date-pill">{children}</span>
+);
+
+const RangePhrase = ({ range }: { range: DateRangeParts }) => {
+  if (range.isSingleDay) return <DatePill>{range.from}</DatePill>;
+
+  return (
+    <>
+      <DatePill>{range.from}</DatePill>
+      {" - "}
+      <DatePill>{range.to}</DatePill>
+    </>
+  );
+};
+
+const LFLPeriodLine = ({
+  current,
+  previous,
+}: {
+  current: DateRangeParts | null;
+  previous: DateRangeParts | null;
+}) => {
+  const bothSingleDays =
+    (!current || current.isSingleDay) && (!previous || previous.isSingleDay);
+
+  return (
+    <p className="lfl__period">
+      {bothSingleDays ? "LFL report between " : "LFL report from "}
+      {current ? <RangePhrase range={current} /> : null}
+      {current && previous ? " to " : null}
+      {previous ? <RangePhrase range={previous} /> : null}
+    </p>
+  );
+};
+
+export const LFLResult = ({ rows, dates }: LFLResultProps) => {
+  const [mode, setMode] = useState<LFLViewMode>("categories");
   const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   const productOptions = useMemo<ComboboxGroup[]>(() => {
     const grouped = rows.reduce<Record<string, ComparedProduct[]>>((acc, row) => {
@@ -310,36 +357,47 @@ export const LFLResult = ({ rows }: LFLResultProps) => {
   );
 
   const selectedProducts = rows.filter((row) => selectedKeys.includes(row.key));
-  const categoryRows = rows.filter((row) => row.category === selectedCategory);
-  const categoryTotal =
-    selectedCategory && categoryRows.length
-      ? aggregateComparedRows(categoryRows, {
-          key: `category|${selectedCategory.toLowerCase()}`,
-          productName: selectedCategory,
-          category: selectedCategory,
+  const selectedCategoryRows = rows.filter((row) =>
+    selectedCategories.includes(row.category),
+  );
+  const selectedCategoryTotals = aggregateLFLByCategory(selectedCategoryRows);
+  const selectedCategoriesTotal =
+    selectedCategoryTotals.length > 1
+      ? aggregateComparedRows(selectedCategoryRows, {
+          key: "selected-categories-total",
+          productName: "Selected total",
+          category: "Selected",
         })
-      : null;
+      : undefined;
   const categorySummaries = aggregateLFLByCategory(rows);
   const reportTotal = aggregateComparedRows(rows, {
     key: "report-total",
     productName: "Total",
     category: "All",
   });
+  const currentRange = getDateRangeParts(dates?.currentFrom, dates?.currentTo);
+  const previousRange = getDateRangeParts(
+    dates?.previousFrom,
+    dates?.previousTo,
+  );
 
   return (
     <div className={clsx("page__print", "lfl__result")}>
+      {currentRange || previousRange ? (
+        <LFLPeriodLine current={currentRange} previous={previousRange} />
+      ) : null}
       <div className="button__group lfl__modes">
+      <Button
+          enabled={mode === "categories"}
+          onClick={() => setMode("categories")}
+        >
+          Categories
+        </Button>
         <Button
           enabled={mode === "products"}
           onClick={() => setMode("products")}
         >
           Products
-        </Button>
-        <Button
-          enabled={mode === "categories"}
-          onClick={() => setMode("categories")}
-        >
-          Categories
         </Button>
         <Button
           enabled={mode === "report"}
@@ -365,9 +423,9 @@ export const LFLResult = ({ rows }: LFLResultProps) => {
           />
           {selectedProducts.length ? (
             <>
-              <h3 className="sales__title">Selected products</h3>
-              <Divider className="sales__divider" />
-              <ComparisonTable
+             <div>
+             <h3 className="sales__title"><span className="sales__title-print">Comparing </span>Selected products <span className="sales__title-print">LFLs</span></h3>
+             <ComparisonTable
                 rows={selectedProducts}
                 nameHeader="Product"
                 showCategory
@@ -381,6 +439,7 @@ export const LFLResult = ({ rows }: LFLResultProps) => {
                     : undefined
                 }
               />
+             </div>
             </>
           ) : (
             <p>Select one or more products to compare quantity and sales.</p>
@@ -392,43 +451,65 @@ export const LFLResult = ({ rows }: LFLResultProps) => {
         <>
           <Combobox
             id="lfl-category"
-            label="Category"
+            label="Categories to compare"
             required={false}
             hideRequiredIndicator
+            isMulti
             isSearchable
-            placeholder="Select a category..."
+            closeMenuOnSelect
+            placeholder="Search and select categories..."
             options={categoryOptions}
-            value={selectedCategory}
-            onChange={setSelectedCategory}
+            value={selectedCategories}
+            onChange={setSelectedCategories}
           />
-          {selectedCategory && categoryTotal ? (
+          {selectedCategoryTotals.length ? (
             <>
-              <h3 className="sales__title">{selectedCategory}</h3>
-              <Divider className="sales__divider" />
-              <ComparisonTable rows={[categoryTotal]} nameHeader="Category" />
-              <h3 className="sales__title">Products in {selectedCategory}</h3>
-              <Divider className="sales__divider" />
-              <ComparisonTable rows={categoryRows} nameHeader="Product" />
+              <div>
+                <h3 className="sales__title">
+                  <span className="sales__title-print">Comparing </span>
+                  {selectedCategories.length === 1
+                    ? selectedCategories[0]
+                    : "Selected categories"}
+                  <span className="sales__title-print"> LFLs</span>
+                </h3>
+                <ComparisonTable
+                  rows={selectedCategoryTotals}
+                  nameHeader="Category"
+                  footer={selectedCategoriesTotal}
+                />
+              </div>
+              {selectedCategoryTotals.map((summary) => {
+                const products = rows.filter(
+                  (row) => row.category === summary.category,
+                );
+                if (!products.length) return null;
+                return (
+                  <div key={summary.category}>
+                    <h3 className="sales__title">
+                      Products in {summary.category}
+                    </h3>
+                    <ComparisonTable rows={products} nameHeader="Product" />
+                  </div>
+                );
+              })}
             </>
           ) : (
-            <p>Select a category to compare it as a whole.</p>
+            <p>Select one or more categories to compare quantity and sales.</p>
           )}
         </>
       )}
 
       {mode === "report" && (
         <>
-          <h3 className="sales__title">Entire product report</h3>
-          <Divider className="sales__divider" />
-          <p>
-            Current report vs previous report for every product in both pastes.
-            Missing products are treated as zero in the totals.
-          </p>
+          <div>
+          <h3 className="sales__title"><span className="sales__title-print">Comparing </span>Entire product range <span className="sales__title-print">LFLs</span></h3>
           <ComparisonTable
             rows={categorySummaries}
             nameHeader="Category"
             footer={reportTotal}
           />
+          </div>
+          
         </>
       )}
     </div>

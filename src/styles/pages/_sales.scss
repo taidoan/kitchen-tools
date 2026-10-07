@@ -1,5 +1,20 @@
 @use "./../abstracts/_index" as ab;
 
+.sales__dates {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: ab.rem(12);
+  flex: 0 1 ab.rem(480);
+  max-width: ab.rem(480);
+  width: 100%;
+}
+
+.sales__period {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: ab.rem(16);
+}
+
 .sales__result {
   display: flex;
   flex-direction: column;
@@ -14,6 +29,18 @@
   }
 }
 
+.sales__form-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  gap: ab.rem(16);
+}
+
+.sales__top-items {
+  flex: 1 1 ab.rem(160);
+  min-width: 0;
+}
+
 .sales__divider {
   margin-block: ab.rem(12) !important;
 }
@@ -22,7 +49,33 @@
   margin-top: ab.rem(24);
 }
 
+.sales__title {
+  font-size: ab.rem(28);
+  text-transform: uppercase;
+
+  &:has(+ .table__wrapper) {
+    margin-bottom: ab.rem(12);
+  }
+
+  &-print {
+    display: none;
+  }
+}
+
+.sales__date {
+  font-weight: 400;
+}
+
 @media print {
+  .sales__period {
+    display: block !important;
+    text-align: left;
+    font-size: 10pt;
+    font-weight: 400;
+    color: black !important;
+    margin-bottom: 8pt;
+  }
+
   .sales__result {
     display: flex !important;
     flex-direction: row !important;
@@ -33,6 +86,10 @@
       flex-grow: 1 !important;
       width: 100% !important;
     }
+  }
+
+  .sales__table {
+    margin-bottom: ab.rem(12) !important;
   }
 
   .sales__table td {
@@ -46,5 +103,9 @@
   .sales__title {
     font-size: ab.rem(24) !important;
     text-transform: uppercase !important;
+
+    &-print {
+      display: inline !important;
+    }
   }
 }

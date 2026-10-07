@@ -9,16 +9,20 @@ import {
   Divider,
   Button,
   PrintToggle,
+  ExportButtons,
 } from "@/components/ui";
 import { SpecialsForm } from "@/components/feat/Specials/Form";
 import { SpecialsItem } from "@/components/feat/Specials/Form/Item";
 import { SpecialsMenu } from "@/components/feat/Specials/Menu";
-import { printArea } from "@/lib/utils/printArea";
-
+import {
+  SpecialsPalette,
+  type SpecialsPaletteId,
+} from "@/components/feat/Specials/Palette";
 export default function SpecialsPage() {
   const [activeTab, setActiveTab] = useState<string>("form");
   const [specials, setSpecials] = useState<Special[]>([]);
   const [printTwoPage, setPrintTwoPage] = useState<boolean>(false);
+  const [palette, setPalette] = useState<SpecialsPaletteId>("navy");
 
   const handleSpecialsClear = () => {
     setSpecials([]);
@@ -62,14 +66,10 @@ export default function SpecialsPage() {
             >
               Specials Menu
             </Button>
-            <Button
+            <ExportButtons
               disabled={activeTab !== "menu"}
-              onClick={() => {
-                if (activeTab === "menu") printArea();
-              }}
-            >
-              Print
-            </Button>
+              filename="Specials menu"
+            />
           </div>
           <p>
             Choose a product from the list or type a custom name. You can still
@@ -84,6 +84,7 @@ export default function SpecialsPage() {
                 twoOnClick={() => setPrintTwoPage(true)}
                 status={printTwoPage}
               />
+              <SpecialsPalette value={palette} onChange={setPalette} />
               {printTwoPage && (
                 <p>
                   Please ensure you set the <strong>Pages per sheet</strong>{" "}
@@ -132,10 +133,11 @@ export default function SpecialsPage() {
           )}
           {activeTab === "menu" && (
             <>
-              <SpecialsMenu specials={specials} />
+              <SpecialsMenu specials={specials} palette={palette} />
               {printTwoPage && (
                 <SpecialsMenu
                   specials={specials}
+                  palette={palette}
                   className={"specials__menu--two"}
                 />
               )}

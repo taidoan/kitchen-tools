@@ -10,8 +10,15 @@ FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+# #region agent log
+RUN node -e "const fs=require('fs'); const exists=fs.existsSync('/app/public'); const payload={sessionId:'b3fe11',runId:'post-fix',hypothesisId:'A',location:'Dockerfile:after-copy',message:'public after COPY',data:{exists,entries:exists?fs.readdirSync('/app/public'):[]},timestamp:Date.now()}; console.log('DEBUG_PUBLIC', JSON.stringify(payload));"
+# #endregion
+RUN mkdir -p public
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
+# #region agent log
+RUN node -e "const fs=require('fs'); const exists=fs.existsSync('/app/public'); const payload={sessionId:'b3fe11',runId:'post-fix',hypothesisId:'C',location:'Dockerfile:after-build',message:'public after next build',data:{exists,entries:exists?fs.readdirSync('/app/public'):[]},timestamp:Date.now()}; console.log('DEBUG_PUBLIC', JSON.stringify(payload));"
+# #endregion
 
 FROM base AS runner
 WORKDIR /app

@@ -4,10 +4,16 @@ import type { WastageResultItem } from "@components/feat/Wastage/types";
 
 import { useState } from "react";
 import clsx from "clsx";
-import { Card, OuterCard, InnerCard, Divider, Button } from "@/components/ui";
+import {
+  Card,
+  OuterCard,
+  InnerCard,
+  Divider,
+  Button,
+  ExportButtons,
+} from "@/components/ui";
 import { WastageForm, WastageResult } from "@/components/feat/Wastage";
 
-import { printArea } from "@/lib/utils/printArea";
 import { parseWastageEntries } from "@/lib/utils/parseWastage";
 
 export default function WastagePage() {
@@ -64,14 +70,10 @@ export default function WastagePage() {
             >
               Results
             </Button>
-            <Button
-              onClick={() => {
-                if (activeTab === "result") printArea();
-              }}
+            <ExportButtons
               disabled={activeTab !== "result"}
-            >
-              Print
-            </Button>
+              filename="Wastage analysis"
+            />
           </div>
           <p>
             Choose how to group the results, then paste the wastage data copied

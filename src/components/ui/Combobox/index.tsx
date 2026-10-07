@@ -26,6 +26,7 @@ type ComboboxBaseProps = {
   className?: string;
   isClearable?: boolean;
   required: boolean;
+  closeMenuOnSelect?: boolean;
 };
 
 type SingleComboboxProps = ComboboxBaseProps & {
@@ -131,6 +132,7 @@ export const Combobox = (props: ComboboxProps) => {
     className,
     isClearable = true,
     required,
+    closeMenuOnSelect,
   } = props;
 
   const flatOptions = flattenOptions(options);
@@ -151,7 +153,7 @@ export const Combobox = (props: ComboboxProps) => {
             props.onChange(selected.map((option) => option.value))
           }
           isMulti
-          closeMenuOnSelect={false}
+          closeMenuOnSelect={closeMenuOnSelect ?? false}
           isSearchable={isSearchable}
           isClearable={isClearable}
           placeholder={placeholder}

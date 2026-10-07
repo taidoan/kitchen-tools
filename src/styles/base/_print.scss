@@ -1,18 +1,10 @@
-// @media print {
-//   * {
-//     outline: 1px solid red; /* show all element boundaries */
-//   }
-// }
-
 @media print {
   :root {
     --background: white;
   }
 
-  @media print {
-    [data-theme="dark"] {
-      color-scheme: light !important;
-    }
+  [data-theme="dark"] {
+    color-scheme: light !important;
   }
 
   html,
@@ -23,16 +15,21 @@
     print-color-adjust: exact !important;
     margin: 0;
     padding: 0;
-  }
-
-  body {
-    visibility: hidden;
     overflow: visible;
+    height: auto !important;
   }
 
   body * {
     box-shadow: none !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+  }
+
+  .sidebar,
+  .page__intro,
+  .page__instructions,
+  .no-print,
+  nextjs-portal {
+    display: none !important;
   }
 }
