@@ -1,5 +1,18 @@
 @use "./../abstracts/_index" as ab;
 
+.sales__dates {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: ab.rem(12);
+  max-width: ab.rem(480);
+}
+
+.sales__period {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: ab.rem(16);
+}
+
 .sales__result {
   display: flex;
   flex-direction: column;
@@ -23,6 +36,15 @@
 }
 
 @media print {
+  .sales__period {
+    display: block !important;
+    text-align: left;
+    font-size: 10pt;
+    font-weight: 700;
+    color: black !important;
+    margin-bottom: 8pt;
+  }
+
   .sales__result {
     display: flex !important;
     flex-direction: row !important;

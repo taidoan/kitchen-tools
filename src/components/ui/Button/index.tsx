@@ -12,6 +12,8 @@ export interface ButtonProps
   className?: string;
   enabled?: boolean;
   centered?: boolean;
+  variant?: "primary" | "secondary";
+  size?: "default" | "small";
 }
 
 export const Button = ({
@@ -22,13 +24,18 @@ export const Button = ({
   className,
   enabled,
   centered,
+  type = "button",
+  variant = "primary",
+  size = "default",
 }: ButtonProps) => {
   const classes = clsx(
     style.button,
     className,
     disabled && style.disabled,
     enabled && style["button--enabled"],
-    centered && style["button--centered"]
+    centered && style["button--centered"],
+    variant === "secondary" && style["button--secondary"],
+    size === "small" && style["button--small"]
   );
   if (href) {
     return (
@@ -42,7 +49,12 @@ export const Button = ({
     );
   }
   return (
-    <button className={classes} onClick={onClick} disabled={disabled}>
+    <button
+      type={type}
+      className={classes}
+      onClick={onClick}
+      disabled={disabled}
+    >
       {children}
     </button>
   );

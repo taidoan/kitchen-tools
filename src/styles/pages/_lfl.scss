@@ -10,6 +10,26 @@
   }
 }
 
+.lfl__report {
+  display: flex;
+  flex-direction: column;
+  gap: ab.rem(16);
+}
+
+.lfl__dates {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: ab.rem(12);
+}
+
+.lfl__period {
+  text-align: center;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  gap: ab.rem(4);
+}
+
 .lfl__result {
   display: flex;
   flex-direction: column;
@@ -68,6 +88,15 @@
   .lfl__modes,
   .lfl__result .form__input {
     display: none !important;
+  }
+
+  .lfl__period {
+    display: flex !important;
+    text-align: left;
+    font-size: 10pt;
+    font-weight: 700;
+    color: black !important;
+    margin-bottom: 8pt;
   }
 
   .lfl__table {

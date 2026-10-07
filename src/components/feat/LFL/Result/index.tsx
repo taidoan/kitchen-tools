@@ -9,10 +9,17 @@ import {
   aggregateLFLByCategory,
   type ComparedProduct,
 } from "@/lib/utils/compareLFL";
+import { formatDateRange } from "@/lib/utils/formatDateRange";
 import type { LFLViewMode } from "../types";
 
 type LFLResultProps = {
   rows: ComparedProduct[];
+  dates?: {
+    currentFrom: string;
+    currentTo: string;
+    previousFrom: string;
+    previousTo: string;
+  };
 };
 
 const currency = new Intl.NumberFormat("en-GB", {
@@ -275,7 +282,7 @@ const ComparisonTable = ({
   );
 };
 
-export const LFLResult = ({ rows }: LFLResultProps) => {
+export const LFLResult = ({ rows, dates }: LFLResultProps) => {
   const [mode, setMode] = useState<LFLViewMode>("products");
   const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -325,9 +332,20 @@ export const LFLResult = ({ rows }: LFLResultProps) => {
     productName: "Total",
     category: "All",
   });
+  const currentRange = formatDateRange(dates?.currentFrom, dates?.currentTo);
+  const previousRange = formatDateRange(
+    dates?.previousFrom,
+    dates?.previousTo,
+  );
 
   return (
     <div className={clsx("page__print", "lfl__result")}>
+      {currentRange || previousRange ? (
+        <div className="lfl__period">
+          {currentRange ? <p>Current report: {currentRange}</p> : null}
+          {previousRange ? <p>Previous report: {previousRange}</p> : null}
+        </div>
+      ) : null}
       <div className="button__group lfl__modes">
         <Button
           enabled={mode === "products"}

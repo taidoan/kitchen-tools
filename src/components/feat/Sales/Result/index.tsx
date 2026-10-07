@@ -1,17 +1,24 @@
 import type { SalesResult } from "../types";
 import { Divider } from "@/components/ui";
 import clsx from "clsx";
+import { formatDateRange } from "@/lib/utils/formatDateRange";
 
 type SalesResultProps = {
   resultData: SalesResult;
+  dates?: { from: string; to: string };
 };
 
-export const SalesResultComponent = ({ resultData }: SalesResultProps) => {
+export const SalesResultComponent = ({
+  resultData,
+  dates,
+}: SalesResultProps) => {
   const totalSales = resultData.totalSales
   const totalQuantity = resultData.totalQuantity
+  const dateRange = formatDateRange(dates?.from, dates?.to)
 
   return (
     <div className={clsx("page__print")}>
+      {dateRange ? <p className="sales__period">{dateRange}</p> : null}
       <div className={clsx("sales__result")}>
         <div className="sales__quantity">
           <h3 className="sales__title">

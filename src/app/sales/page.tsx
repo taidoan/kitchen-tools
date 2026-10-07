@@ -13,8 +13,11 @@ export default function SalesPage() {
   const [formValues, setFormValues] = useState({
     topItems: 5,
     salesData: "",
+    from: "",
+    to: "",
   });
   const [resultData, setResultData] = useState<SalesResult | null>(null);
+  const [reportDates, setReportDates] = useState({ from: "", to: "" });
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -24,6 +27,7 @@ export default function SalesPage() {
 
     const result = processCsv(salesData, numberOfItems) as SalesResult;
 
+    setReportDates({ from: formValues.from, to: formValues.to });
     setResultData(result);
     setFormSubmitted(true);
     setActiveTab("result");
@@ -43,7 +47,7 @@ export default function SalesPage() {
         <p>
           Lists the top products by quantity sold and by sales value. Use a
           food or bar <strong>Product Sales</strong> export from Aztec
-          Reporting.
+          Reporting. Paste the data or upload a CSV.
         </p>
       </Card>
       <OuterCard className={clsx("form__wrapper")}>
@@ -72,8 +76,9 @@ export default function SalesPage() {
             </Button>
           </div>
           <p>
-            Choose how many products to show (max 30), then paste the Aztec
-            export below. Print in portrait for the clearest layout.
+            Choose how many products to show (max 30), then paste or upload
+            the Aztec export. Date range is optional and shows on the results
+            and print. Print in portrait for the clearest layout.
           </p>
         </InnerCard>
         <InnerCard padding="medium" className={clsx("sales__main")}>
@@ -85,7 +90,7 @@ export default function SalesPage() {
             />
           )}
           {activeTab === "result" && resultData && (
-            <SalesResultComponent resultData={resultData} />
+            <SalesResultComponent resultData={resultData} dates={reportDates} />
           )}
         </InnerCard>
       </OuterCard>

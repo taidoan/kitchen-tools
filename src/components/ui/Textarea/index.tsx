@@ -6,6 +6,7 @@ type TextareaProps = {
   label: string;
   containerClassName?: string;
   hideRequiredIndicator?: boolean;
+  action?: React.ReactNode;
 } & React.TextareaHTMLAttributes<HTMLTextAreaElement>;
 
 export const Textarea = ({
@@ -14,16 +15,29 @@ export const Textarea = ({
   containerClassName,
   className,
   hideRequiredIndicator,
+  action,
   ...props
 }: TextareaProps) => {
   return (
     <div className={clsx("form__input", containerClassName)}>
-      <Label
-        id={id}
-        label={label}
-        required={props.required}
-        hideRequiredIndicator={hideRequiredIndicator}
-      />
+      {action ? (
+        <div className="form__input-header">
+          <Label
+            id={id}
+            label={label}
+            required={props.required}
+            hideRequiredIndicator={hideRequiredIndicator}
+          />
+          {action}
+        </div>
+      ) : (
+        <Label
+          id={id}
+          label={label}
+          required={props.required}
+          hideRequiredIndicator={hideRequiredIndicator}
+        />
+      )}
       <textarea id={id} className={clsx(className)} {...props} />
     </div>
   );

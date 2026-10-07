@@ -37,6 +37,137 @@ export const csvToRows = (csv: string) => {
     .filter((row) => row.some((cell) => cell !== ""));
 };
 
+const countUnquoted = (line: string, delimiter: string) => {
+  let count = 0;
+  let inQuotes = false;
+
+  for (let i = 0; i < line.length; i += 1) {
+    const ch = line[i];
+    if (ch === '"') {
+      inQuotes = !inQuotes;
+      continue;
+    }
+    if (!inQuotes && ch === delimiter) count += 1;
+  }
+
+  return count;
+};
+
+const detectDelimiter = (text: string) => {
+  const lines = text.split("\n").filter((line) => line.trim());
+  const header =
+    lines.find((line) => /product name/i.test(line)) ?? lines[0] ?? "";
+  const tabs = countUnquoted(header, "\t");
+  const commas = countUnquoted(header, ",");
+  const semis = countUnquoted(header, ";");
+
+  if (tabs > 0 && tabs >= commas && tabs >= semis) return "\t";
+  if (semis > commas) return ";";
+  return ",";
+};
+
+const parseDelimited = (text: string, delimiter: string) => {
+  const rows: string[][] = [];
+  let row: string[] = [];
+  let cell = "";
+  let inQuotes = false;
+
+  for (let i = 0; i < text.length; i += 1) {
+    const ch = text[i];
+    const next = text[i + 1];
+
+    if (inQuotes) {
+      if (ch === '"') {
+        if (next === '"') {
+          cell += '"';
+          i += 1;
+        } else {
+          inQuotes = false;
+        }
+      } else {
+        cell += ch;
+      }
+      continue;
+    }
+
+    if (ch === '"') {
+      inQuotes = true;
+      continue;
+    }
+
+    if (ch === delimiter) {
+      row.push(cell);
+      cell = "";
+      continue;
+    }
+
+    if (ch === "\n") {
+      row.push(cell);
+      rows.push(row);
+      row = [];
+      cell = "";
+      continue;
+    }
+
+    cell += ch;
+  }
+
+  if (cell.length > 0 || row.length > 0) {
+    row.push(cell);
+    rows.push(row);
+  }
+
+  return rows;
+};
+
+export const decodeSpreadsheetBytes = (buffer: ArrayBuffer | Uint8Array) => {
+  const bytes = buffer instanceof Uint8Array ? buffer : new Uint8Array(buffer);
+
+  if (bytes.length >= 2 && bytes[0] === 0xff && bytes[1] === 0xfe) {
+    return new TextDecoder("utf-16le").decode(bytes);
+  }
+  if (bytes.length >= 2 && bytes[0] === 0xfe && bytes[1] === 0xff) {
+    return new TextDecoder("utf-16be").decode(bytes);
+  }
+
+  const utf8 = new TextDecoder("utf-8").decode(bytes);
+  if (utf8.includes("\uFFFD")) {
+    return new TextDecoder("windows-1252").decode(bytes);
+  }
+
+  return utf8;
+};
+
+export const parseSpreadsheetRows = (raw: string) => {
+  const text = raw
+    .replace(/^\uFEFF/, "")
+    .replace(/\r\n/g, "\n")
+    .replace(/\r/g, "\n");
+
+  if (!text.trim()) return [];
+
+  return parseDelimited(text, detectDelimiter(text))
+    .map((row) => row.map((cell) => cell.replace(/\u00A0/g, " ").trim()))
+    .filter((row) => row.some((cell) => cell !== ""));
+};
+
+export const toTabSeparatedText = (rows: string[][]) =>
+  rows.map((row) => row.join("\t")).join("\n");
+
+export const spreadsheetFileToPasteText = (
+  buffer: ArrayBuffer | Uint8Array,
+) => {
+  const rows = parseSpreadsheetRows(decodeSpreadsheetBytes(buffer));
+  if (!rows.length) return "";
+
+  const headerIndex = rows.findIndex((row) =>
+    row.some((cell) => cell.toLowerCase().includes("product name")),
+  );
+  const table = headerIndex >= 0 ? rows.slice(headerIndex) : rows;
+
+  return toTabSeparatedText(table);
+};
+
 /**
  * Parse and clean CSV text into a filtered 2D array of cell strings.
  *
@@ -67,20 +198,16 @@ type CleanCSVOptions = {
 };
 
 export const cleanCSVData = (csv: string, options?: CleanCSVOptions) => {
-  const rows = csv
-    .split("\n")
-    .map((r) => r.split("\t").map((c) => c.replace(/\u00A0/g, " ").trim()))
-    .filter((r) => r.some((cell) => cell !== ""))
-    .filter((r) => {
-      if (!r[0]) return true;
-      const label = r[0].replace(/\s+/g, "").toLowerCase();
+  const rows = parseSpreadsheetRows(csv).filter((r) => {
+    if (!r[0]) return true;
+    const label = r[0].replace(/\s+/g, "").toLowerCase();
 
-      if (label === "total") {
-        return true;
-      }
+    if (label === "total") {
+      return true;
+    }
 
-      return !SALES_SUMMARY_LABELS.includes(r[0].replace(/\s+/g, ""));
-    });
+    return !SALES_SUMMARY_LABELS.includes(r[0].replace(/\s+/g, ""));
+  });
 
   if (!rows.length) return [];
 

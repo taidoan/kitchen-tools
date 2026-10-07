@@ -53,6 +53,14 @@
   }
 }
 
+.form__input-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: ab.rem(8);
+}
+
 .form__input {
   display: flex;
   flex-direction: column;
