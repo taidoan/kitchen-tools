@@ -1,13 +1,19 @@
 import type { Special } from "@components/feat/Specials/Form/types";
+import type { SpecialsPaletteId } from "../Palette";
 import clsx from "clsx";
 import style from "./style.module.scss";
 
 type SpecialsMenuProps = {
   specials: Special[];
   className?: string;
+  palette?: SpecialsPaletteId;
 };
 
-export const SpecialsMenu = ({ specials, className }: SpecialsMenuProps) => {
+export const SpecialsMenu = ({
+  specials,
+  className,
+  palette = "navy",
+}: SpecialsMenuProps) => {
   const date = new Date();
   const formattedDate = date.toLocaleDateString("en-GB", {
     day: "numeric",
@@ -16,7 +22,9 @@ export const SpecialsMenu = ({ specials, className }: SpecialsMenuProps) => {
   });
 
   return (
-    <div className={clsx(style.menu, className)}>
+    <div
+      className={clsx(style.menu, style[`menu--${palette}`], className)}
+    >
       <div className={style.menu__frame}>
         <header className={style.menu__header}>
           <p className={style.menu__date}>{formattedDate}</p>

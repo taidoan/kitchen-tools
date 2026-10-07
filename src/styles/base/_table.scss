@@ -61,9 +61,11 @@ table {
       width: 100%;
       background-color: var(--table-border-clr);
       color: var(--table-header-text-clr);
+      visibility: visible !important;
     }
 
     th {
+      visibility: visible !important;
       padding: ab.rem(12);
     }
 

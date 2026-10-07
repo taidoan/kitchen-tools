@@ -24,16 +24,25 @@
 
 .lfl__period {
   text-align: center;
+  font-weight: 400;
+  line-height: 1.8;
+}
+
+.lfl__date-pill {
+  display: inline-block;
+  padding: ab.rem(2) ab.rem(8);
+  border-radius: ab.rem(12);
+  background: var(--btn-control-bg);
+  border: 1px solid var(--btn-border-clr);
   font-weight: 600;
-  display: flex;
-  flex-direction: column;
-  gap: ab.rem(4);
+  font-size: ab.rem(16);
+  white-space: nowrap;
 }
 
 .lfl__result {
   display: flex;
   flex-direction: column;
-  gap: ab.rem(16);
+  gap: ab.rem(24);
 }
 
 .lfl__modes {
@@ -45,7 +54,12 @@
   margin-top: ab.rem(4);
 }
 
+.lfl__paragraph:has(+ .table__wrapper) {
+  margin-bottom: ab.rem(12);
+}
+
 .lfl__table {
+  margin-top: 0;
   td:first-child,
   th:first-child {
     text-align: left;
@@ -54,6 +68,10 @@
   th {
     padding: 0;
   }
+}
+
+.lfl__th-print {
+  display: none;
 }
 
 .lfl__sort {
@@ -91,12 +109,22 @@
   }
 
   .lfl__period {
-    display: flex !important;
+    display: block !important;
     text-align: left;
     font-size: 10pt;
-    font-weight: 700;
+    font-weight: 400;
     color: black !important;
     margin-bottom: 8pt;
+    line-height: 1.4;
+  }
+
+  .lfl__date-pill {
+    display: inline !important;
+    padding: 0 !important;
+    background: none !important;
+    border-radius: 0 !important;
+    font-weight: 700;
+    color: black !important;
   }
 
   .lfl__table {
@@ -104,17 +132,26 @@
     border-color: black !important;
 
     thead {
-      background: transparent !important;
-      color: black !important;
+      background: black !important;
     }
 
     th {
-      color: black !important;
-      background: transparent !important;
+      color: white !important;
+      background: black !important;
       border-bottom: 1.5pt solid black !important;
       padding: 5pt 6pt !important;
-      font-size: 9pt;
-      text-transform: uppercase;
+      font-size: 11pt;
+      visibility: visible !important;
+
+      .lfl__sort {
+        display: none !important;
+      }
+
+      .lfl__th-print {
+        display: inline !important;
+        color: white !important;
+        font-weight: 700;
+      }
     }
 
     td {
@@ -129,12 +166,6 @@
     .text-clr--failed {
       font-weight: 700;
     }
-  }
-
-  .lfl__sort {
-    padding: 0 !important;
-    text-decoration: none !important;
-    color: black !important;
   }
 
   .lfl__total td {

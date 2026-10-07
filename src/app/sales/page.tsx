@@ -2,11 +2,16 @@
 import type { SalesResult } from "@components/feat/Sales/types";
 import { useState } from "react";
 import clsx from "clsx";
-import { Card, OuterCard, InnerCard, Divider, Button } from "@/components/ui";
+import {
+  Card,
+  OuterCard,
+  InnerCard,
+  Divider,
+  Button,
+  ExportButtons,
+} from "@/components/ui";
 import { SalesForm, SalesResultComponent } from "@/components/feat/Sales";
 import { processCsv } from "@/lib/utils/csv";
-import { printArea } from "@/lib/utils/printArea";
-
 export default function SalesPage() {
   const [activeTab, setActiveTab] = useState<string>("dataEntry");
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
@@ -66,14 +71,10 @@ export default function SalesPage() {
             >
               Results
             </Button>
-            <Button
-              onClick={() => {
-                if (activeTab === "result") printArea();
-              }}
+            <ExportButtons
               disabled={activeTab !== "result"}
-            >
-              Print
-            </Button>
+              filename="Sales overview"
+            />
           </div>
           <p>
             Choose how many products to show (max 30), then paste or upload

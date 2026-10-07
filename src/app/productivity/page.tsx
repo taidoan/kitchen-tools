@@ -7,9 +7,15 @@ import type {
 
 import { useState } from "react";
 import { KSRSForm, ProductivityResult } from "@/components/feat/Productivity";
-import { Card, OuterCard, InnerCard, Divider, Button } from "@/components/ui";
+import {
+  Card,
+  OuterCard,
+  InnerCard,
+  Divider,
+  Button,
+  ExportButtons,
+} from "@/components/ui";
 import clsx from "clsx";
-import { printArea } from "@/lib/utils/printArea";
 export default function Productivity() {
   const [formData, setFormData] = useState<FormDataProps | null>(null);
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
@@ -54,14 +60,10 @@ export default function Productivity() {
             >
               Results
             </Button>
-            <Button
+            <ExportButtons
               disabled={activeTab !== "result"}
-              onClick={() => {
-                if (activeTab === "result") printArea();
-              }}
-            >
-              Print
-            </Button>
+              filename="Food delivery times"
+            />
           </div>
           <p>
             Set sales and performance targets, choose optional extras, then

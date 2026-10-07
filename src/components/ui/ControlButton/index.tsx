@@ -8,6 +8,7 @@ type ControlButtonProps = {
   disabled?: boolean;
   size: "small" | "medium" | "large";
   type?: "close";
+  "aria-label"?: string;
 };
 
 export const ControlButton = ({
@@ -17,6 +18,7 @@ export const ControlButton = ({
   disabled,
   size = "medium",
   type,
+  "aria-label": ariaLabel,
 }: ControlButtonProps) => {
   const classes = clsx(
     style.button,
@@ -26,7 +28,13 @@ export const ControlButton = ({
     style[`button--${type}`]
   );
   return (
-    <button className={classes} onClick={onClick} disabled={disabled}>
+    <button
+      type="button"
+      className={classes}
+      onClick={onClick}
+      disabled={disabled}
+      aria-label={ariaLabel}
+    >
       {children}
     </button>
   );

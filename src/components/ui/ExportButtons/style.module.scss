@@ -1,0 +1,42 @@
+@use "./../../../styles/abstracts/_index" as ab;
+
+.group {
+  display: flex;
+  align-items: center;
+  gap: ab.rem(20);
+}
+
+.item {
+  position: relative;
+  display: flex;
+
+  &::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + #{ab.rem(8)});
+    transform: translateX(-50%) translateY(ab.rem(4));
+    padding: ab.rem(6) ab.rem(10);
+    border-radius: var(--border-radius-small);
+    background: var(--text-clr);
+    color: var(--clr-white-400);
+    font-size: ab.rem(13);
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    z-index: var(--z-index-tooltip);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
+
+  &:hover::after,
+  &:focus-within::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+:global([data-theme="dark"]) .item::after {
+  color: var(--clr-black-400);
+}

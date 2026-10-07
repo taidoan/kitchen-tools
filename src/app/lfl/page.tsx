@@ -4,8 +4,14 @@ import { useState } from "react";
 import clsx from "clsx";
 import { processProductSalesCSV } from "@/lib/utils/csv";
 import { compareLFL, type ComparedProduct } from "@/lib/utils/compareLFL";
-import { printArea } from "@/lib/utils/printArea";
-import { Button, Card, Divider, InnerCard, OuterCard } from "@/components/ui";
+import {
+  Button,
+  Card,
+  Divider,
+  ExportButtons,
+  InnerCard,
+  OuterCard,
+} from "@/components/ui";
 import { LFLForm, LFLResult } from "@/components/feat/LFL";
 import type { LFLFormValues } from "@/components/feat/LFL/Form";
 
@@ -65,7 +71,7 @@ export default function LFLPage() {
           Paste or upload two Aztec <strong>Product Sales</strong> reports to
           see how quantity and sales have changed. Use any matching date range
           — a week, month, period or year. You can compare individual
-          products, a whole category, or the full report.
+          products, one or more categories, or the full report.
         </p>
       </Card>
       <OuterCard className={clsx("form__wrapper")}>
@@ -84,14 +90,10 @@ export default function LFLPage() {
             >
               Results
             </Button>
-            <Button
-              onClick={() => {
-                if (activeTab === "result") printArea();
-              }}
+            <ExportButtons
               disabled={activeTab !== "result"}
-            >
-              Print
-            </Button>
+              filename="LFL comparison"
+            />
           </div>
           <p>
             Paste or upload the <strong>current report</strong> first, then

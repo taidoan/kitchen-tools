@@ -21,6 +21,7 @@
   flex-direction: column;
   gap: ab.rem(12);
   align-items: center;
+  overflow: visible;
 
   .button__group {
     width: 100%;
@@ -67,7 +68,6 @@
   }
 
   .page__print {
-    visibility: visible;
     width: 100%;
     padding: 0 !important;
     box-sizing: border-box;

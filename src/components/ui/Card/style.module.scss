@@ -59,8 +59,17 @@
 @media print {
   .card__outer,
   .card__inner {
+    display: block !important;
+    overflow: visible !important;
+    border: none !important;
+    background: transparent !important;
     border-radius: 0 !important;
     box-shadow: none !important;
     padding: 0;
+  }
+
+  .card__outer:global(.page__intro),
+  .card__inner:global(.page__instructions) {
+    display: none !important;
   }
 }
